@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.WspointsMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Wspoints">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="exp_no" jdbcType="VARCHAR" property="expNo" />
+    <result column="surf_h" jdbcType="DOUBLE" property="surfH" />
+    <result column="feature" jdbcType="VARCHAR" property="feature" />
+    <result column="subsid" jdbcType="VARCHAR" property="subsid" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="geom" jdbcType="OTHER" property="geom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, exp_no, surf_h, feature, subsid, "location", geom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "wspoints"
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from "wspoints"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="int">
+    delete from wspoints where gid in
+    <foreach item="gid" collection="ids" open="(" separator="," close=")">
+      #{gid}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Wspoints">
+    insert into "wspoints" (gid, exp_no, surf_h, 
+      feature, subsid, "location", 
+      geom)
+    values (#{gid,jdbcType=INTEGER}, #{expNo,jdbcType=VARCHAR}, #{surfH,jdbcType=DOUBLE}, 
+      #{feature,jdbcType=VARCHAR}, #{subsid,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{geom,jdbcType=OTHER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Wspoints">
+    insert into "wspoints"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="expNo != null">
+        exp_no,
+      </if>
+      <if test="surfH != null">
+        surf_h,
+      </if>
+      <if test="feature != null">
+        feature,
+      </if>
+      <if test="subsid != null">
+        subsid,
+      </if>
+      <if test="location != null">
+        "location",
+      </if>
+      <if test="geom != null">
+        geom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="expNo != null">
+        #{expNo,jdbcType=VARCHAR},
+      </if>
+      <if test="surfH != null">
+        #{surfH,jdbcType=DOUBLE},
+      </if>
+      <if test="feature != null">
+        #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="subsid != null">
+        #{subsid,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        #{geom,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ruoyi.hdsw.model.Wspoints">
+    update "wspoints"
+    <set>
+      <if test="expNo != null">
+        exp_no = #{expNo,jdbcType=VARCHAR},
+      </if>
+      <if test="surfH != null">
+        surf_h = #{surfH,jdbcType=DOUBLE},
+      </if>
+      <if test="feature != null">
+        feature = #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="subsid != null">
+        subsid = #{subsid,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        "location" = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        geom = #{geom,jdbcType=OTHER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Wspoints">
+    update "wspoints"
+    set exp_no = #{expNo,jdbcType=VARCHAR},
+      surf_h = #{surfH,jdbcType=DOUBLE},
+      feature = #{feature,jdbcType=VARCHAR},
+      subsid = #{subsid,jdbcType=VARCHAR},
+      "location" = #{location,jdbcType=VARCHAR},
+      geom = #{geom,jdbcType=OTHER}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>

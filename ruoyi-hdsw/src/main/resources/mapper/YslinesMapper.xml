@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.YslinesMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Yslines">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="objectid" jdbcType="BIGINT" property="objectid" />
+    <result column="fid_" jdbcType="BIGINT" property="fid" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="layer" jdbcType="VARCHAR" property="layer" />
+    <result column="color" jdbcType="INTEGER" property="color" />
+    <result column="linetype" jdbcType="VARCHAR" property="linetype" />
+    <result column="elevation" jdbcType="NUMERIC" property="elevation" />
+    <result column="linewt" jdbcType="INTEGER" property="linewt" />
+    <result column="refname" jdbcType="VARCHAR" property="refname" />
+    <result column="length" jdbcType="NUMERIC" property="length" />
+    <result column="shape_leng" jdbcType="NUMERIC" property="shapeLeng" />
+    <result column="near_fid" jdbcType="BIGINT" property="nearFid" />
+    <result column="near_dist" jdbcType="NUMERIC" property="nearDist" />
+    <result column="pipeid" jdbcType="VARCHAR" property="pipeid" />
+    <result column="s_point" jdbcType="VARCHAR" property="sPoint" />
+    <result column="e_point" jdbcType="VARCHAR" property="ePoint" />
+    <result column="s_deep" jdbcType="NUMERIC" property="sDeep" />
+    <result column="e_deep" jdbcType="NUMERIC" property="eDeep" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="d_type" jdbcType="VARCHAR" property="dType" />
+    <result column="d_s" jdbcType="VARCHAR" property="dS" />
+    <result column="flowdirect" jdbcType="INTEGER" property="flowdirect" />
+    <result column="road" jdbcType="VARCHAR" property="road" />
+    <result column="权属" jdbcType="VARCHAR" property="权属" />
+    <result column="长度" jdbcType="NUMERIC" property="长度" />
+    <result column="geom" jdbcType="OTHER" property="geom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, objectid, fid_, entity, layer, color, linetype, elevation, linewt, refname, 
+    "length", shape_leng, near_fid, near_dist, pipeid, s_point, e_point, s_deep, e_deep, 
+    material, d_type, d_s, flowdirect, road, 权属, 长度, geom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "yslines"
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from "yslines"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="int">
+    delete from yslines where gid in
+    <foreach item="gid" collection="ids" open="(" separator="," close=")">
+      #{gid}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Yslines">
+    insert into "yslines" (gid, objectid, fid_, 
+      entity, layer, color, 
+      linetype, elevation, linewt, 
+      refname, "length", shape_leng, 
+      near_fid, near_dist, pipeid, 
+      s_point, e_point, s_deep, 
+      e_deep, material, d_type, 
+      d_s, flowdirect, road, 
+      权属, 长度, geom)
+    values (#{gid,jdbcType=INTEGER}, #{objectid,jdbcType=BIGINT}, #{fid,jdbcType=BIGINT}, 
+      #{entity,jdbcType=VARCHAR}, #{layer,jdbcType=VARCHAR}, #{color,jdbcType=INTEGER}, 
+      #{linetype,jdbcType=VARCHAR}, #{elevation,jdbcType=NUMERIC}, #{linewt,jdbcType=INTEGER}, 
+      #{refname,jdbcType=VARCHAR}, #{length,jdbcType=NUMERIC}, #{shapeLeng,jdbcType=NUMERIC}, 
+      #{nearFid,jdbcType=BIGINT}, #{nearDist,jdbcType=NUMERIC}, #{pipeid,jdbcType=VARCHAR}, 
+      #{sPoint,jdbcType=VARCHAR}, #{ePoint,jdbcType=VARCHAR}, #{sDeep,jdbcType=NUMERIC}, 
+      #{eDeep,jdbcType=NUMERIC}, #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, 
+      #{dS,jdbcType=VARCHAR}, #{flowdirect,jdbcType=INTEGER}, #{road,jdbcType=VARCHAR}, 
+      #{权属,jdbcType=VARCHAR}, #{长度,jdbcType=NUMERIC}, #{geom,jdbcType=OTHER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Yslines">
+    insert into "yslines"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="objectid != null">
+        objectid,
+      </if>
+      <if test="fid != null">
+        fid_,
+      </if>
+      <if test="entity != null">
+        entity,
+      </if>
+      <if test="layer != null">
+        layer,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="linetype != null">
+        linetype,
+      </if>
+      <if test="elevation != null">
+        elevation,
+      </if>
+      <if test="linewt != null">
+        linewt,
+      </if>
+      <if test="refname != null">
+        refname,
+      </if>
+      <if test="length != null">
+        "length",
+      </if>
+      <if test="shapeLeng != null">
+        shape_leng,
+      </if>
+      <if test="nearFid != null">
+        near_fid,
+      </if>
+      <if test="nearDist != null">
+        near_dist,
+      </if>
+      <if test="pipeid != null">
+        pipeid,
+      </if>
+      <if test="sPoint != null">
+        s_point,
+      </if>
+      <if test="ePoint != null">
+        e_point,
+      </if>
+      <if test="sDeep != null">
+        s_deep,
+      </if>
+      <if test="eDeep != null">
+        e_deep,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="dType != null">
+        d_type,
+      </if>
+      <if test="dS != null">
+        d_s,
+      </if>
+      <if test="flowdirect != null">
+        flowdirect,
+      </if>
+      <if test="road != null">
+        road,
+      </if>
+      <if test="权属 != null">
+        权属,
+      </if>
+      <if test="长度 != null">
+        长度,
+      </if>
+      <if test="geom != null">
+        geom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="objectid != null">
+        #{objectid,jdbcType=BIGINT},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="entity != null">
+        #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null">
+        #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=INTEGER},
+      </if>
+      <if test="linetype != null">
+        #{linetype,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        #{elevation,jdbcType=NUMERIC},
+      </if>
+      <if test="linewt != null">
+        #{linewt,jdbcType=INTEGER},
+      </if>
+      <if test="refname != null">
+        #{refname,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=NUMERIC},
+      </if>
+      <if test="shapeLeng != null">
+        #{shapeLeng,jdbcType=NUMERIC},
+      </if>
+      <if test="nearFid != null">
+        #{nearFid,jdbcType=BIGINT},
+      </if>
+      <if test="nearDist != null">
+        #{nearDist,jdbcType=NUMERIC},
+      </if>
+      <if test="pipeid != null">
+        #{pipeid,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoint != null">
+        #{sPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="ePoint != null">
+        #{ePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sDeep != null">
+        #{sDeep,jdbcType=NUMERIC},
+      </if>
+      <if test="eDeep != null">
+        #{eDeep,jdbcType=NUMERIC},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dS != null">
+        #{dS,jdbcType=VARCHAR},
+      </if>
+      <if test="flowdirect != null">
+        #{flowdirect,jdbcType=INTEGER},
+      </if>
+      <if test="road != null">
+        #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="权属 != null">
+        #{权属,jdbcType=VARCHAR},
+      </if>
+      <if test="长度 != null">
+        #{长度,jdbcType=NUMERIC},
+      </if>
+      <if test="geom != null">
+        #{geom,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ruoyi.hdsw.model.Yslines">
+    update "yslines"
+    <set>
+      <if test="objectid != null">
+        objectid = #{objectid,jdbcType=BIGINT},
+      </if>
+      <if test="fid != null">
+        fid_ = #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="entity != null">
+        entity = #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null">
+        layer = #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=INTEGER},
+      </if>
+      <if test="linetype != null">
+        linetype = #{linetype,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        elevation = #{elevation,jdbcType=NUMERIC},
+      </if>
+      <if test="linewt != null">
+        linewt = #{linewt,jdbcType=INTEGER},
+      </if>
+      <if test="refname != null">
+        refname = #{refname,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        "length" = #{length,jdbcType=NUMERIC},
+      </if>
+      <if test="shapeLeng != null">
+        shape_leng = #{shapeLeng,jdbcType=NUMERIC},
+      </if>
+      <if test="nearFid != null">
+        near_fid = #{nearFid,jdbcType=BIGINT},
+      </if>
+      <if test="nearDist != null">
+        near_dist = #{nearDist,jdbcType=NUMERIC},
+      </if>
+      <if test="pipeid != null">
+        pipeid = #{pipeid,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoint != null">
+        s_point = #{sPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="ePoint != null">
+        e_point = #{ePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sDeep != null">
+        s_deep = #{sDeep,jdbcType=NUMERIC},
+      </if>
+      <if test="eDeep != null">
+        e_deep = #{eDeep,jdbcType=NUMERIC},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        d_type = #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dS != null">
+        d_s = #{dS,jdbcType=VARCHAR},
+      </if>
+      <if test="flowdirect != null">
+        flowdirect = #{flowdirect,jdbcType=INTEGER},
+      </if>
+      <if test="road != null">
+        road = #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="权属 != null">
+        权属 = #{权属,jdbcType=VARCHAR},
+      </if>
+      <if test="长度 != null">
+        长度 = #{长度,jdbcType=NUMERIC},
+      </if>
+      <if test="geom != null">
+        geom = #{geom,jdbcType=OTHER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Yslines">
+    update "yslines"
+    set objectid = #{objectid,jdbcType=BIGINT},
+      fid_ = #{fid,jdbcType=BIGINT},
+      entity = #{entity,jdbcType=VARCHAR},
+      layer = #{layer,jdbcType=VARCHAR},
+      color = #{color,jdbcType=INTEGER},
+      linetype = #{linetype,jdbcType=VARCHAR},
+      elevation = #{elevation,jdbcType=NUMERIC},
+      linewt = #{linewt,jdbcType=INTEGER},
+      refname = #{refname,jdbcType=VARCHAR},
+      "length" = #{length,jdbcType=NUMERIC},
+      shape_leng = #{shapeLeng,jdbcType=NUMERIC},
+      near_fid = #{nearFid,jdbcType=BIGINT},
+      near_dist = #{nearDist,jdbcType=NUMERIC},
+      pipeid = #{pipeid,jdbcType=VARCHAR},
+      s_point = #{sPoint,jdbcType=VARCHAR},
+      e_point = #{ePoint,jdbcType=VARCHAR},
+      s_deep = #{sDeep,jdbcType=NUMERIC},
+      e_deep = #{eDeep,jdbcType=NUMERIC},
+      material = #{material,jdbcType=VARCHAR},
+      d_type = #{dType,jdbcType=VARCHAR},
+      d_s = #{dS,jdbcType=VARCHAR},
+      flowdirect = #{flowdirect,jdbcType=INTEGER},
+      road = #{road,jdbcType=VARCHAR},
+      权属 = #{权属,jdbcType=VARCHAR},
+      长度 = #{长度,jdbcType=NUMERIC},
+      geom = #{geom,jdbcType=OTHER}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.YspointsMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Yspoints">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="objectid" jdbcType="INTEGER" property="objectid" />
+    <result column="fid_" jdbcType="INTEGER" property="fid" />
+    <result column="entity" jdbcType="VARCHAR" property="entity" />
+    <result column="layer" jdbcType="VARCHAR" property="layer" />
+    <result column="color" jdbcType="SMALLINT" property="color" />
+    <result column="linetype" jdbcType="VARCHAR" property="linetype" />
+    <result column="elevation" jdbcType="NUMERIC" property="elevation" />
+    <result column="linewt" jdbcType="SMALLINT" property="linewt" />
+    <result column="refname" jdbcType="VARCHAR" property="refname" />
+    <result column="length" jdbcType="NUMERIC" property="length" />
+    <result column="orig_fid" jdbcType="INTEGER" property="origFid" />
+    <result column="exp_no" jdbcType="VARCHAR" property="expNo" />
+    <result column="surf_h" jdbcType="NUMERIC" property="surfH" />
+    <result column="feature" jdbcType="VARCHAR" property="feature" />
+    <result column="subsid" jdbcType="VARCHAR" property="subsid" />
+    <result column="geom" jdbcType="OTHER" property="geom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, objectid, fid_, entity, layer, color, linetype, elevation, linewt, refname, 
+    "length", orig_fid, exp_no, surf_h, feature, subsid, geom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "yspoints"
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from "yspoints"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="int">
+    delete from yspoints where gid in
+    <foreach item="gid" collection="ids" open="(" separator="," close=")">
+      #{gid}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Yspoints">
+    insert into "yspoints" (gid, objectid, fid_, 
+      entity, layer, color, 
+      linetype, elevation, linewt, 
+      refname, "length", orig_fid, 
+      exp_no, surf_h, feature, 
+      subsid, geom)
+    values (#{gid,jdbcType=INTEGER}, #{objectid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{entity,jdbcType=VARCHAR}, #{layer,jdbcType=VARCHAR}, #{color,jdbcType=SMALLINT}, 
+      #{linetype,jdbcType=VARCHAR}, #{elevation,jdbcType=NUMERIC}, #{linewt,jdbcType=SMALLINT}, 
+      #{refname,jdbcType=VARCHAR}, #{length,jdbcType=NUMERIC}, #{origFid,jdbcType=INTEGER}, 
+      #{expNo,jdbcType=VARCHAR}, #{surfH,jdbcType=NUMERIC}, #{feature,jdbcType=VARCHAR}, 
+      #{subsid,jdbcType=VARCHAR}, #{geom,jdbcType=OTHER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Yspoints">
+    insert into "yspoints"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="objectid != null">
+        objectid,
+      </if>
+      <if test="fid != null">
+        fid_,
+      </if>
+      <if test="entity != null">
+        entity,
+      </if>
+      <if test="layer != null">
+        layer,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="linetype != null">
+        linetype,
+      </if>
+      <if test="elevation != null">
+        elevation,
+      </if>
+      <if test="linewt != null">
+        linewt,
+      </if>
+      <if test="refname != null">
+        refname,
+      </if>
+      <if test="length != null">
+        "length",
+      </if>
+      <if test="origFid != null">
+        orig_fid,
+      </if>
+      <if test="expNo != null">
+        exp_no,
+      </if>
+      <if test="surfH != null">
+        surf_h,
+      </if>
+      <if test="feature != null">
+        feature,
+      </if>
+      <if test="subsid != null">
+        subsid,
+      </if>
+      <if test="geom != null">
+        geom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="objectid != null">
+        #{objectid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null">
+        #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=SMALLINT},
+      </if>
+      <if test="linetype != null">
+        #{linetype,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        #{elevation,jdbcType=NUMERIC},
+      </if>
+      <if test="linewt != null">
+        #{linewt,jdbcType=SMALLINT},
+      </if>
+      <if test="refname != null">
+        #{refname,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=NUMERIC},
+      </if>
+      <if test="origFid != null">
+        #{origFid,jdbcType=INTEGER},
+      </if>
+      <if test="expNo != null">
+        #{expNo,jdbcType=VARCHAR},
+      </if>
+      <if test="surfH != null">
+        #{surfH,jdbcType=NUMERIC},
+      </if>
+      <if test="feature != null">
+        #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="subsid != null">
+        #{subsid,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        #{geom,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ruoyi.hdsw.model.Yspoints">
+    update "yspoints"
+    <set>
+      <if test="objectid != null">
+        objectid = #{objectid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        fid_ = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="entity != null">
+        entity = #{entity,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null">
+        layer = #{layer,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=SMALLINT},
+      </if>
+      <if test="linetype != null">
+        linetype = #{linetype,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        elevation = #{elevation,jdbcType=NUMERIC},
+      </if>
+      <if test="linewt != null">
+        linewt = #{linewt,jdbcType=SMALLINT},
+      </if>
+      <if test="refname != null">
+        refname = #{refname,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        "length" = #{length,jdbcType=NUMERIC},
+      </if>
+      <if test="origFid != null">
+        orig_fid = #{origFid,jdbcType=INTEGER},
+      </if>
+      <if test="expNo != null">
+        exp_no = #{expNo,jdbcType=VARCHAR},
+      </if>
+      <if test="surfH != null">
+        surf_h = #{surfH,jdbcType=NUMERIC},
+      </if>
+      <if test="feature != null">
+        feature = #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="subsid != null">
+        subsid = #{subsid,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        geom = #{geom,jdbcType=OTHER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Yspoints">
+    update "yspoints"
+    set objectid = #{objectid,jdbcType=INTEGER},
+      fid_ = #{fid,jdbcType=INTEGER},
+      entity = #{entity,jdbcType=VARCHAR},
+      layer = #{layer,jdbcType=VARCHAR},
+      color = #{color,jdbcType=SMALLINT},
+      linetype = #{linetype,jdbcType=VARCHAR},
+      elevation = #{elevation,jdbcType=NUMERIC},
+      linewt = #{linewt,jdbcType=SMALLINT},
+      refname = #{refname,jdbcType=VARCHAR},
+      "length" = #{length,jdbcType=NUMERIC},
+      orig_fid = #{origFid,jdbcType=INTEGER},
+      exp_no = #{expNo,jdbcType=VARCHAR},
+      surf_h = #{surfH,jdbcType=NUMERIC},
+      feature = #{feature,jdbcType=VARCHAR},
+      subsid = #{subsid,jdbcType=VARCHAR},
+      geom = #{geom,jdbcType=OTHER}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>

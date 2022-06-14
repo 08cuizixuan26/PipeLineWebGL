@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.GspointMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gspoint">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="pointx" jdbcType="DOUBLE" property="pointx" />
+    <result column="pointy" jdbcType="DOUBLE" property="pointy" />
+    <result column="objcode" jdbcType="VARCHAR" property="objcode" />
+    <result column="objname" jdbcType="VARCHAR" property="objname" />
+    <result column="bgcode" jdbcType="DOUBLE" property="bgcode" />
+    <result column="street" jdbcType="VARCHAR" property="street" />
+    <result column="bgcode2" jdbcType="INTEGER" property="bgcode2" />
+    <result column="community" jdbcType="VARCHAR" property="community" />
+    <result column="bgcode3" jdbcType="INTEGER" property="bgcode3" />
+    <result column="section" jdbcType="VARCHAR" property="section" />
+    <result column="deptcode1" jdbcType="BIGINT" property="deptcode1" />
+    <result column="deptname1" jdbcType="VARCHAR" property="deptname1" />
+    <result column="deptcode2" jdbcType="BIGINT" property="deptcode2" />
+    <result column="deptname2" jdbcType="VARCHAR" property="deptname2" />
+    <result column="deptcode3" jdbcType="BIGINT" property="deptcode3" />
+    <result column="deptname3" jdbcType="VARCHAR" property="deptname3" />
+    <result column="objstate" jdbcType="VARCHAR" property="objstate" />
+    <result column="ordate" jdbcType="VARCHAR" property="ordate" />
+    <result column="chdate" jdbcType="VARCHAR" property="chdate" />
+    <result column="datasource" jdbcType="VARCHAR" property="datasource" />
+    <result column="deptname4" jdbcType="VARCHAR" property="deptname4" />
+    <result column="deptname5" jdbcType="VARCHAR" property="deptname5" />
+    <result column="deptname6" jdbcType="VARCHAR" property="deptname6" />
+    <result column="deptname7" jdbcType="VARCHAR" property="deptname7" />
+    <result column="objpos" jdbcType="VARCHAR" property="objpos" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="zh_name" jdbcType="VARCHAR" property="zhName" />
+    <result column="zh_address" jdbcType="VARCHAR" property="zhAddress" />
+    <result column="geom" jdbcType="OTHER" property="geom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, "type", id, pointx, pointy, objcode, objname, bgcode, street, bgcode2, community, 
+    bgcode3, "section", deptcode1, deptname1, deptcode2, deptname2, deptcode3, deptname3, 
+    objstate, ordate, chdate, datasource, deptname4, deptname5, deptname6, deptname7, 
+    objpos, note, zh_name, zh_address, geom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "gspoint"
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from "gspoint"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="int">
+    delete from gspoint where gid in
+    <foreach item="gid" collection="ids" open="(" separator="," close=")">
+      #{gid}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Gspoint">
+    insert into "gspoint" (gid, "type", id, 
+      pointx, pointy, objcode, 
+      objname, bgcode, street, 
+      bgcode2, community, bgcode3, 
+      "section", deptcode1, deptname1, 
+      deptcode2, deptname2, deptcode3, 
+      deptname3, objstate, ordate, 
+      chdate, datasource, deptname4, 
+      deptname5, deptname6, deptname7, 
+      objpos, note, zh_name, 
+      zh_address, geom)
+    values (#{gid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, 
+      #{pointx,jdbcType=DOUBLE}, #{pointy,jdbcType=DOUBLE}, #{objcode,jdbcType=VARCHAR}, 
+      #{objname,jdbcType=VARCHAR}, #{bgcode,jdbcType=DOUBLE}, #{street,jdbcType=VARCHAR}, 
+      #{bgcode2,jdbcType=INTEGER}, #{community,jdbcType=VARCHAR}, #{bgcode3,jdbcType=INTEGER}, 
+      #{section,jdbcType=VARCHAR}, #{deptcode1,jdbcType=BIGINT}, #{deptname1,jdbcType=VARCHAR}, 
+      #{deptcode2,jdbcType=BIGINT}, #{deptname2,jdbcType=VARCHAR}, #{deptcode3,jdbcType=BIGINT}, 
+      #{deptname3,jdbcType=VARCHAR}, #{objstate,jdbcType=VARCHAR}, #{ordate,jdbcType=VARCHAR}, 
+      #{chdate,jdbcType=VARCHAR}, #{datasource,jdbcType=VARCHAR}, #{deptname4,jdbcType=VARCHAR}, 
+      #{deptname5,jdbcType=VARCHAR}, #{deptname6,jdbcType=VARCHAR}, #{deptname7,jdbcType=VARCHAR}, 
+      #{objpos,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{zhName,jdbcType=VARCHAR}, 
+      #{zhAddress,jdbcType=VARCHAR},ST_GeomFromText(#{geom}, 4326))
+  </insert>
+  <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Gspoint">
+    insert into "gspoint"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="type != null">
+        "type",
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pointx != null">
+        pointx,
+      </if>
+      <if test="pointy != null">
+        pointy,
+      </if>
+      <if test="objcode != null">
+        objcode,
+      </if>
+      <if test="objname != null">
+        objname,
+      </if>
+      <if test="bgcode != null">
+        bgcode,
+      </if>
+      <if test="street != null">
+        street,
+      </if>
+      <if test="bgcode2 != null">
+        bgcode2,
+      </if>
+      <if test="community != null">
+        community,
+      </if>
+      <if test="bgcode3 != null">
+        bgcode3,
+      </if>
+      <if test="section != null">
+        "section",
+      </if>
+      <if test="deptcode1 != null">
+        deptcode1,
+      </if>
+      <if test="deptname1 != null">
+        deptname1,
+      </if>
+      <if test="deptcode2 != null">
+        deptcode2,
+      </if>
+      <if test="deptname2 != null">
+        deptname2,
+      </if>
+      <if test="deptcode3 != null">
+        deptcode3,
+      </if>
+      <if test="deptname3 != null">
+        deptname3,
+      </if>
+      <if test="objstate != null">
+        objstate,
+      </if>
+      <if test="ordate != null">
+        ordate,
+      </if>
+      <if test="chdate != null">
+        chdate,
+      </if>
+      <if test="datasource != null">
+        datasource,
+      </if>
+      <if test="deptname4 != null">
+        deptname4,
+      </if>
+      <if test="deptname5 != null">
+        deptname5,
+      </if>
+      <if test="deptname6 != null">
+        deptname6,
+      </if>
+      <if test="deptname7 != null">
+        deptname7,
+      </if>
+      <if test="objpos != null">
+        objpos,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="zhName != null">
+        zh_name,
+      </if>
+      <if test="zhAddress != null">
+        zh_address,
+      </if>
+      <if test="geom != null">
+        geom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pointx != null">
+        #{pointx,jdbcType=DOUBLE},
+      </if>
+      <if test="pointy != null">
+        #{pointy,jdbcType=DOUBLE},
+      </if>
+      <if test="objcode != null">
+        #{objcode,jdbcType=VARCHAR},
+      </if>
+      <if test="objname != null">
+        #{objname,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode != null">
+        #{bgcode,jdbcType=DOUBLE},
+      </if>
+      <if test="street != null">
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode2 != null">
+        #{bgcode2,jdbcType=INTEGER},
+      </if>
+      <if test="community != null">
+        #{community,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode3 != null">
+        #{bgcode3,jdbcType=INTEGER},
+      </if>
+      <if test="section != null">
+        #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode1 != null">
+        #{deptcode1,jdbcType=BIGINT},
+      </if>
+      <if test="deptname1 != null">
+        #{deptname1,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode2 != null">
+        #{deptcode2,jdbcType=BIGINT},
+      </if>
+      <if test="deptname2 != null">
+        #{deptname2,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode3 != null">
+        #{deptcode3,jdbcType=BIGINT},
+      </if>
+      <if test="deptname3 != null">
+        #{deptname3,jdbcType=VARCHAR},
+      </if>
+      <if test="objstate != null">
+        #{objstate,jdbcType=VARCHAR},
+      </if>
+      <if test="ordate != null">
+        #{ordate,jdbcType=VARCHAR},
+      </if>
+      <if test="chdate != null">
+        #{chdate,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null">
+        #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname4 != null">
+        #{deptname4,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname5 != null">
+        #{deptname5,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname6 != null">
+        #{deptname6,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname7 != null">
+        #{deptname7,jdbcType=VARCHAR},
+      </if>
+      <if test="objpos != null">
+        #{objpos,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null">
+        #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="zhAddress != null">
+        #{zhAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        ST_GeomFromText(#{geom}, 4326)
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ruoyi.hdsw.model.Gspoint">
+    update "gspoint"
+    <set>
+      <if test="type != null">
+        "type" = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pointx != null">
+        pointx = #{pointx,jdbcType=DOUBLE},
+      </if>
+      <if test="pointy != null">
+        pointy = #{pointy,jdbcType=DOUBLE},
+      </if>
+      <if test="objcode != null">
+        objcode = #{objcode,jdbcType=VARCHAR},
+      </if>
+      <if test="objname != null">
+        objname = #{objname,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode != null">
+        bgcode = #{bgcode,jdbcType=DOUBLE},
+      </if>
+      <if test="street != null">
+        street = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode2 != null">
+        bgcode2 = #{bgcode2,jdbcType=INTEGER},
+      </if>
+      <if test="community != null">
+        community = #{community,jdbcType=VARCHAR},
+      </if>
+      <if test="bgcode3 != null">
+        bgcode3 = #{bgcode3,jdbcType=INTEGER},
+      </if>
+      <if test="section != null">
+        "section" = #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode1 != null">
+        deptcode1 = #{deptcode1,jdbcType=BIGINT},
+      </if>
+      <if test="deptname1 != null">
+        deptname1 = #{deptname1,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode2 != null">
+        deptcode2 = #{deptcode2,jdbcType=BIGINT},
+      </if>
+      <if test="deptname2 != null">
+        deptname2 = #{deptname2,jdbcType=VARCHAR},
+      </if>
+      <if test="deptcode3 != null">
+        deptcode3 = #{deptcode3,jdbcType=BIGINT},
+      </if>
+      <if test="deptname3 != null">
+        deptname3 = #{deptname3,jdbcType=VARCHAR},
+      </if>
+      <if test="objstate != null">
+        objstate = #{objstate,jdbcType=VARCHAR},
+      </if>
+      <if test="ordate != null">
+        ordate = #{ordate,jdbcType=VARCHAR},
+      </if>
+      <if test="chdate != null">
+        chdate = #{chdate,jdbcType=VARCHAR},
+      </if>
+      <if test="datasource != null">
+        datasource = #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname4 != null">
+        deptname4 = #{deptname4,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname5 != null">
+        deptname5 = #{deptname5,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname6 != null">
+        deptname6 = #{deptname6,jdbcType=VARCHAR},
+      </if>
+      <if test="deptname7 != null">
+        deptname7 = #{deptname7,jdbcType=VARCHAR},
+      </if>
+      <if test="objpos != null">
+        objpos = #{objpos,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="zhName != null">
+        zh_name = #{zhName,jdbcType=VARCHAR},
+      </if>
+      <if test="zhAddress != null">
+        zh_address = #{zhAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        geom = ST_GeomFromText(#{geom}, 4326),
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Gspoint">
+    update "gspoint"
+    set "type" = #{type,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      pointx = #{pointx,jdbcType=DOUBLE},
+      pointy = #{pointy,jdbcType=DOUBLE},
+      objcode = #{objcode,jdbcType=VARCHAR},
+      objname = #{objname,jdbcType=VARCHAR},
+      bgcode = #{bgcode,jdbcType=DOUBLE},
+      street = #{street,jdbcType=VARCHAR},
+      bgcode2 = #{bgcode2,jdbcType=INTEGER},
+      community = #{community,jdbcType=VARCHAR},
+      bgcode3 = #{bgcode3,jdbcType=INTEGER},
+      "section" = #{section,jdbcType=VARCHAR},
+      deptcode1 = #{deptcode1,jdbcType=BIGINT},
+      deptname1 = #{deptname1,jdbcType=VARCHAR},
+      deptcode2 = #{deptcode2,jdbcType=BIGINT},
+      deptname2 = #{deptname2,jdbcType=VARCHAR},
+      deptcode3 = #{deptcode3,jdbcType=BIGINT},
+      deptname3 = #{deptname3,jdbcType=VARCHAR},
+      objstate = #{objstate,jdbcType=VARCHAR},
+      ordate = #{ordate,jdbcType=VARCHAR},
+      chdate = #{chdate,jdbcType=VARCHAR},
+      datasource = #{datasource,jdbcType=VARCHAR},
+      deptname4 = #{deptname4,jdbcType=VARCHAR},
+      deptname5 = #{deptname5,jdbcType=VARCHAR},
+      deptname6 = #{deptname6,jdbcType=VARCHAR},
+      deptname7 = #{deptname7,jdbcType=VARCHAR},
+      objpos = #{objpos,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      zh_name = #{zhName,jdbcType=VARCHAR},
+      zh_address = #{zhAddress,jdbcType=VARCHAR},
+      geom = ST_GeomFromText(#{geom}, 4326)
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>
