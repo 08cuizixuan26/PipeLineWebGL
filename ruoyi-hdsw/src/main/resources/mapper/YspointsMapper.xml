@@ -53,7 +53,7 @@
       #{linetype,jdbcType=VARCHAR}, #{elevation,jdbcType=NUMERIC}, #{linewt,jdbcType=SMALLINT}, 
       #{refname,jdbcType=VARCHAR}, #{length,jdbcType=NUMERIC}, #{origFid,jdbcType=INTEGER}, 
       #{expNo,jdbcType=VARCHAR}, #{surfH,jdbcType=NUMERIC}, #{feature,jdbcType=VARCHAR}, 
-      #{subsid,jdbcType=VARCHAR}, #{geom,jdbcType=OTHER})
+      #{subsid,jdbcType=VARCHAR}, ST_GeomFromText(#{geom}, 4326))
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Yspoints">
     insert into "yspoints"
@@ -160,7 +160,7 @@
         #{subsid,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        #{geom,jdbcType=OTHER},
+        ST_GeomFromText(#{geom}, 4326),
       </if>
     </trim>
   </insert>
@@ -213,7 +213,7 @@
         subsid = #{subsid,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        geom = #{geom,jdbcType=OTHER},
+        geom = ST_GeomFromText(#{geom}, 4326),
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}
@@ -235,7 +235,7 @@
       surf_h = #{surfH,jdbcType=NUMERIC},
       feature = #{feature,jdbcType=VARCHAR},
       subsid = #{subsid,jdbcType=VARCHAR},
-      geom = #{geom,jdbcType=OTHER}
+      geom = ST_GeomFromText(#{geom}, 4326)
     where gid = #{gid,jdbcType=INTEGER}
   </update>
 </mapper>

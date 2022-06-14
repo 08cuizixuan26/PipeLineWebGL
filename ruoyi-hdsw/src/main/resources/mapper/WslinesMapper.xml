@@ -48,7 +48,7 @@
       #{ePoint,jdbcType=VARCHAR}, #{sPoint,jdbcType=VARCHAR}, #{sDeep,jdbcType=DOUBLE}, 
       #{eDeep,jdbcType=DOUBLE}, #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, 
       #{dS,jdbcType=DOUBLE}, #{flowdirect,jdbcType=INTEGER}, #{shapeLe3,jdbcType=NUMERIC}, 
-      #{road,jdbcType=VARCHAR}, #{geom,jdbcType=OTHER})
+      #{road,jdbcType=VARCHAR}, ST_GeomFromText(#{geom}, 4326))
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Wslines">
     insert into "wslines"
@@ -137,7 +137,7 @@
         #{road,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        #{geom,jdbcType=OTHER},
+        ST_GeomFromText(#{geom}, 4326),
       </if>
     </trim>
   </insert>
@@ -181,7 +181,7 @@
         road = #{road,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        geom = #{geom,jdbcType=OTHER},
+        geom = ST_GeomFromText(#{geom}, 4326),
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}
@@ -200,7 +200,7 @@
       flowdirect = #{flowdirect,jdbcType=INTEGER},
       shape_le_3 = #{shapeLe3,jdbcType=NUMERIC},
       road = #{road,jdbcType=VARCHAR},
-      geom = #{geom,jdbcType=OTHER}
+      geom = ST_GeomFromText(#{geom}, 4326)
     where gid = #{gid,jdbcType=INTEGER}
   </update>
 </mapper>

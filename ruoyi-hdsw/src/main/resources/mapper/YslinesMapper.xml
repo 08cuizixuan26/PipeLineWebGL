@@ -26,8 +26,8 @@
     <result column="d_s" jdbcType="VARCHAR" property="dS" />
     <result column="flowdirect" jdbcType="INTEGER" property="flowdirect" />
     <result column="road" jdbcType="VARCHAR" property="road" />
-    <result column="权属" jdbcType="VARCHAR" property="权属" />
-    <result column="长度" jdbcType="NUMERIC" property="长度" />
+    <result column="权属" jdbcType="VARCHAR" property="qs" />
+    <result column="长度" jdbcType="NUMERIC" property="len" />
     <result column="geom" jdbcType="OTHER" property="geom" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -70,7 +70,7 @@
       #{sPoint,jdbcType=VARCHAR}, #{ePoint,jdbcType=VARCHAR}, #{sDeep,jdbcType=NUMERIC}, 
       #{eDeep,jdbcType=NUMERIC}, #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, 
       #{dS,jdbcType=VARCHAR}, #{flowdirect,jdbcType=INTEGER}, #{road,jdbcType=VARCHAR}, 
-      #{权属,jdbcType=VARCHAR}, #{长度,jdbcType=NUMERIC}, #{geom,jdbcType=OTHER})
+      #{qs,jdbcType=VARCHAR}, #{len,jdbcType=NUMERIC}, ST_GeomFromText(#{geom}, 4326))
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Yslines">
     insert into "yslines"
@@ -147,11 +147,11 @@
       <if test="road != null">
         road,
       </if>
-      <if test="权属 != null">
-        权属,
+      <if test="qs != null">
+        qs,
       </if>
-      <if test="长度 != null">
-        长度,
+      <if test="len != null">
+        len,
       </if>
       <if test="geom != null">
         geom,
@@ -230,14 +230,14 @@
       <if test="road != null">
         #{road,jdbcType=VARCHAR},
       </if>
-      <if test="权属 != null">
-        #{权属,jdbcType=VARCHAR},
+      <if test="qs != null">
+        #{qs,jdbcType=VARCHAR},
       </if>
-      <if test="长度 != null">
-        #{长度,jdbcType=NUMERIC},
+      <if test="len != null">
+        #{len,jdbcType=NUMERIC},
       </if>
       <if test="geom != null">
-        #{geom,jdbcType=OTHER},
+        ST_GeomFromText(#{geom}, 4326),
       </if>
     </trim>
   </insert>
@@ -313,14 +313,14 @@
       <if test="road != null">
         road = #{road,jdbcType=VARCHAR},
       </if>
-      <if test="权属 != null">
-        权属 = #{权属,jdbcType=VARCHAR},
+      <if test="qs != null">
+        权属 = #{qs,jdbcType=VARCHAR},
       </if>
-      <if test="长度 != null">
-        长度 = #{长度,jdbcType=NUMERIC},
+      <if test="len != null">
+        长度 = #{len,jdbcType=NUMERIC},
       </if>
       <if test="geom != null">
-        geom = #{geom,jdbcType=OTHER},
+        geom = ST_GeomFromText(#{geom}, 4326),
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}
@@ -350,9 +350,9 @@
       d_s = #{dS,jdbcType=VARCHAR},
       flowdirect = #{flowdirect,jdbcType=INTEGER},
       road = #{road,jdbcType=VARCHAR},
-      权属 = #{权属,jdbcType=VARCHAR},
-      长度 = #{长度,jdbcType=NUMERIC},
-      geom = #{geom,jdbcType=OTHER}
+      权属 = #{qs,jdbcType=VARCHAR},
+      长度 = #{len,jdbcType=NUMERIC},
+      geom = ST_GeomFromText(#{geom}, 4326)
     where gid = #{gid,jdbcType=INTEGER}
   </update>
 </mapper>
