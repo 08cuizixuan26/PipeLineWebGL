@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gsline">
     <id column="gid" jdbcType="INTEGER" property="gid" />
     <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="长度" jdbcType="NUMERIC" property="长度" />
+    <result column="长度" jdbcType="NUMERIC" property="len" />
     <result column="geom" jdbcType="OTHER" property="geom" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -30,8 +30,8 @@
   <insert id="insert" parameterType="com.ruoyi.hdsw.model.Gsline">
     insert into "gsline" (gid, id, 长度,
       geom)
-    values (#{gid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{长度,jdbcType=NUMERIC},
-      #{geom,jdbcType=OTHER})
+    values (#{gid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{len,jdbcType=NUMERIC},
+      ST_GeomFromText(#{geom}, 4326))
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Gsline">
     insert into "gsline"
@@ -42,8 +42,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="长度 != null">
-        长度,
+      <if test="len != null">
+        len,
       </if>
       <if test="geom != null">
         geom,
@@ -56,11 +56,11 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="长度 != null">
-        #{长度,jdbcType=NUMERIC},
+      <if test="len != null">
+        #{len,jdbcType=NUMERIC},
       </if>
       <if test="geom != null">
-        #{geom,jdbcType=OTHER},
+        ST_GeomFromText(#{geom}, 4326),
       </if>
     </trim>
   </insert>
@@ -70,11 +70,11 @@
       <if test="id != null">
         id = #{id,jdbcType=INTEGER},
       </if>
-      <if test="长度 != null">
-        长度 = #{长度,jdbcType=NUMERIC},
+      <if test="len != null">
+        长度 = #{len,jdbcType=NUMERIC},
       </if>
       <if test="geom != null">
-        geom = #{geom,jdbcType=OTHER},
+        geom = ST_GeomFromText(#{geom}, 4326),
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}
@@ -82,8 +82,8 @@
   <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Gsline">
     update "gsline"
     set id = #{id,jdbcType=INTEGER},
-      长度 = #{长度,jdbcType=NUMERIC},
-      geom = #{geom,jdbcType=OTHER}
+      长度 = #{len,jdbcType=NUMERIC},
+      geom = ST_GeomFromText(#{geom}, 4326)
     where gid = #{gid,jdbcType=INTEGER}
   </update>
 </mapper>

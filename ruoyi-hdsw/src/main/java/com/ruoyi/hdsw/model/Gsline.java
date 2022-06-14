@@ -12,7 +12,7 @@ public class Gsline implements Serializable {
 
     private Integer id;
 
-    private BigDecimal 长度;
+    private BigDecimal len;
 
     private Object geom;
 
@@ -34,12 +34,12 @@ public class Gsline implements Serializable {
         this.id = id;
     }
 
-    public BigDecimal get长度() {
-        return 长度;
+    public BigDecimal getLen() {
+        return len;
     }
 
-    public void set长度(BigDecimal 长度) {
-        this.长度 = 长度;
+    public void setLen(BigDecimal len) {
+        this.len = len;
     }
 
     public Object getGeom() {
@@ -64,7 +64,7 @@ public class Gsline implements Serializable {
         Gsline other = (Gsline) that;
         return (this.getGid() == null ? other.getGid() == null : this.getGid().equals(other.getGid()))
             && (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.get长度() == null ? other.get长度() == null : this.get长度().equals(other.get长度()))
+            && (this.getLen() == null ? other.getLen() == null : this.getLen().equals(other.getLen()))
             && (this.getGeom() == null ? other.getGeom() == null : this.getGeom().equals(other.getGeom()));
     }
 
@@ -74,7 +74,7 @@ public class Gsline implements Serializable {
         int result = 1;
         result = prime * result + ((getGid() == null) ? 0 : getGid().hashCode());
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((get长度() == null) ? 0 : get长度().hashCode());
+        result = prime * result + ((getLen() == null) ? 0 : getLen().hashCode());
         result = prime * result + ((getGeom() == null) ? 0 : getGeom().hashCode());
         return result;
     }
@@ -87,7 +87,7 @@ public class Gsline implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", gid=").append(gid);
         sb.append(", id=").append(id);
-        sb.append(", 长度=").append(长度);
+        sb.append(", len=").append(len);
         sb.append(", geom=").append(geom);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

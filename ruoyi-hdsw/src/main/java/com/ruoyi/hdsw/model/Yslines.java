@@ -56,9 +56,9 @@ public class Yslines implements Serializable {
 
     private String road;
 
-    private String 权属;
+    private String qs;
 
-    private BigDecimal 长度;
+    private BigDecimal len;
 
     private Object geom;
 
@@ -256,20 +256,20 @@ public class Yslines implements Serializable {
         this.road = road;
     }
 
-    public String get权属() {
-        return 权属;
+    public String getQs() {
+        return qs;
     }
 
-    public void set权属(String 权属) {
-        this.权属 = 权属;
+    public void setQs(String qs) {
+        this.qs = qs;
     }
 
-    public BigDecimal get长度() {
-        return 长度;
+    public BigDecimal getLen() {
+        return len;
     }
 
-    public void set长度(BigDecimal 长度) {
-        this.长度 = 长度;
+    public void setLen(BigDecimal len) {
+        this.len = len;
     }
 
     public Object getGeom() {
@@ -316,8 +316,8 @@ public class Yslines implements Serializable {
             && (this.getdS() == null ? other.getdS() == null : this.getdS().equals(other.getdS()))
             && (this.getFlowdirect() == null ? other.getFlowdirect() == null : this.getFlowdirect().equals(other.getFlowdirect()))
             && (this.getRoad() == null ? other.getRoad() == null : this.getRoad().equals(other.getRoad()))
-            && (this.get权属() == null ? other.get权属() == null : this.get权属().equals(other.get权属()))
-            && (this.get长度() == null ? other.get长度() == null : this.get长度().equals(other.get长度()))
+            && (this.getQs() == null ? other.getQs() == null : this.getQs().equals(other.getQs()))
+            && (this.getLen() == null ? other.getLen() == null : this.getLen().equals(other.getLen()))
             && (this.getGeom() == null ? other.getGeom() == null : this.getGeom().equals(other.getGeom()));
     }
 
@@ -349,8 +349,8 @@ public class Yslines implements Serializable {
         result = prime * result + ((getdS() == null) ? 0 : getdS().hashCode());
         result = prime * result + ((getFlowdirect() == null) ? 0 : getFlowdirect().hashCode());
         result = prime * result + ((getRoad() == null) ? 0 : getRoad().hashCode());
-        result = prime * result + ((get权属() == null) ? 0 : get权属().hashCode());
-        result = prime * result + ((get长度() == null) ? 0 : get长度().hashCode());
+        result = prime * result + ((getQs() == null) ? 0 : getQs().hashCode());
+        result = prime * result + ((getLen() == null) ? 0 : getLen().hashCode());
         result = prime * result + ((getGeom() == null) ? 0 : getGeom().hashCode());
         return result;
     }
@@ -385,8 +385,8 @@ public class Yslines implements Serializable {
         sb.append(", dS=").append(dS);
         sb.append(", flowdirect=").append(flowdirect);
         sb.append(", road=").append(road);
-        sb.append(", 权属=").append(权属);
-        sb.append(", 长度=").append(长度);
+        sb.append(", qs=").append(qs);
+        sb.append(", len=").append(len);
         sb.append(", geom=").append(geom);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
