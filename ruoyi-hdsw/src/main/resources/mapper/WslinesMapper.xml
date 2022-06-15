@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.WslinesMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Wslines">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pipeid" jdbcType="VARCHAR" property="pipeid" />
+    <result column="e_point" jdbcType="VARCHAR" property="ePoint" />
+    <result column="s_point" jdbcType="VARCHAR" property="sPoint" />
+    <result column="s_deep" jdbcType="DOUBLE" property="sDeep" />
+    <result column="e_deep" jdbcType="DOUBLE" property="eDeep" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="d_type" jdbcType="VARCHAR" property="dType" />
+    <result column="d_s" jdbcType="DOUBLE" property="dS" />
+    <result column="flowdirect" jdbcType="INTEGER" property="flowdirect" />
+    <result column="shape_le_3" jdbcType="NUMERIC" property="shapeLe3" />
+    <result column="road" jdbcType="VARCHAR" property="road" />
+    <result column="geom" jdbcType="OTHER" property="geom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, "name", pipeid, e_point, s_point, s_deep, e_deep, material, d_type, d_s, flowdirect, 
+    shape_le_3, road, geom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "wslines"
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from "wslines"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="batchDelete" parameterType="int">
+    delete from wslines where gid in
+    <foreach item="gid" collection="ids" open="(" separator="," close=")">
+      #{gid}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Wslines">
+    insert into "wslines" (gid, "name", pipeid, 
+      e_point, s_point, s_deep, 
+      e_deep, material, d_type, 
+      d_s, flowdirect, shape_le_3, 
+      road, geom)
+    values (#{gid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{pipeid,jdbcType=VARCHAR}, 
+      #{ePoint,jdbcType=VARCHAR}, #{sPoint,jdbcType=VARCHAR}, #{sDeep,jdbcType=DOUBLE}, 
+      #{eDeep,jdbcType=DOUBLE}, #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, 
+      #{dS,jdbcType=DOUBLE}, #{flowdirect,jdbcType=INTEGER}, #{shapeLe3,jdbcType=NUMERIC}, 
+      #{road,jdbcType=VARCHAR}, ST_GeomFromText(#{geom}, 4326))
+  </insert>
+  <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Wslines">
+    insert into "wslines"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="name != null">
+        "name",
+      </if>
+      <if test="pipeid != null">
+        pipeid,
+      </if>
+      <if test="ePoint != null">
+        e_point,
+      </if>
+      <if test="sPoint != null">
+        s_point,
+      </if>
+      <if test="sDeep != null">
+        s_deep,
+      </if>
+      <if test="eDeep != null">
+        e_deep,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="dType != null">
+        d_type,
+      </if>
+      <if test="dS != null">
+        d_s,
+      </if>
+      <if test="flowdirect != null">
+        flowdirect,
+      </if>
+      <if test="shapeLe3 != null">
+        shape_le_3,
+      </if>
+      <if test="road != null">
+        road,
+      </if>
+      <if test="geom != null">
+        geom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeid != null">
+        #{pipeid,jdbcType=VARCHAR},
+      </if>
+      <if test="ePoint != null">
+        #{ePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoint != null">
+        #{sPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sDeep != null">
+        #{sDeep,jdbcType=DOUBLE},
+      </if>
+      <if test="eDeep != null">
+        #{eDeep,jdbcType=DOUBLE},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dS != null">
+        #{dS,jdbcType=DOUBLE},
+      </if>
+      <if test="flowdirect != null">
+        #{flowdirect,jdbcType=INTEGER},
+      </if>
+      <if test="shapeLe3 != null">
+        #{shapeLe3,jdbcType=NUMERIC},
+      </if>
+      <if test="road != null">
+        #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        ST_GeomFromText(#{geom}, 4326),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ruoyi.hdsw.model.Wslines">
+    update "wslines"
+    <set>
+      <if test="name != null">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeid != null">
+        pipeid = #{pipeid,jdbcType=VARCHAR},
+      </if>
+      <if test="ePoint != null">
+        e_point = #{ePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoint != null">
+        s_point = #{sPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sDeep != null">
+        s_deep = #{sDeep,jdbcType=DOUBLE},
+      </if>
+      <if test="eDeep != null">
+        e_deep = #{eDeep,jdbcType=DOUBLE},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        d_type = #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dS != null">
+        d_s = #{dS,jdbcType=DOUBLE},
+      </if>
+      <if test="flowdirect != null">
+        flowdirect = #{flowdirect,jdbcType=INTEGER},
+      </if>
+      <if test="shapeLe3 != null">
+        shape_le_3 = #{shapeLe3,jdbcType=NUMERIC},
+      </if>
+      <if test="road != null">
+        road = #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="geom != null">
+        geom = ST_GeomFromText(#{geom}, 4326),
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Wslines">
+    update "wslines"
+    set "name" = #{name,jdbcType=VARCHAR},
+      pipeid = #{pipeid,jdbcType=VARCHAR},
+      e_point = #{ePoint,jdbcType=VARCHAR},
+      s_point = #{sPoint,jdbcType=VARCHAR},
+      s_deep = #{sDeep,jdbcType=DOUBLE},
+      e_deep = #{eDeep,jdbcType=DOUBLE},
+      material = #{material,jdbcType=VARCHAR},
+      d_type = #{dType,jdbcType=VARCHAR},
+      d_s = #{dS,jdbcType=DOUBLE},
+      flowdirect = #{flowdirect,jdbcType=INTEGER},
+      shape_le_3 = #{shapeLe3,jdbcType=NUMERIC},
+      road = #{road,jdbcType=VARCHAR},
+      geom = ST_GeomFromText(#{geom}, 4326)
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>
