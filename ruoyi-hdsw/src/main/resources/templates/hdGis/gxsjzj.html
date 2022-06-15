@@ -11,7 +11,7 @@
     <script src="js/baiduMercator.js"></script>
     <script src="js/olMapConfig.js"></script>
     <script src="js/map.js"></script>
-
+    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
@@ -36,15 +36,114 @@
             font-family: MicrosoftYaHei;
             color: #03FFEA !important;
         }
+        .content-tab{
+            position: absolute;
+            z-index: 9999;
+            left: 1%;
+            top: 1%;
+        }
+        .tabNav{
+            width: 500px;
+            list-style: none;
+            display: flex;
+            justify-content:space-between;
+            padding-inline-start: 0px!important;
+        }
+        .tabNav li{
+            width: 90px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .active_nav{
+            background: #4A98F7!important;
+            color: #fff;
+        }
+        .sty{
+            width: 500px;
+            height: auto;
+            min-height: 150px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+        }
+        .sear_sty{
+            width: 100%;
+            text-align: center;
+        }
+        .layui-input{
+            width: 120px!important;
+        }
+        .layui-form-item{
+            width: 100%;
+            display: flex;
+            justify-content:space-around;
+            margin: 10px 0 10px 0;
+        }
+        h4{
+            margin-block-start: 0!important;
+            margin-block-end: 0!important;
+        }
+        .layui-form-label{
+            width: 80px;
+            display: inline-block;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-<div id="mapDiv" class="">
+<div id="mapDiv" class="left-aside">
     <div class="baseInfo" id="mapBaseInfo"></div>
     <div class="icon-bar">
         <div class="layui-icon layui-icon-template-1 layui-icon-map" id="mapLayers"></div>
     </div>
     <div id="featureInfo" class="featureInfo layui-ihh" style="overflow:auto;border-radius:10px;"></div>
+
+    <div class="content-tab">
+      <ul class="tabNav">
+          <li class="active_nav">参照加点</li>
+          <li>解析加点</li>
+          <li>解析加线</li>
+          <li>插入点</li>
+          <li>连接点</li>
+      </ul>
+       <div class="nav_content">
+           <div class="sty" id="czjd">
+               <p class="sear_sty"><input type="text" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="layui-input"></p>
+               <form class="layui-form" action="">
+                   <h4>参照物1:</h4>
+                   <div class="layui-form-item">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">横坐标</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">纵坐标</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">距离</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">角度</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                       </div>
+                   </div>
+               </form>
+           </div>
+
+           <div class="sty" style="display: none" id="jxjd">
+               解析加点
+           </div>
+       </div>
+    </div>
+
 <!--    <div class="layerTreeDiv">-->
 <!--        <div class="layerControlTitle">图层控制</div>-->
 <!--        &lt;!&ndash;<div><span>图层控制</span></div>&ndash;&gt;-->
@@ -54,3 +153,12 @@
 
 </body>
 </html>
+<script>
+    $('.tabNav li').click(function(){
+        $(this).addClass('active_nav').siblings().removeClass('active_nav');
+        if($(this).index() == 0){
+            $('#czjd').show().siblings().hide();
+        }else if($(this).index() == 1){
+            $('#jxjd').show().siblings().hide();
+        }    })
+</script>
