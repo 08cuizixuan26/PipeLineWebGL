@@ -10,6 +10,7 @@ if (!LoadMap) var LoadMap = {
         source: new ol.source.Vector(),
         style: olMapStyle.hightStyle
     }),
+    map: undefined,
     baseMapType: "vector",
     //当前显示的地图页
     currentMapType:undefined,

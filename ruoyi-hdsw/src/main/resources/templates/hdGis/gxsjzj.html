@@ -5,21 +5,22 @@
     <title>地图</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <script src="openlayersv6.5/build/ol.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bd09.js" charset="utf-8"></script>
-    <script src="js/baiduMercator.js"></script>
-    <script src="js/olMapConfig.js"></script>
-    <script src="js/map.js"></script>
+    <script th:src="@{/openlayersv6.5/build/ol.js}"></script>
     <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bd09.js}"></script>
+    <script th:src="@{/js/baiduMercator.js}"></script>
+    <script th:src="@{/js/olMapConfig.js}"></script>
+    <script th:src="@{/js/map.js}"></script>
+
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link href="zTree/zTreeStyle.css" rel="stylesheet"/>
-    <link href="layuiv2.5.6/layui/css/layui.css" rel="stylesheet" />
-    <link href="openlayersv6.5/css/ol.css" rel="stylesheet"/>
-    <link href="css/map.css" rel="stylesheet"/>
+
+    <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
+    <link th:href="@{/layuiv2.5.6/layui/css/layui.css}" rel="stylesheet"/>
+    <link th:href="@{/openlayersv6.5/css/ol.css}" rel="stylesheet"/>
+    <link th:href="@{/css/map.css}" rel="stylesheet"/>
     <style>
         .ztree li a span.button {
             background-size: 16px 16px !important;
@@ -306,6 +307,9 @@
 </body>
 </html>
 <script>
+    $(() => {
+        LoadMap.mapInit(null,{"pidType":"管线更新"});
+    })
     $('.tabNav li').click(function(){
         $(this).addClass('active_nav').siblings().removeClass('active_nav');
         if($(this).index() == 0){
