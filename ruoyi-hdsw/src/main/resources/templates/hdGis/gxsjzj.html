@@ -54,7 +54,7 @@
             width: 90px;
             text-align: center;
             height: 40px;
-            line-height: 40px;
+            line-height: 36px;
             border: 2px solid #ccc;
             border-radius: 10px;
             background: #fff;
@@ -197,7 +197,101 @@
            </div>
 
            <div class="sty" style="display: none" id="jxjd">
-               解析加点
+               <div class="form-check form-check-inline">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+                   <label class="form-check-label" for="exampleRadios1">
+                       解析法
+                   </label>
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2" >
+                   <label class="form-check-label" for="exampleRadios2">
+                       页面输入法
+                   </label>
+               </div>
+
+
+               <div id="jxf">
+                   <p>
+                       <input class="btn btn-primary" type="file">
+                   </p>
+                   <p>
+                   <div class="layui-input-inline">
+                       <label class="layui-form-label">数据文件</label>
+                       <input type="text" name="title" required  style="width: 200px" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                   </div>
+                   </p>
+                   <div class="form-group" style="text-align: center">
+                       <button class="btn btn-primary" type="submit" value="Submit">确定</button>
+                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>
+                   </div>
+               </div>
+
+               <div id="ymsrf" style="display: none">
+                   <form class="layui-form" action="">
+                       <h4>管点坐标:</h4>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">横坐标</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">纵坐标</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <h4>管点属性:</h4>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">类别</label>
+                               <select name="city" class="form-control" lay-verify="required">
+                                   <option value=""></option>
+                                   <option value="0">北京</option>
+                                   <option value="1">上海</option>
+                                   <option value="2">广州</option>
+                                   <option value="3">深圳</option>
+                                   <option value="4">杭州</option>
+                               </select>
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">排水户名称</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">污水去向</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">排水户类型</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">行政区属</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">排水户地址</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">联系电话</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">单位负责人</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group" style="text-align: center">
+                           <button type="button" class="btn btn-primary">确定</button>
+                           <button type="button" class="btn btn-primary">取消</button>
+                       </div>
+                   </form>
+               </div>
            </div>
        </div>
     </div>
@@ -219,4 +313,15 @@
         }else if($(this).index() == 1){
             $('#jxjd').show().siblings().hide();
         }    })
+
+    //解析加点单选事件
+    $('input[name="exampleRadios"]').click(function(){
+        if($(this).val() == 1){
+            $('#jxf').show();
+            $('#ymsrf').hide();
+        }else{
+            $('#ymsrf').show();
+            $('#jxf').hide();
+        }
+    })
 </script>
