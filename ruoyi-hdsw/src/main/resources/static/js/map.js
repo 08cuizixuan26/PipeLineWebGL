@@ -10,7 +10,10 @@ if (!LoadMap) var LoadMap = {
         source: new ol.source.Vector(),
         style: olMapStyle.hightStyle
     }),
+    map: undefined,
     baseMapType: "vector",
+    //当前显示的地图页
+    currentMapType:undefined,
     setLayerVisible: function (event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         var nodes = treeObj.getChangeCheckedNodes();
@@ -229,6 +232,11 @@ if (!LoadMap) var LoadMap = {
 
     singleclick() {
         LoadMap.map.on("singleclick", (e) => {
+            if(LoadMap.currentMapType="管线更新"){
+                var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
+                $("#x1").attr("value", coor[0])
+                $("#y1").attr("value", coor[1])
+            }
             this.closeFeatureInfo();
             LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
                 console.log(feature.getProperties());
@@ -245,7 +253,7 @@ if (!LoadMap) var LoadMap = {
         });
     },
     //初始化地图加载天地图矢量特层和标注图层，确定中心点在三院南门附近
-    mapInit() {
+    mapInit1() {
         //图层控制树初始化
         var layerTreeSetting = {
             check: {
@@ -456,9 +464,87 @@ if (!LoadMap) var LoadMap = {
         LoadMap.fakeClick(save_link);
     }
 }
-$(() => {
+
+//初始化地图
+LoadMap.mapInit = function (_callback, config) {
+    LoadMap.currentMapType = config.pidType;
+
+    if(LoadMap.currentMapType == "首页"){
+        //图层控制树初始化
+        var layerTreeSetting = {
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                }
+            },
+            view: {
+                selectedMulti: false
+            },
+            callback: {
+                onCheck: LoadMap.setLayerVisible
+            }
+        };
+        let initTreeData = [];
+        olMapConfig.layersTreeData.forEach(function (node) {
+            initTreeData.push(node);
+        });
+        $.fn.zTree.init($("#treeDemo"), layerTreeSetting, initTreeData);
+
+        $("#mapLayers").click(function () {
+            let treeDiv = $(".layerTreeDiv")[0];
+            if (treeDiv.style.opacity === '0') {
+                treeDiv.style.opacity = '1';
+                treeDiv.style.right = "30px";
+            } else {
+                treeDiv.style.opacity = '0';
+                treeDiv.style.right = "5px";
+            }
+        });
+    }
+
+    let gx_layers = [];
+    for (let i = 0; i < olMapConfig.layers.length; i++) {
+        gx_layers.push(olMapConfig.layers[i]);
+    }
+
+    //实例化Map对象加载地图
+    LoadMap.map = new ol.Map({
+        //地图容器div的ID
+        target: 'mapDiv',
+        //地图容器中加载的图层
+        layers: gx_layers,
+        //地图视图设置
+        view: this.view,
+        controls: ol.control.defaults({zoom: false}).extend([
+            new ol.control.ScaleLine({
+                units: 'degrees',
+            })]),
+    });
+
+    setTimeout(() => {
+        LoadMap.map.getView().setZoom(13);
+        let layers = LoadMap.map.getLayers();
+        layers.forEach(function (layer, index) {
+            if (layer.get('id') !== 'wsgx' &&
+                (layer.get('id').indexOf('jg') > 0 || layer.get('id').indexOf('gx') > 0)) {
+                layer.setVisible(false)
+            }
+        })
+        console.log(layers);
+    }, 0)
+    // olMapStyle.showGuangxiArea();
+
+    LoadMap.addWsLayer();
+    // LoadMap.test();
+    LoadMap.singleclick();
+};
+/*$(() => {
     LoadMap.mapInit();
     LoadMap.addWsLayer();
     // LoadMap.test();
     LoadMap.singleclick();
-})
+})*/
