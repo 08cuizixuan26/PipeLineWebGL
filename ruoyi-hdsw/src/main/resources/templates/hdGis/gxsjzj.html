@@ -72,6 +72,8 @@
             border-radius: 10px;
             border: 2px solid #ccc;
             padding: 10px;
+            background: #fff;
+            margin: 10px 0 0 0;
         }
         .sear_sty{
             width: 100%;
@@ -95,14 +97,17 @@
             margin-block-end: 0!important;
         }
         .layui-form-label{
-            width: 80px;
+            width: 100px;
             display: inline-block;
             text-align: right;
+        }
+        .layui-form select {
+             display: block!important;
         }
     </style>
 </head>
 <body>
-<div id="mapDiv" class="left-aside">
+<div id="mapDiv" class="">
     <div class="baseInfo" id="mapBaseInfo"></div>
     <div class="icon-bar">
         <div class="layui-icon layui-icon-template-1 layui-icon-map" id="mapLayers"></div>
@@ -211,15 +216,15 @@
 
 
                <div id="jxf">
-                   <p>
+                   <div class="form-group">
                        <input class="btn btn-primary" type="file">
-                   </p>
-                   <p>
-                   <div class="layui-input-inline">
+                   </div>
+                   <div class="form-group">
+                   <div class="">
                        <label class="layui-form-label">数据文件</label>
                        <input type="text" name="title" required  style="width: 200px" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                    </div>
-                   </p>
+                   </div>
                    <div class="form-group" style="text-align: center">
                        <button class="btn btn-primary" type="submit" value="Submit">确定</button>
                        <button class="btn btn-primary" type="reset" value="Reset">取消</button>
@@ -292,6 +297,36 @@
                            <button type="button" class="btn btn-primary">取消</button>
                        </div>
                    </form>
+               </div>
+           </div>
+
+           <div class="sty" id="jxjx" style="display: none">
+               <div class="form-check form-check-inline">
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" checked>
+                   <label class="form-check-label" for="exampleRadios1">
+                       解析法
+                   </label>
+                   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2" >
+                   <label class="form-check-label" for="exampleRadios2">
+                       页面输入法
+                   </label>
+               </div>
+
+
+               <div id="jxf_">
+                   <div class="form-group">
+                       <input class="btn btn-primary" type="file">
+                   </div>
+                   <div class="form-group">
+                       <div class="">
+                           <label class="layui-form-label">数据文件</label>
+                           <input type="text" name="title" required  style="width: 200px" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group" style="text-align: center">
+                       <button class="btn btn-primary" type="submit" value="Submit">确定</button>
+                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>
+                   </div>
                </div>
            </div>
        </div>
