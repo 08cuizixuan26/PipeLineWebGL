@@ -7,6 +7,13 @@ $(function() {
         $(".imgcode").attr("src", url);
     });
 });
+/*回车事件*/
+$(document).keypress(function(e) {
+    if((e.keyCode || e.which)==13) {
+        // 触发需要调用的方法
+        login()
+    }
+});
 
 $.validator.setDefaults({
     submitHandler: function() {
