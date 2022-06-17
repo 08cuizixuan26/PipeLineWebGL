@@ -233,9 +233,9 @@ if (!LoadMap) var LoadMap = {
     singleclick() {
         LoadMap.map.on("singleclick", (e) => {
             if(LoadMap.currentMapType="管线更新"){
-                var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
-                $("#x1").attr("value", coor[0])
-                $("#y1").attr("value", coor[1])
+                //var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
+                $("#x1").attr("value", e.coordinate[0])
+                $("#y1").attr("value", e.coordinate[1])
             }
             this.closeFeatureInfo();
             LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
