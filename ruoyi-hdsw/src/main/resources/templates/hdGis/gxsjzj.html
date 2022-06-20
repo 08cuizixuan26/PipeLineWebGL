@@ -705,7 +705,12 @@
 
     $('#reduce_czw').click(function (){
         $("#"+zh_).remove()
-        num--;
+        if(num == 1){
+
+        }else{
+            zh_ = num--;
+        }
+
     })
 </script>
 <script>
