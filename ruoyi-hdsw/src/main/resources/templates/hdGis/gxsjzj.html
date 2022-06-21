@@ -115,6 +115,13 @@
         .layerTreeDiv {
             right: 3%!important;
         }
+        .btn-mini{
+            line-height: 25px;
+            padding: 0!important;
+        }
+        .hzzb{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +142,9 @@
       </ul>
        <div class="nav_content">
            <div class="sty" id="czjd">
-               <p class="sear_sty"><input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control"></p>
+               <p class="sear_sty"><input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
+                 <button class="btn btn-primary">查询</button>
+               </p>
                <form class="layui-form" action="">
                    <div class="Mapczw">
                        <div class="form-group">
@@ -442,7 +451,10 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">编号</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <button class="btn btn-primary btn-mini qdzb">选点坐标</button>
                            </div>
+                       </div>
+                       <div class="form-group hzzb" id="qdzb">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">横坐标</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -457,7 +469,10 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">编号</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <button class="btn btn-primary btn-mini zdzb">选点坐标</button>
                            </div>
+                       </div>
+                       <div class="form-group hzzb" id="zdzb">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">横坐标</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -534,7 +549,9 @@
                        <option value="4">杭州</option>
                    </select>
 
-                   <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control"></p>
+                   <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
+                   <button class="btn btn-primary">查询</button>
+               </p>
                <form class="layui-form" action="">
                    <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">请点击地图中的管线获取信息</button></h4>
                    <div class="form-group">
@@ -666,6 +683,7 @@
                        <option value="3">深圳</option>
                        <option value="4">杭州</option>
                    </select>
+                   <button class="btn btn-primary">查询</button>
                </p>
                <form class="layui-form" action="">
                    <h4>起点信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">请点击地图中的管点获取信息</button></h4>
@@ -730,7 +748,13 @@
     $('.icon-bar').click(function(){
         $('.layerTreeDiv').toggle();
     })
-
+    //解析加线点击事件
+    $('.qdzb').click(function (){
+        $('#qdzb').toggle();
+    })
+    $('.zdzb').click(function (){
+        $('#zdzb').toggle();
+    })
     $('.tabNav li').click(function(){
         var ee = getLonAndLat($("#x1").val(),$("#y1").val(),180,1000);
         $(this).addClass('active_nav').siblings().removeClass('active_nav');
