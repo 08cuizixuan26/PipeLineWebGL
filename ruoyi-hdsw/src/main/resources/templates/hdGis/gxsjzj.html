@@ -15,7 +15,7 @@
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
-    <script src="static/ajax/libs/layui/layui.min.js"></script>
+    <script th:src="@{static/ajax/libs/layui/layui.min.js}"></script>
     <script src="static/ajax/libs/layui/modules/laydate.js"></script>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 
@@ -68,7 +68,7 @@
             color: #fff;
         }
         .sty{
-            width: 900px;
+            width: 950px;
             max-height: 700px;
             min-height: 150px;
             border-radius: 10px;
@@ -80,6 +80,17 @@
         }
         .sear_sty{
             width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .sear_sty input{
+            margin: 0 10px 0 10px;
+        }
+        .sear_sty select{
+            margin: 0 10px 0 10px;
+        }
+        .sear_sty button{
+            margin: 0 10px 0 10px;
         }
         .form-control{
             width: 150px!important;
@@ -162,7 +173,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text"   required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
                        </div>
                      </div>
                    </div>
@@ -233,6 +244,7 @@
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室直径</label>
                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <em>毫米</em>
                        </div>
                    </div>
                    <div class="form-group">
@@ -936,7 +948,7 @@
         let str = `
 <div id="`+zh_+`">
           <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(`+zh_+`)">获取坐标</button></h4>
-                   <div class="">
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
                            <input type="text" name="title" id="x2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -947,10 +959,10 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="jl"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
                        </div>
                    </div>
-                   <div class="">
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">角度</label>
                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -958,34 +970,33 @@
                    </div></div>
         `
         if(zh_ == 2){
-
             $('.Mapczw').append(str)
+            $('.jl').attr('disabled',true)
         }
 
     })
 
     $('#reduce_czw').click(function (){
         $("#"+zh_).remove()
+        $('.jl').attr('disabled',false)
         if(num == 1){
+
         }else{
             zh_ = num--;
         }
 
     })
 
-    laydate.render({
-        type:'date',
-        elem: '#test1' //指定元素
-    });
+
     layui.use('laydate', function(){
         var laydate = layui.laydate;
-
         //执行一个laydate实例
         laydate.render({
             type:'date',
             elem: '#test1' //指定元素
         });
     });
+
 </script>
 <script>
     $(() => {
