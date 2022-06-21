@@ -850,8 +850,8 @@
         zh_ = zh + 1;
         let str = `
 <div id="`+zh_+`">
-          <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(this.id)>获取坐标</button></h4>
-                   <div class="form-group">
+          <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(`+zh_+`)">获取坐标</button></h4>
+                   <div class="">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
                            <input type="text" name="title" id="x2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -865,7 +865,7 @@
                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
-                   <div class="form-group">
+                   <div class="">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">角度</label>
                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
