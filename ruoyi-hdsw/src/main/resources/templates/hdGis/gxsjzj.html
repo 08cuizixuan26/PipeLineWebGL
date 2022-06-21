@@ -149,7 +149,7 @@
                    <div class="Mapczw">
                        <div class="form-group">
                    <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>
-                       <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important">计算</button></h4>
+                       <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important" onclick="computeCoordinate()">计算</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
@@ -161,14 +161,14 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="dis1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                      </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">角度</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="brng1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    </div>
@@ -258,18 +258,22 @@
                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">坐标</label>
+                           <label class="layui-form-label">标高</label>
                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">标高</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <label class="layui-form-label">X坐标</label>
+                           <input type="text" name="title" id="xcor" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">Y坐标</label>
+                           <input type="text" name="title" id="ycor" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group form-btn">
-                       <button type="button" class="btn btn-primary">确定</button>
+                       <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
                        <button type="button" class="btn btn-primary">取消</button>
                    </div>
                </form>
@@ -847,7 +851,7 @@
         zh_ = zh + 1;
         let str = `
 <div id="`+zh_+`">
-          <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(this.id)>获取坐标</button></h4>
+          <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(this.id)">获取坐标</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
@@ -865,7 +869,7 @@
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">角度</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="brng2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div></div>
         `
@@ -894,7 +898,8 @@
            search();
         }
     })
-
+    
+    //百度地图道路查询
     function search() {
         $.ajax({
             //url中的参数含义参见百度地图官网webAPI文档
@@ -922,8 +927,8 @@
                     var anchor = new ol.Feature({
                         geometry: new ol.geom.Point(new_lonlat)
                     });
-
-                    /*                        var searchLayer = new ol.layer.Vector({
+/*
+                                            var searchLayer = new ol.layer.Vector({
                                                 id: "search",
                                                 source:  new ol.source.Vector({
                                                     features: [anchor]
@@ -938,6 +943,44 @@
                 console.log(data)
             }
         })
+    }
+    //计算参考选点坐标
+    function computeCoordinate() {
+        if(num== 1){
+            var lonLatObj = getLonAndLat($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#dis1").val())
+            $("#xcor").attr("value", lonLatObj.lon)
+            $("#ycor").attr("value", lonLatObj.lat)
+/*            var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
+            var anchor = new ol.Feature({
+                geometry: new ol.geom.Point(new_lonlat)
+            });
+            var searchLayer = new ol.layer.Vector({
+                id: "555",
+                source:  new ol.source.Vector({
+                    features: [anchor]
+                }),
+                style: olMapStyle.wsc_Style
+            });*/
+            LoadMap.map.addLayer(searchLayer)
+        }else{
+            //var tt = getIntersection(110.1112,36.61,Math.PI/4,110.1129,36.62,Math.PI/4*3)
+
+            var lonLatObj = getIntersection($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#x2").val(),$("#y2").val(),$("#brng2").val())
+            $("#xcor").attr("value", lonLatObj.lon)
+            $("#ycor").attr("value", lonLatObj.lat)
+            var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
+            var anchor = new ol.Feature({
+                geometry: new ol.geom.Point(new_lonlat)
+            });
+            var searchLayer = new ol.layer.Vector({
+                id: "555",
+                source:  new ol.source.Vector({
+                    features: [anchor]
+                }),
+                style: olMapStyle.wsc_Style
+            });
+            LoadMap.map.addLayer(searchLayer)
+        }
     }
 
     //获取坐标
@@ -1002,5 +1045,65 @@
         }
 
         return lonLatObj;
+    }
+    //根据两个点坐标以及与水平方向夹角求交点
+    function getIntersection(lon1,lat1,angle1,lon2,lat2,angle2) {
+        var lon, lat;
+        var rad1 = mapNumberUtil.rad(angle1);
+        var rad2 = mapNumberUtil.rad(angle2);
+        if (angle1 == angle2 || angle1 + angle2 == 360) {
+            return null;
+        } else if (angle1 == 90 || angle1 == 270) {
+            lon = lon1;
+            lat = lat1 + Math.tan(rad2) * (lon1 - lon2)
+
+        } else if (angle2 == 90 || angle2 == 270) {
+            lon = lon2;
+            lat = lat2 + Math.tan(rad1) * (lon2 - lon1)
+        } else {
+            lon = (lat2 - lat1 + lon1 * Math.tan(rad1) - lon2 * Math.tan(rad2)) / (Math.tan(rad1) - Math.tan(rad2));
+            lat = (Math.tan(rad1) * Math.tan(rad2) * (lon2 - lon1) + Math.tan(rad2) * lat1 - Math.tan(rad1) * lat2) / (Math.tan(rad2) - Math.tan(rad1))
+        }
+
+        var lonLatObj = {
+            lon: lon,
+            lat: lat
+        }
+        return lonLatObj;
+    }
+    //参考选点保存
+    function save1() {
+        var params = {
+            objname:"",
+            objcode:"",
+            bgcode:"",
+            street:"",
+            community:"",
+            geom:""
+        };
+        var url;
+        var options=$("#czjd_type option:selected");
+        if(options.text() == "供水"){
+            url="/hdsw/gsline/insert"
+        }else if(options.text() == "雨水"){
+            url="/hdsw/ysline/insert"
+        }else if(options.text() == "污水"){
+            url="/hdsw/wsline/insert"
+        }else if(options.text() == "再生水"){
+            url="/hdsw/zssline/insert"
+        }
+
+        var json = JSON.stringify(params)
+        $.ajax({
+            url: url,
+            type: "post",
+            data: {
+                paramJson: json,
+            },
+            dataType: 'json',
+            success: function (data) {
+
+            }
+        })
     }
 </script>
