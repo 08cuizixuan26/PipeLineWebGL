@@ -148,7 +148,8 @@
                <form class="layui-form" action="">
                    <div class="Mapczw">
                        <div class="form-group">
-                   <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">获取坐标</button></h4>
+                   <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important">获取坐标</button>
+                       <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important">计算</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
@@ -288,6 +289,9 @@
 
 
                <div id="jxf">
+                   <div class="form-group">
+                       <button type="button" class="btn btn-primary btn-sm">下载模板</button>
+                   </div>
                    <div class="form-group">
                        <input class="btn btn-primary" type="file">
                    </div>
@@ -485,48 +489,85 @@
                        <h4>管线属性:</h4>
                        <div class="form-group">
                            <div class="layui-input-inline">
+                               <label class="layui-form-label">管线编号</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">起点点号</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">终点点号</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">起点埋深</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">终点埋深</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">起点高程</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">终点高程</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">材质</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">埋设方式</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">线型</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">管径</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">建设日期</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">权属单位编号</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">流向</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">所在道路</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="layui-input-inline">
+                               <label class="layui-form-label">状态</label>
+                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
                                <label class="layui-form-label">类别</label>
-                               <select name="city" class="form-control" lay-verify="required">
-                                   <option value=""></option>
-                                   <option value="0">北京</option>
-                                   <option value="1">上海</option>
-                                   <option value="2">广州</option>
-                                   <option value="3">深圳</option>
-                                   <option value="4">杭州</option>
-                               </select>
-                           </div>
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">排水户名称</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                       </div>
-                       <div class="form-group">
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">污水去向</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">排水户类型</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                       </div>
-                       <div class="form-group">
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">行政区属</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">排水户地址</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                       </div>
-                       <div class="form-group">
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">联系电话</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">单位负责人</label>
+                               <label class="layui-form-label">长度</label>
                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                        </div>
