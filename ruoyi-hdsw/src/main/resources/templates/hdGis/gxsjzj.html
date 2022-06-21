@@ -15,7 +15,8 @@
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
-    <script src="static/layuiv2.5.6/layui/layui.js"></script>
+    <script src="static/ajax/libs/layui/layui.min.js"></script>
+    <script src="static/ajax/libs/layui/modules/laydate.js"></script>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 
     <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
@@ -79,7 +80,6 @@
         }
         .sear_sty{
             width: 100%;
-            text-align: center;
         }
         .form-control{
             width: 150px!important;
@@ -771,6 +771,91 @@
                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
+                   <h4>管线属性:</h4>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">管线编号</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">起点点号</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">终点点号</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">起点埋深</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">终点埋深</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">起点高程</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">终点高程</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">材质</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">埋设方式</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">线型</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">管径</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">建设日期</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">权属单位编号</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">流向</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">所在道路</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">状态</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">类别</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">长度</label>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                   </div>
                </form>
            </div>
        </div>
@@ -888,11 +973,16 @@
 
     })
 
+    laydate.render({
+        type:'date',
+        elem: '#test1' //指定元素
+    });
     layui.use('laydate', function(){
-        // var laydate = layui.laydate;
+        var laydate = layui.laydate;
 
         //执行一个laydate实例
         laydate.render({
+            type:'date',
             elem: '#test1' //指定元素
         });
     });
