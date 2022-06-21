@@ -21,5 +21,9 @@ public class PageTturnsController {
     public String  gxsjzj() {
         return "hdGis/gxsjzj";
     }
+    @RequestMapping("/gxsjUpdate")
+    public String  gxsjUpdate() {
+        return "hdGis/gxsjUpdate";
+    }
 
 }
