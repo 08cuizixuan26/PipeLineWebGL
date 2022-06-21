@@ -3,6 +3,7 @@ package com.ruoyi.hdsw.service.impl;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import com.ruoyi.hdsw.mapper.YspointsMapper;
+import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Yspoints;
 import com.ruoyi.hdsw.service.YspointsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ public class YspointsServiceImpl implements YspointsService {
     @Autowired
     private YspointsMapper yspointsMapper;
     @Override
-    public Object insert(Yspoints record) {
+    public Object insert(Gdmodel record) {
         return yspointsMapper.insertSelective(record);
     }
 
     @Override
-    public Object update(Yspoints record) {
+    public Object update(Gdmodel record) {
         return yspointsMapper.updateByPrimaryKeySelective(record);
     }
 
