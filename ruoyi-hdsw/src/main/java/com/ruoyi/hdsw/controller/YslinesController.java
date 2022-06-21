@@ -2,6 +2,7 @@ package com.ruoyi.hdsw.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.hdsw.mapper.YslinesMapper;
+import com.ruoyi.hdsw.model.Gxmodel;
 import com.ruoyi.hdsw.model.Yslines;
 import com.ruoyi.hdsw.service.YslinesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class YslinesController {
      **/
     @PostMapping("/insert")
     @ResponseBody
-    public AjaxResult insert(@RequestBody Yslines record) {
+    public AjaxResult insert(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(yslinesService.insert(record));
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class YslinesController {
      **/
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(@RequestBody Yslines record) {
+    public AjaxResult update(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(yslinesService.update(record));
         } catch (Exception e) {
