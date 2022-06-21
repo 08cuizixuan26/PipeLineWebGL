@@ -45,10 +45,11 @@
             top: 1%;
         }
         .tabNav{
+            padding: 0 200px 0 200px;
             width: 600px;
             list-style: none;
             display: flex;
-            justify-content:space-between;
+            justify-content: space-around;
             padding-inline-start: 0px!important;
         }
         .tabNav li{
@@ -122,6 +123,16 @@
         .hzzb{
             display: none;
         }
+        .formTab {
+            display: flex;
+            justify-content: center;
+        }
+        .ysdmessage {
+            display: flex;
+        }
+        .ysdmessage button {
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -134,50 +145,59 @@
 
     <div class="content-tab">
         <ul class="tabNav">
-            <li class="active_nav">参照加点</li>
-            <li>解析加点</li>
-            <li>解析加线</li>
-            <li>插入点</li>
-            <li>连接点</li>
+            <li class="active_nav">移动点</li>
+            <li>修改属性</li>
+            <li>修改参数</li>
         </ul>
         <div class="nav_content">
             <div class="sty" id="czjd">
-                <p class="sear_sty"><input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
-                    <button class="btn btn-primary" id="search_btn" onclick="search()">查询</button>
-                </p>
+                <div class="formTab">
+                    <select name="city" class="form-control" lay-verify="required">
+                        <option value=""></option>
+                        <option value="0">北京</option>
+                        <option value="1">上海</option>
+                        <option value="2">广州</option>
+                        <option value="3">深圳</option>
+                        <option value="4">杭州</option>
+                    </select>
+                    <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control">
+                </div>
                 <form class="layui-form" action="">
                     <div class="Mapczw">
-                        <div class="form-group">
-                            <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>
-                                <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important">计算</button></h4>
-                            <div class="form-group">
-                                <div class="layui-input-inline">
-                                    <label class="layui-form-label">横坐标</label>
-                                    <input type="text" name="title" id="x1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                                </div>
-                                <div class="layui-input-inline">
-                                    <label class="layui-form-label">纵坐标</label>
-                                    <input type="text" name="title" id="y1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                                </div>
-                                <div class="layui-input-inline">
-                                    <label class="layui-form-label">距离</label>
-                                    <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="layui-input-inline">
-                                <label class="layui-form-label">角度</label>
-                                <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                            </div>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>-->
+<!--                                <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important">计算</button></h4>-->
+<!--                            <div class="form-group">-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <label class="layui-form-label">横坐标</label>-->
+<!--                                    <input type="text" name="title" id="x1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                                </div>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <label class="layui-form-label">纵坐标</label>-->
+<!--                                    <input type="text" name="title" id="y1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                                </div>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <label class="layui-form-label">距离</label>-->
+<!--                                    <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <div class="layui-input-inline">-->
+<!--                                <label class="layui-form-label">角度</label>-->
+<!--                                <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
-
-                    <div class="form-btn">
-                        <button type="button" id="add_czw" class="btn btn-primary" style="height: 20px;width:30px;padding: 0!important">+</button>
-                        <button type="button" id="reduce_czw" class="btn btn-primary" style="height: 20px;width:30px;padding: 0!important">-</button>
+<!--                        增加参照物-->
+<!--                    <div class="form-btn">-->
+<!--                        <button type="button" id="add_czw" class="btn btn-primary" style="height: 20px;width:30px;padding: 0!important">+</button>-->
+<!--                        <button type="button" id="reduce_czw" class="btn btn-primary" style="height: 20px;width:30px;padding: 0!important">-</button>-->
+<!--                    </div>-->
+                    <div class="ysdmessage">
+                        <h4 style="font-weight: bold">原始点信息</h4>
+                        <button>获取坐标</button>
                     </div>
-                    <h4>管点属性:</h4>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管点编号</label>
@@ -839,50 +859,50 @@
     })
 
     //参照物循环增加事件
-    var num = 1;
-    var zh_;
-    $('#add_czw').click(function(){
-        let zh = num++;
-        zh_ = zh + 1;
-        let str = `
-<div id="`+zh_+`">
-          <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(this.id)>获取坐标</button></h4>
-                   <div class="form-group">
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">横坐标</label>
-                           <input type="text" name="title" id="x2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                       </div>
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">纵坐标</label>
-                           <input type="text" name="title" id="y2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                       </div>
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">角度</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                       </div>
-                   </div></div>
-        `
-        if(zh_ == 2){
-
-            $('.Mapczw').append(str)
-        }
-
-    })
-
-    $('#reduce_czw').click(function (){
-        $("#"+zh_).remove()
-        if(num == 1){
-        }else{
-            zh_ = num--;
-        }
-
-    })
+//     var num = 1;
+//     var zh_;
+//     $('#add_czw').click(function(){
+//         let zh = num++;
+//         zh_ = zh + 1;
+//         let str = `
+// <div id="`+zh_+`">
+//           <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(this.id)>获取坐标</button></h4>
+//                    <div class="form-group">
+//                        <div class="layui-input-inline">
+//                            <label class="layui-form-label">横坐标</label>
+//                            <input type="text" name="title" id="x2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+//                        </div>
+//                        <div class="layui-input-inline">
+//                            <label class="layui-form-label">纵坐标</label>
+//                            <input type="text" name="title" id="y2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+//                        </div>
+//                        <div class="layui-input-inline">
+//                            <label class="layui-form-label">距离</label>
+//                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+//                        </div>
+//                    </div>
+//                    <div class="form-group">
+//                        <div class="layui-input-inline">
+//                            <label class="layui-form-label">角度</label>
+//                            <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+//                        </div>
+//                    </div></div>
+//         `
+//         if(zh_ == 2){
+//
+//             $('.Mapczw').append(str)
+//         }
+//
+//     })
+//
+//     $('#reduce_czw').click(function (){
+//         $("#"+zh_).remove()
+//         if(num == 1){
+//         }else{
+//             zh_ = num--;
+//         }
+//
+//     })
 </script>
 <script>
     $(() => {
