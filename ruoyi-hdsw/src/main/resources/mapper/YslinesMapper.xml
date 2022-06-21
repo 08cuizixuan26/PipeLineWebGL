@@ -24,10 +24,10 @@
     <result column="delete_state" jdbcType="VARCHAR" property="deleteState" />
     <result column="update_state" jdbcType="VARCHAR" property="updateState" />
   </resultMap>
-  <sql id="Base_Column_List">
-    gid, objectid, fid_, entity, layer, color, linetype, elevation, linewt, refname, 
-    "length", shape_leng, near_fid, near_dist, pipeid, s_point, e_point, s_deep, e_deep, 
-    material, d_type, d_s, flowdirect, road, 权属, 长度, geom
+    <sql id="Base_Column_List">
+    gid, shape_leng, pipeid, s_point, e_point, s_deep, e_deep, material, d_type, d_s,
+    flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", geom, delete_state,
+    update_state
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -62,7 +62,7 @@
     #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, #{dS,jdbcType=VARCHAR},
     #{flowdirect,jdbcType=INTEGER}, #{sHeight,jdbcType=DOUBLE}, #{eHeight,jdbcType=DOUBLE},
     #{bTime,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
-    #{road,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{geom,jdbcType=OTHER}, #{deleteState,jdbcType=VARCHAR},
+    #{road,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR},  ST_GeomFromText(#{geom}, 4326), #{deleteState,jdbcType=VARCHAR},
     #{updateState,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Gxmodel">
@@ -185,7 +185,7 @@
         #{owner,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        #{geom,jdbcType=OTHER},
+          ST_GeomFromText(#{geom}, 4326),
       </if>
       <if test="deleteState != null">
         #{deleteState,jdbcType=VARCHAR},
@@ -250,7 +250,7 @@
         "owner" = #{owner,jdbcType=VARCHAR},
       </if>
       <if test="geom != null">
-        geom = #{geom,jdbcType=OTHER},
+        geom =  ST_GeomFromText(#{geom}, 4326),
       </if>
       <if test="deleteState != null">
         delete_state = #{deleteState,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
       "type" = #{type,jdbcType=VARCHAR},
       road = #{road,jdbcType=VARCHAR},
       "owner" = #{owner,jdbcType=VARCHAR},
-      geom = #{geom,jdbcType=OTHER},
+      geom =  ST_GeomFromText(#{geom}, 4326),
       delete_state = #{deleteState,jdbcType=VARCHAR},
       update_state = #{updateState,jdbcType=VARCHAR}
     where gid = #{gid,jdbcType=INTEGER}
