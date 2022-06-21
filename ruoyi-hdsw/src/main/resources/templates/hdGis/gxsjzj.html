@@ -150,7 +150,7 @@
                    <div class="Mapczw">
                        <div class="form-group">
                    <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>
-                       <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important">计算</button></h4>
+                       <button type="button" class="btn btn-success" style="height: 25px;padding: 0!important" onclick="computeCoordinate()" >计算</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">横坐标</label>
@@ -162,14 +162,14 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="dis1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                      </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">角度</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="brng1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    </div>
@@ -182,92 +182,96 @@
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管点编号</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="gdbh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">地面高程</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" id="dmgc1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">特征</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" id="tz1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">附属物</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" id="fsw1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井底埋深</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jdms1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井盖类型</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jglx1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井盖规格</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jggg1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井盖材质</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jgcz1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室材质</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jscz1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室类型</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jslx1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井脖深</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jbs1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室直径</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="jszj1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">权属单位</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="qsdw1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">建设日期</label>
-                           <input type="text" class="layui-input form-control" id="test1">
+                           <input type="text" class="layui-input form-control" id="jsrq1">
 <!--                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">偏心井点号</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="pxjdh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">旋转角度</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="xzjd1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">所在道路</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" id="szdl1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">坐标</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <label class="layui-form-label">标高</label>
+                           <input type="text" name="title" id="bg1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">标高</label>
-                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <label class="layui-form-label">X坐标</label>
+                           <input type="text" name="title" id="xcor1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
+                           <label class="layui-form-label">Y坐标</label>
+                           <input type="text" name="title" id="ycor1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="form-group form-btn">
@@ -947,7 +951,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">距离</label>
-                           <input type="text" name="title"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title"  id="dist2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
                    <div class="">
@@ -1032,8 +1036,8 @@
     function computeCoordinate() {
         if(num== 1){
             var lonLatObj = getLonAndLat($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#dis1").val())
-            $("#xcor").attr("value", lonLatObj.lon)
-            $("#ycor").attr("value", lonLatObj.lat)
+            $("#xcor1").attr("value", lonLatObj.lon)
+            $("#ycor1").attr("value", lonLatObj.lat)
 /*            var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
             var anchor = new ol.Feature({
                 geometry: new ol.geom.Point(new_lonlat)
@@ -1050,8 +1054,8 @@
             //var tt = getIntersection(110.1112,36.61,Math.PI/4,110.1129,36.62,Math.PI/4*3)
 
             var lonLatObj = getIntersection($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#x2").val(),$("#y2").val(),$("#brng2").val())
-            $("#xcor").attr("value", lonLatObj.lon)
-            $("#ycor").attr("value", lonLatObj.lat)
+            $("#xcor1").attr("value", lonLatObj.lon)
+            $("#ycor1").attr("value", lonLatObj.lat)
             var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
             var anchor = new ol.Feature({
                 geometry: new ol.geom.Point(new_lonlat)
