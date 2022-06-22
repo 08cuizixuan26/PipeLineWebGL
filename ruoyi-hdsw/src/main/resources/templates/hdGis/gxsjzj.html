@@ -282,6 +282,15 @@
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
+                           <label class="layui-form-label">业务类别</label>
+                           <select name="czjd_type" id="czjd_type" class="form-control" lay-verify="required">
+                               <option value="0">供水</option>
+                               <option value="1">污水</option>
+                               <option value="2">雨水</option>
+                               <option value="3">再生水</option>>
+                           </select>
+                       </div>
+                       <div class="layui-input-inline">
                            <label class="layui-form-label">X坐标</label>
                            <input type="text" name="title" id="xcor1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
@@ -291,7 +300,7 @@
                        </div>
                    </div>
                    <div class="form-group form-btn">
-                       <button type="button" class="btn btn-primary">确定</button>
+                       <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
                        <button type="button" class="btn btn-primary">取消</button>
                    </div>
                </form>
@@ -1197,33 +1206,51 @@
     //参考选点保存
     function save1() {
         var params = {
-            objname:"",
-            objcode:"",
-            bgcode:"",
-            street:"",
-            community:"",
-            geom:""
+            expNo:$('#gdbh1').val(),
+            feature:$('#tz1').val(),
+            subsid:$('#fsw1').val(),
+            elevation:$('#bg1').val(),
+            sureH:$('#dmgc1').val(),
+            botDepth:$('#jdms1').val(),
+            covType:$('#jglx1').val(),
+            covDn:$('#jggg1').val(),
+            covMeat:$('#jgcz1').val(),
+            wchaMeat:$('#jscz1').val(),
+            wchaType:$('#jslx1').val(),
+            foDeep:$('#jbs1').val(),
+            wchaDn:$('#jszj1').val(),
+            bTime:$('#jsrq1').val(),
+            offcNo:$('#pxjdh1').val(),
+            rotation:$('#xzjd1').val(),
+            x:$('#xcor1').val(),
+            y:$('#ycor1').val(),
+            owner:$('#qsdw1').val(),
+            road:$('#ssdl1').val(),
+            geom:"POINTZM("+$('#xcor1').val()+" " +$('#ycor1').val()+ " 0 0)",
+            deleteState:'0',
+            updateState:'0'
         };
         var url;
         var options=$("#czjd_type option:selected");
         if(options.text() == "供水"){
-            url="/hdsw/gsline/insert"
+            url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
-            url="/hdsw/ysline/insert"
+            url="/hdsw/yspoint/insert"
         }else if(options.text() == "污水"){
-            url="/hdsw/wsline/insert"
+            url="/hdsw/wspoint/insert"
         }else if(options.text() == "再生水"){
-            url="/hdsw/zssline/insert"
+            url="/hdsw/zsspoint/insert"
         }
-
         var json = JSON.stringify(params)
         $.ajax({
             url: url,
             type: "post",
-            data: {
-                paramJson: json,
-            },
+/*            data: {
+                record: json,
+            },*/
+            contentType: 'application/json',
             dataType: 'json',
+            data: JSON.stringify(params),
             success: function (data) {
 
             }
