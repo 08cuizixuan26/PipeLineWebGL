@@ -94,6 +94,15 @@ if (!LoadMap) var LoadMap = {
         let html = "<div style='border-bottom: 1px solid #03FFEA;height: 30px;line-height: 30px;margin: 0 10px 0 10px;' ><span><strong>属性</strong></span></div>" +
             "<table class='layui-table'><tbody><tr><td>属性名称</td><td>属性值</td></tr>";
         let keyChina = "";
+        if(LoadMap.getCoordinateFlag=="xqd"){
+            $("#qdbh3").attr("value", properties["exp_no"])
+            $("#qdxcor3").attr("value", properties["x"])
+            $("#qdycor3").attr("value", properties["y"])
+        }else if(LoadMap.getCoordinateFlag=="xzd"){
+            $("#zdbh3").attr("value", properties["exp_no"])
+            $("#zdxcor3").attr("value", properties["x"])
+            $("#zdycor3").attr("value", properties["y"])
+        }
 
         if (type == 0) {
             for (var key in properties) {
