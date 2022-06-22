@@ -25,5 +25,8 @@ public class PageTturnsController {
     public String  gxsjUpdate() {
         return "hdGis/gxsjUpdate";
     }
-
+    @RequestMapping("/gxsjDelete")
+    public String  gxsjDelete() {
+        return "hdGis/gxsjDelete";
+    }
 }
