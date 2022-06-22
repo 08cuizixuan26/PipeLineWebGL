@@ -198,7 +198,7 @@
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">业务类别</label>
-                           <select name="czjd_type" id="czjd_type" class="form-control" lay-verify="required">
+                           <select name="czjd_type1" id="czjd_type1" class="form-control" lay-verify="required">
                                <option value="0">供水</option>
                                <option value="1">污水</option>
                                <option value="2">雨水</option>
@@ -1283,7 +1283,7 @@
             updateState:'0'
         };
         var url;
-        var options=$("#czjd_type option:selected");
+        var options=$("#czjd_type1 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
@@ -1300,8 +1300,7 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
-                LoadMap.map.refresh();
-
+                LoadMap.getCoordinateFlag=undefined;
             }
         })
     }
@@ -1333,7 +1332,7 @@
             updateState:'0'
         };
         var url;
-        var options=$("#czjd_type option:selected");
+        var options=$("#czjd_type2 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
@@ -1350,8 +1349,7 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
-                LoadMap.map.refresh();
-
+                LoadMap.getCoordinateFlag=undefined;
             }
         })
     }
@@ -1360,8 +1358,8 @@
         var params = {
             shapeLeng:$('#cd3').val(),
             pipeid:$('#gxbh3').val(),
-            sPoint:$('#qddh3').val(),
-            ePoint:$('#zddh3').val(),
+            sPoint:$('#qdbh3').val(),
+            ePoint:$('#zdbh3').val(),
             sDeep:$('#qdmss3').val(),
             eDeep:$('#zdms3').val(),
             material:$('#cz3').val(),
@@ -1380,7 +1378,7 @@
             updateState:'0'
         };
         var url;
-        var options=$("#czjd_type option:selected");
+        var options=$("#czjd_type3 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gsline/insert"
         }else if(options.text() == "雨水"){
@@ -1397,8 +1395,7 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
-                LoadMap.map.refresh();
-
+                LoadMap.getCoordinateFlag=undefined;
             }
         })
     }
