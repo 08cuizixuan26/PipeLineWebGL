@@ -29,6 +29,12 @@
     flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", geom, delete_state,
     update_state
   </sql>
+  <select id="selectByGxbh" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from "yslines"
+    where pipeid = #{pipeid,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -283,6 +289,18 @@
       geom =  ST_GeomFromText(#{geom}, 4326),
       delete_state = #{deleteState,jdbcType=VARCHAR},
       update_state = #{updateState,jdbcType=VARCHAR}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateState">
+    update "yslines"
+    <set>
+      <if test="deleteState != null">
+        delete_state = #{deleteState,jdbcType=VARCHAR},
+      </if>
+      <if test="updateState != null">
+        update_state = #{updateState,jdbcType=VARCHAR},
+      </if>
+    </set>
     where gid = #{gid,jdbcType=INTEGER}
   </update>
 </mapper>

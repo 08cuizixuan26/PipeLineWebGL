@@ -7,4 +7,7 @@ public interface YslinesService {
     Object insert(Gxmodel record);
     Object update(Gxmodel record);
     Object delete(Integer[] ids);
+    Object selectByGxbh(String gxbh);
+    Object interruptLine(String gxbh,String gdbh);
+    Object updateState(Integer gid,String deleteState,String updateState);
 }

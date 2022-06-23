@@ -38,6 +38,12 @@
     from "yspoints"
     where gid = #{gid,jdbcType=INTEGER}
   </select>
+  <select id="selectByGdbh" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from "yspoints"
+    where exp_no = #{expNo,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from "yspoints"
     where gid = #{gid,jdbcType=INTEGER}
@@ -320,4 +326,17 @@
       #{gid}
     </foreach>
   </delete>
+  <!-- 修改删除或者更新状态 -->
+  <update id="updateState">
+    update "yspoints"
+    <set>
+      <if test="deleteState != null">
+        delete_state = #{deleteState,jdbcType=VARCHAR},
+      </if>
+      <if test="updateState != null">
+        update_state = #{updateState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
 </mapper>
