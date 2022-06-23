@@ -124,6 +124,33 @@
         .layui-input-inline{
             display: inline-block;
         }
+        .company {
+            position: relative;
+        }
+        .company .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
+        .company1 {
+            position: relative;
+        }
+        .company1 .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
+        .company2 {
+            position: relative;
+        }
+        .company2 .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
     </style>
 </head>
 <body>
@@ -205,9 +232,10 @@
                                 <label class="layui-form-label">线型</label>
                                 <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                             </div>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline company">
                                 <label class="layui-form-label">管径</label>
-                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                                <em class="em">mm</em>
                             </div>
                             <div class="layui-input-inline">
                                 <label class="layui-form-label">建设日期</label>
@@ -266,6 +294,7 @@
                         <span style="font-weight: bold">污水管线信息</span>
                         <button type="button" class="btn btn-primary" style="margin-left: 15px;height: 25px;padding: 0 10px"  onclick="getCoordinateFlag(this.id)">
                             地图上选定管线</button>
+                        <button style="color: gray;margin-left: 15px;padding: 0 10px;border-radius: 6px" disabled>已废弃</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -314,9 +343,10 @@
                             <label class="layui-form-label">线型</label>
                             <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline company1">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
@@ -425,9 +455,10 @@
                             <label class="layui-form-label">线型</label>
                             <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline company2">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
