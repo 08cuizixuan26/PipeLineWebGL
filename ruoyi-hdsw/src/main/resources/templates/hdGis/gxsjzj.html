@@ -649,7 +649,7 @@
                    <button class="btn btn-primary">查询</button>
                </p>
                <form class="layui-form" action="">
-                   <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">请点击地图中的管线获取信息</button></h4>
+                   <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" onclick="drawLine()">请点击地图中的管线获取信息</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管线编号</label>
@@ -1255,6 +1255,96 @@
         }
         return lonLatObj;
     }
+
+        /*
+    * 线段与线段的交点
+    * 解线性方程组, 求线段AB与线段CD的交点坐标，如果没有交点，返回null
+    */
+    function intersects(coordinate1, coordinate2,coordinate3,coordinate4) {
+        let x1 = coordinate1[0];
+        let y1 = coordinate1[1];
+        let x2 = coordinate2[0];
+        let y2 = coordinate2[1];
+        let x3 = coordinate3[0];
+        let y3 = coordinate3[1];
+        let x4 = coordinate4[0];
+        let y4 = coordinate4[1];
+        //斜率交叉相乘 k1 = (y4 - y3) / (x4 - x3)    k2 = (y2 - y1) / (x2 - x1)
+        //k1 k2 同乘 (x4 - x3) * (x2 - x1) 并相减得到denom
+        let denom = ((y4 - y3) * (x2 - x1)) - ((x4 - x3) * (y2 - y1));
+        // 如果分母为0 则平行或共线, 不相交
+        if (denom === 0) {
+            return null;
+        }
+
+        let numeA = ((x4 - x3) * (y1 - y3)) - ((y4 - y3) * (x1 - x3));
+        let numeB = ((x2 - x1) * (y1 - y3)) - ((y2 - y1) * (x1 - x3));
+        let uA = numeA / denom;
+        let uB = numeB / denom;
+
+        // 交点在线段1上，且交点也在线段2上
+        if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+            let x = x1 + (uA * (x2 - x1));
+            let y = y1 + (uA * (y2 - y1));
+            return ol.proj.transform([x, y], 'BD:09', 'EPSG:4326');
+        }
+        return null;
+    }
+
+    //画线
+    function drawLine() {
+        LoadMap.map.removeInteraction(LoadMap.draw);
+        LoadMap.map.removeLayer(LoadMap.drawLayer);
+        ol.Observable.unByKey(LoadMap.mapClick);
+        //创建draw图层加入地图
+        LoadMap.drawLayer = new ol.layer.Vector({
+            source: new ol.source.Vector(),
+        });
+        LoadMap.draw = new ol.interaction.Draw({
+            source: LoadMap.drawLayer.getSource(),
+            type: 'LineString'
+        });
+        LoadMap.map.addLayer(LoadMap.drawLayer);
+
+        //创建draw控件加入地图
+        LoadMap.map.addInteraction(LoadMap.draw);
+
+        LoadMap.draw.on("drawend", (e) => {
+            feature = [];
+            let geom = e.feature.getGeometry();
+            let sources = LoadMap.getLineSources();
+            //let result = LoadMap.getSelectFeatures(sources, geom.getExtent());
+            sources.forEach((source, i) => {
+                source.forEachFeatureInExtent(geom.getExtent(), function (features) {
+                    feature.push(features);
+                });
+            })
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
+            LoadMap.singleclick();
+            if(feature.length == 1){
+                var coordinate1 =[geom.extent_[0],geom.extent_[1]];
+                var coordinate2 =[geom.extent_[2],geom.extent_[3]];
+                var coordinate3 =[feature[0].values_.geometry.extent_[0],feature[0].values_.geometry.extent_[1]];
+                var coordinate4 =[feature[0].values_.geometry.extent_[2],feature[0].values_.geometry.extent_[3]];
+                var point = intersects(coordinate1,coordinate2,coordinate3,coordinate4);
+                var anchor = new ol.Feature({
+                    geometry: new ol.geom.Point(point)
+                });
+                var searchLayer = new ol.layer.Vector({
+                    id: "search",
+                    source:  new ol.source.Vector({
+                        features: [anchor]
+                    }),
+                    style: olMapStyle.wsc_Style
+                });
+                LoadMap.map.addLayer(searchLayer)
+            }else{
+
+            }
+        });
+
+    }
     //参考选点保存
     function save1() {
         var params = {
@@ -1301,6 +1391,7 @@
             data: JSON.stringify(params),
             success: function (data) {
                 LoadMap.getCoordinateFlag=undefined;
+                LoadMap.map.render();
             }
         })
     }
@@ -1350,6 +1441,7 @@
             data: JSON.stringify(params),
             success: function (data) {
                 LoadMap.getCoordinateFlag=undefined;
+                LoadMap.map.render();
             }
         })
     }
@@ -1396,6 +1488,7 @@
             data: JSON.stringify(params),
             success: function (data) {
                 LoadMap.getCoordinateFlag=undefined;
+                LoadMap.map.render();
             }
         })
     }
