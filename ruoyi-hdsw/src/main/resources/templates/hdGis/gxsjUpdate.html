@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>管线数据修改</title>
@@ -198,11 +198,11 @@
             <div class="sty" id="czjd">
 <!--                移动点信息-->
                 <div class="formTab">
-                    <select name="city" class="form-control" lay-verify="required">
+                    <select name="czjd_type"  class="form-control czjd_type" lay-verify="required">
                         <option value=""></option>
                         <option value="0">污水</option>
                         <option value="1">再生水</option>
-                        <option value="2">广州</option>
+                        <option value="2">雨水</option>
                         <option value="3">深圳</option>
                         <option value="4">杭州</option>
                     </select>
@@ -211,48 +211,48 @@
                 <form class="layui-form" action="">
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">原始点信息</span>
-                        <button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">获取坐标</button>
+                        <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管点编号</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="expNo" required id="expNo1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">井盖类型</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="covType" required id="covType1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">业务类型</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="type" required id="type1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">横坐标</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa" disabled>
+                            <input type="text" name="title" required id="x1" lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">纵坐标</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate" disabled>
+                            <input type="text" name="title" required id="y1" lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate">
                         </div>
                     </div>
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">目标点信息</span>
-                        <button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important">获取坐标</button>
+                        <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">横坐标</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa" disabled>
+                            <input type="text" name="x" required id="x2" lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">纵坐标</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate" disabled>
+                            <input type="text" name="y" required id="y2" lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate">
                         </div>
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save3()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -815,6 +815,40 @@
 
 </script>
 <script>
+    //获取坐标
+    function getCoordinateFlag(clicked_id) {
+        LoadMap.getCoordinateFlag = clicked_id;
+    }
+    function save3() {
+        var params = {
+            expNo:$('#expNo1').val(),
+            type:$('#type1').val(),
+            x:$('#x2').val(),
+            y:$('#y2').val(),
+            geom:"POINT ZM("+$('#x2').val()+" " +$('#y2').val()+ " 0 0)",
+        };
+        var url;
+        var options=$(".czjd_type option:selected");
+        if(options.text() == "供水"){
+            url="/hdsw/gspoint/update"
+        }else if(options.text() == "雨水"){
+            url="/hdsw/yspoint/update"
+        }else if(options.text() == "污水"){
+            url="/hdsw/wspoint/update"
+        }else if(options.text() == "再生水"){
+            url="/hdsw/zsspoint/update"
+        }
+        $.ajax({
+            url: url,
+            type: "post",
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(params),
+            success: function (data) {
+                LoadMap.getCoordinateFlag=undefined;
+            }
+        })
+    }
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
     })
