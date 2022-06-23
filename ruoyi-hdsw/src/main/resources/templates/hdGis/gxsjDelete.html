@@ -163,6 +163,7 @@
 
     <div class="content-tab">
         <ul class="tabNav">
+            <button class="tabNavbutton">我点点点</button>
             <li class="active_nav">管线删除</li>
             <li>管线废弃</li>
             <li>废弃管线恢复</li>
@@ -587,3 +588,31 @@
 
 
 </script>
+
+<!--<script>-->
+<!--$('.tabNavbutton').click(function () {-->
+<!--    search()-->
+<!--})-->
+<!--&lt;!&ndash;    管线数据废弃数据请求&ndash;&gt;-->
+<!--    // search()-->
+<!--    function search() {-->
+<!--        $.ajax({-->
+<!--            //url中的参数含义参见百度地图官网webAPI文档-->
+<!--            url: 'http://localhost:8085/hdsw/gxtype/delete',-->
+<!--            type: "GET",-->
+<!--            async: false,-->
+<!--            dataType: "jsonp",-->
+<!--            jsonp: "callback",-->
+<!--            jsonpCallback: "callback",-->
+<!--            contentType: "application/json;charset=utf-8",-->
+<!--            success: function (data) {-->
+<!--                console.log('成功成功成功')-->
+<!--                console.log(data)-->
+<!--            },-->
+<!--            error: function (data) {-->
+<!--                console.log('失败')-->
+<!--                console.log(data)-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
