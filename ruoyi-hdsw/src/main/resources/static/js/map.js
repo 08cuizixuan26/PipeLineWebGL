@@ -16,6 +16,11 @@ if (!LoadMap) var LoadMap = {
     getCoordinateFlag: undefined,
     //当前显示的地图页
     currentMapType:undefined,
+    //绘制的临时图层
+    drawLayer:null,
+    //绘制
+    draw:null,
+    mapClick:null,
     setLayerVisible: function (event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         var nodes = treeObj.getChangeCheckedNodes();
@@ -242,7 +247,7 @@ if (!LoadMap) var LoadMap = {
     },
 
     singleclick() {
-        LoadMap.map.on("singleclick", (e) => {
+        LoadMap.mapClick= LoadMap.map.on("singleclick", (e) => {
             if(LoadMap.currentMapType="管线更新"){
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if(LoadMap.getCoordinateFlag == 1){
@@ -409,7 +414,48 @@ if (!LoadMap) var LoadMap = {
         save_link.href = urlObject.createObjectURL(export_blob);
         save_link.download = name;
         LoadMap.fakeClick(save_link);
-    }
+    },
+
+    //获取线图层数据源
+    getLineSources : function (){
+        var vectorSources = [];
+        var layers = [];
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = treeObj.getCheckedNodes();
+        var layers= LoadMap.map.getLayers();
+        var layerArray = [];
+        nodes.forEach(function(node){
+            var checkId=node.id;
+            if(checkId == 'gsgx' || checkId == 'wsgx' || checkId == 'ysgx' || checkId == 'zssgx'){
+                var checked=node.checked;
+                node.checkedOld=node.checked;
+                layers.forEach(function(layer){
+                    if(layer.get("id")==checkId){
+                        if(checked==true && layer instanceof ol.layer.Vector){
+                            layerArray.push(layer.get("id"));
+                            vectorSources.push(layer.values_.source);
+                        }
+                    }
+                })
+            }
+        });
+        return vectorSources;
+    },
+
+    //根据范围和数据源获取
+    getSelectFeatures(vectorSources,extent){
+        var features;
+        var selectedFeatures = [];
+        vectorSources.forEach(function(vectorSource){
+            if(extent == null)
+                features = vectorSource.getFeatures();
+            else
+                features = vectorSource.getFeaturesInExtent(extent)
+            if(features != null && features.length !=0)
+                selectedFeatures.push(features)
+        });
+        return selectedFeatures;
+    },
 }
 
 //初始化地图
