@@ -30,4 +30,14 @@ public class YspointsServiceImpl implements YspointsService {
     public Object delete(Integer[] ids) {
         return yspointsMapper.batchDelete(Arrays.asList(ids));
     }
+
+    @Override
+    public Object selectByGdbh(String gdbh) {
+        return yspointsMapper.selectByGdbh(gdbh);
+    }
+
+    @Override
+    public Object updateState(Integer gid,String deleteState, String updateState) {
+        return yspointsMapper.updateState(gid,deleteState,updateState);
+    }
 }
