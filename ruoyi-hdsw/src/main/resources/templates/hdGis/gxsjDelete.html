@@ -34,12 +34,6 @@
             border: 1px solid #03FFEA;
         }
 
-        .cd {
-            font-size: 14px !important;
-            font-family: MicrosoftYaHei;
-            color: #03FFEA !important;
-        }
-
         .content-tab{
             position: absolute;
             z-index: 9999;
@@ -127,15 +121,35 @@
         .layerTreeDiv {
             right: 3%!important;
         }
-        .btn-mini{
-            line-height: 25px;
-            padding: 0!important;
-        }
-        .hzzb{
-            display: none;
-        }
         .layui-input-inline{
             display: inline-block;
+        }
+        .company {
+            position: relative;
+        }
+        .company .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
+        .company1 {
+            position: relative;
+        }
+        .company1 .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
+        .company2 {
+            position: relative;
+        }
+        .company2 .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
         }
     </style>
 </head>
@@ -166,10 +180,10 @@
                     <button class="btn btn-primary" id="search_btn" onclick="search()">查询</button>
                 </p>
                 <form class="layui-form" action="">
-                        <div class="form-group">
-                            <h4>污水管线信息:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">
+                        <div class="form-group"style="display: flex;align-items: center">
+                            <span style="font-weight: bold">污水管线信息</span>
+                            <button type="button" class="btn btn-primary" style="margin-left: 15px;height: 25px;padding: 0 10px"  onclick="getCoordinateFlag(this.id)">
                                 地图上选定管线</button>
-                                </h4>
                         </div>
                         <div class="form-group">
                             <div class="layui-input-inline">
@@ -218,9 +232,10 @@
                                 <label class="layui-form-label">线型</label>
                                 <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                             </div>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-inline company">
                                 <label class="layui-form-label">管径</label>
-                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                                <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                                <em class="em">mm</em>
                             </div>
                             <div class="layui-input-inline">
                                 <label class="layui-form-label">建设日期</label>
@@ -257,7 +272,7 @@
                         </div>
 
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save1()">删除管线</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -275,10 +290,11 @@
                     <button class="btn btn-primary"  onclick="search()">查询</button>
                 </p>
                 <form class="layui-form" action="">
-                    <div class="form-group">
-                        <h4>污水管线信息:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important"  onclick="getCoordinateFlag(this.id)">
+                    <div class="form-group" style="display: flex;align-items: center">
+                        <span style="font-weight: bold">污水管线信息</span>
+                        <button type="button" class="btn btn-primary" style="margin-left: 15px;height: 25px;padding: 0 10px"  onclick="getCoordinateFlag(this.id)">
                             地图上选定管线</button>
-                        </h4>
+                        <button style="color: gray;margin-left: 15px;padding: 0 10px;border-radius: 6px" disabled>已废弃</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -327,9 +343,10 @@
                             <label class="layui-form-label">线型</label>
                             <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline company1">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
@@ -368,7 +385,7 @@
 
 
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save1()">废弃管线</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -386,10 +403,10 @@
                     <button class="btn btn-primary"  onclick="search()">查询</button>
                 </p>
                 <form class="layui-form" action="">
-                    <div class="form-group">
-                        <h4>污水管线信息:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important"  onclick="getCoordinateFlag(this.id)">
+                    <div class="form-group"style="display: flex;align-items: center">
+                        <span style="font-weight: bold">污水管线信息</span>
+                        <button type="button" class="btn btn-primary" style="margin-left: 15px;height: 25px;padding: 0 10px"  onclick="getCoordinateFlag(this.id)">
                             地图上选定管线</button>
-                        </h4>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -438,9 +455,10 @@
                             <label class="layui-form-label">线型</label>
                             <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline company2">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
@@ -479,7 +497,7 @@
 
 
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save1()">恢复管线</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
