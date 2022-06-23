@@ -33,12 +33,6 @@
             border-radius: 5px;
             border: 1px solid #03FFEA;
         }
-
-        .cd {
-            font-size: 14px !important;
-            font-family: MicrosoftYaHei;
-            color: #03FFEA !important;
-        }
         .content-tab{
             position: absolute;
             z-index: 9999;
@@ -78,10 +72,6 @@
             margin: 10px 0 0 0;
             overflow: auto;
         }
-        .sear_sty{
-            width: 100%;
-            text-align: center;
-        }
         .form-control{
             width: 150px!important;
             display: inline-block;
@@ -117,13 +107,6 @@
         .layerTreeDiv {
             right: 3%!important;
         }
-        .btn-mini{
-            line-height: 25px;
-            padding: 0!important;
-        }
-        .hzzb{
-            display: none;
-        }
         .formTab {
             display: flex;
             justify-content: center;
@@ -158,14 +141,16 @@
         /*    纵坐标*/
             background: #f0f0f0;
         }
-        .ywlb {
-            display: flex;
-            justify-content: left;
-        }
         /*管水管线下拉框效果*/
         .dropDownChangePage {
             display: flex;
             justify-content: center;
+        }
+        .dropDownChangePage .dropDownChangePageinput {
+            margin-left: 15px;
+        }
+        .dropDownChangePage1 .dropDownChangePageinput1 {
+            margin-left: 15px;
         }
         .dropDownChangePage1 {
             display: flex;
@@ -192,9 +177,6 @@
         }
         #gdgxChangePage1 option {
             color: #555;
-        }
-        #jxjd .form-control {
-            margin-left: 20px;
         }
     </style>
 </head>
@@ -288,7 +270,7 @@
                         <option value="7">再生水管点</option>
                         <option value="8">再生水管线</option>
                     </select>
-                    <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control dropDownChangePageinput">
                 </div>
                 <div id="jxf">
                     <div class="ysdmessage">
@@ -396,7 +378,7 @@
                 </div>
                 <div id="ymsrf" style="display: none">
                     <div class="ysdmessage">
-                        <span class="ysdmessage_point">管线参数属性</span>
+                        <span class="ysdmessage_point">管线属性</span>
                         <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管线</button>
                     </div>
                     <div class="form-group">
@@ -499,25 +481,24 @@
                     </div>
                 </div>
             </div>
-
             <div class="sty" style="display: none" id="modifyParameters">
-                <!--                修改属性信息-->
+<!--                修改参数信息-->
                 <div class="dropDownChangePage1">
                     <select name="" id="gdgxChangePage1">
-                        <option value="1">给水1管点</option>
-                        <option value="2">给水1管线</option>
-                        <option value="3">污水1管点</option>
-                        <option value="4">污水1管线</option>
+                        <option value="1">再生水管点</option>
+                        <option value="2">再生水管线</option>
+                        <option value="3">给水管点</option>
+                        <option value="4">给水管线</option>
                         <option value="5">雨水管点</option>
                         <option value="6">雨水管线</option>
-                        <option value="7">再生水管点</option>
-                        <option value="8">再生水管线</option>
+                        <option value="7">污水管点</option>
+                        <option value="8">污水管线</option>
                     </select>
-                    <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control dropDownChangePageinput1">
                 </div>
                 <div id="line">
                     <div class="ysdmessage">
-                        <span class="ysdmessage_point">管点属性</span>
+                        <span class="ysdmessage_point">管点参数</span>
                         <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管点</button>
                     </div>
                     <div class="form-group">
@@ -621,7 +602,7 @@
                 </div>
                 <div id="point" style="display: none">
                     <div class="ysdmessage">
-                        <span class="ysdmessage_point">管线参数属性</span>
+                        <span class="ysdmessage_point">管线参数</span>
                         <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管线</button>
                     </div>
                     <div class="form-group">
@@ -736,8 +717,7 @@
 </body>
 
 <script>
-
-    //给水管点和管线页面切换
+    //修改属性的给水管点和管线页面切换
     $('#gdgxChangePage').change(function () {
         if($(this).val() == 1) {
             $('#jxf').show();
@@ -766,8 +746,7 @@
         }
     })
 
-    //
-    //给水管点和管线页面切换
+    //修改参数的给水管点和管线页面切换
     $('#gdgxChangePage1').change(function () {
         if($(this).val() == 1) {
             $('#line').show();
@@ -807,7 +786,7 @@
         $('#zdzb').toggle();
     })
     $('.tabNav li').click(function(){
-        var ee = getLonAndLat($("#x1").val(),$("#y1").val(),180,1000);
+        // var ee = getLonAndLat($("#x1").val(),$("#y1").val(),180,1000);
         $(this).addClass('active_nav').siblings().removeClass('active_nav');
         if($(this).index() == 0){
             $('#czjd').toggle();
@@ -816,29 +795,13 @@
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
         }else if($(this).index() == 2){
-            $('#jxjx').toggle();
-            $('#jxjx').siblings().hide();
-        }else if($(this).index() == 3){
-            $('#crd').toggle();
-            $('#crd').siblings().hide();
-        }else if($(this).index() == 4){
-            $('#ljd').toggle();
-            $('#ljd').siblings().hide();
+            $('#modifyParameters').toggle();
+            $('#modifyParameters').siblings().hide();
         }
     })
 
 
-    // //解析加点单选事件
-    // $('input[name="exampleRadios"]').click(function(){
-    //     if($(this).val() == 1){
-    //         $('#jxf').show();
-    //         $('#ymsrf').hide();
-    //     }else{
-    //         $('#ymsrf').show();
-    //         $('#jxf').hide();
-    //     }
-    // })
-    //
+
     // //解析加线单选事件
     // $('input[name="jxjx"]').click(function(){
     //     if($(this).val() == 1){
