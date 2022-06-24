@@ -2,7 +2,7 @@ package com.ruoyi.hdsw.model;
 
 public class Gxcontrol {
     private Integer gid;
-    private Integer width;
+    private Double width;
     private String color;
     private String visibility;
     private String iocn;
@@ -15,11 +15,11 @@ public class Gxcontrol {
         this.gid = gid;
     }
 
-    public Integer getWidth() {
+    public Double getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(Double width) {
         this.width = width;
     }
 

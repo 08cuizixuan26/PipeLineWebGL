@@ -3,14 +3,13 @@
 <mapper namespace="com.ruoyi.hdsw.mapper.GxcontrolMapper">
   <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gxcontrol">
     <id column="gid" jdbcType="INTEGER" property="gid" />
-    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="width" jdbcType="DOUBLE" property="width" />
     <result column="color" jdbcType="VARCHAR" property="color" />
     <result column="visibility" jdbcType="VARCHAR" property="visibility" />
     <result column="iocn" jdbcType="VARCHAR" property="iocn" />
   </resultMap>
   <select id="select" parameterType="java.lang.String" resultType="com.ruoyi.hdsw.model.Gxcontrol">
-    select *
-    from "gxcontrol"
+    select * from "gxcontrol"
   </select>
   <delete id="delete" parameterType="java.lang.String">
     delete from "gxcontrol"
@@ -20,7 +19,7 @@
     insert into "gxcontrol"
     (gid,width,color,visibility,iocn)
     values (#{gid,jdbcType=INTEGER},
-      #{width,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR},
+      #{width,jdbcType=DOUBLE}, #{color,jdbcType=VARCHAR},
       #{visibility,jdbcType=VARCHAR},#{iocn,jdbcType=VARCHAR})
   </insert>
   <update id="update" parameterType="com.ruoyi.hdsw.model.Gxcontrol">
@@ -28,7 +27,7 @@
     <set>
 
       <if test="width != null">
-        width = #{width,jdbcType=INTEGER},
+        width = #{width,jdbcType=DOUBLE},
       </if>
       <if test="color != null and name!=''">
         name = #{color,jdbcType=VARCHAR},
