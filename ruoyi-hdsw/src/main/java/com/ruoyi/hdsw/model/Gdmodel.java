@@ -52,15 +52,11 @@ public class Gdmodel implements Serializable {
 
     private Object geom;
 
-    /**
-     * 0-正常，1-删除，2-废弃
-     */
-    private String deleteState;
+    private Object delState;
 
-    /**
-     * 0-已更新，1-未更新
-     */
-    private String updateState;
+    private Object updState;
+
+    private Object type;
 
     private static final long serialVersionUID = 1L;
 
@@ -240,21 +236,30 @@ public class Gdmodel implements Serializable {
         this.geom = geom;
     }
 
-    public String getDeleteState() {
-        return deleteState;
+    public Object getDelState() {
+        return delState;
     }
 
-    public void setDeleteState(String deleteState) {
-        this.deleteState = deleteState;
+    public void setDelState(Object delState) {
+        this.delState = delState;
     }
 
-    public String getUpdateState() {
-        return updateState;
+    public Object getUpdState() {
+        return updState;
     }
 
-    public void setUpdateState(String updateState) {
-        this.updateState = updateState;
+    public void setUpdState(Object updState) {
+        this.updState = updState;
     }
+
+    public Object getType() {
+        return type;
+    }
+
+    public void setType(Object type) {
+        this.type = type;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -281,8 +286,9 @@ public class Gdmodel implements Serializable {
         result = prime * result + ((getOwner() == null) ? 0 : getOwner().hashCode());
         result = prime * result + ((getRoad() == null) ? 0 : getRoad().hashCode());
         result = prime * result + ((getGeom() == null) ? 0 : getGeom().hashCode());
-        result = prime * result + ((getDeleteState() == null) ? 0 : getDeleteState().hashCode());
-        result = prime * result + ((getUpdateState() == null) ? 0 : getUpdateState().hashCode());
+        result = prime * result + ((getDelState() == null) ? 0 : getDelState().hashCode());
+        result = prime * result + ((getUpdState() == null) ? 0 : getUpdState().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -314,8 +320,9 @@ public class Gdmodel implements Serializable {
         sb.append(", owner=").append(owner);
         sb.append(", road=").append(road);
         sb.append(", geom=").append(geom);
-        sb.append(", deleteState=").append(deleteState);
-        sb.append(", updateState=").append(updateState);
+        sb.append(", delState=").append(delState);
+        sb.append(", updState=").append(updState);
+        sb.append(", type=").append(type);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface YslinesMapper extends MyBatisBaseMapper<com.ruoyi.hdsw.model.Gxmodel, Integer> {
     Gxmodel selectByGxbh(String dxbh);
-    Integer updateState(@Param("gid") Integer gid,@Param("deleteState") String deleteState, @Param("updateState") String updateState);
+    Integer updateState(@Param("gid") Integer gid,@Param("delState") String delState, @Param("updState") String updState);
 }

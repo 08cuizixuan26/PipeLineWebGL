@@ -21,13 +21,14 @@
     <result column="road" jdbcType="VARCHAR" property="road" />
     <result column="owner" jdbcType="VARCHAR" property="owner" />
     <result column="geom" jdbcType="OTHER" property="geom" />
-    <result column="delete_state" jdbcType="VARCHAR" property="deleteState" />
-    <result column="update_state" jdbcType="VARCHAR" property="updateState" />
+    <result column="del_state" jdbcType="VARCHAR" property="delState" />
+    <result column="upd_state" jdbcType="VARCHAR" property="updState" />
+    <result column="style" jdbcType="VARCHAR" property="style" />
   </resultMap>
     <sql id="Base_Column_List">
     gid, shape_leng, pipeid, s_point, e_point, s_deep, e_deep, material, d_type, d_s,
-    flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", geom, delete_state,
-    update_state
+    flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", geom, del_state,
+    upd_state,style
   </sql>
   <select id="selectByGxbh" parameterType="String" resultMap="BaseResultMap">
     select
@@ -54,26 +55,26 @@
   </delete>
   <insert id="insert" parameterType="com.ruoyi.hdsw.model.Gxmodel">
     <selectKey keyProperty="gid" order="AFTER" resultType="java.lang.Integer">
-      PostgreSQL
+      SELECT nextval('yslines_gid_seq')
     </selectKey>
     insert into "yslines" (shape_leng, pipeid, s_point,
     e_point, s_deep, e_deep,
     material, d_type, d_s,
     flowdirect, s_height, e_height,
     b_time, "state", "type",
-    road, "owner", geom, delete_state,
-    update_state)
+    road, "owner", geom, del_state,
+    upd_state,style)
     values (#{shapeLeng,jdbcType=NUMERIC}, #{pipeid,jdbcType=VARCHAR}, #{sPoint,jdbcType=VARCHAR},
     #{ePoint,jdbcType=VARCHAR}, #{sDeep,jdbcType=NUMERIC}, #{eDeep,jdbcType=NUMERIC},
     #{material,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, #{dS,jdbcType=VARCHAR},
     #{flowdirect,jdbcType=INTEGER}, #{sHeight,jdbcType=DOUBLE}, #{eHeight,jdbcType=DOUBLE},
     #{bTime,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
-    #{road,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR},  ST_GeomFromText(#{geom}, 4326), #{deleteState,jdbcType=VARCHAR},
-    #{updateState,jdbcType=VARCHAR})
+    #{road,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR},  ST_GeomFromText(#{geom}, 4326), #{delState,jdbcType=VARCHAR},
+    #{updState,jdbcType=VARCHAR},#{style,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ruoyi.hdsw.model.Gxmodel">
     <selectKey keyProperty="gid" order="AFTER" resultType="java.lang.Integer">
-      PostgreSQL
+      SELECT nextval('yslines_gid_seq')
     </selectKey>
     insert into "yslines"
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -131,11 +132,14 @@
       <if test="geom != null">
         geom,
       </if>
-      <if test="deleteState != null">
-        delete_state,
+      <if test="delState != null">
+        del_state,
       </if>
-      <if test="updateState != null">
-        update_state,
+      <if test="updState != null">
+        upd_state,
+      </if>
+      <if test="style != null">
+        style,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -193,11 +197,14 @@
       <if test="geom != null">
           ST_GeomFromText(#{geom}, 4326),
       </if>
-      <if test="deleteState != null">
-        #{deleteState,jdbcType=VARCHAR},
+      <if test="delState != null">
+        #{delState,jdbcType=VARCHAR},
       </if>
-      <if test="updateState != null">
-        #{updateState,jdbcType=VARCHAR},
+      <if test="updState != null">
+        #{updState,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null">
+        #{style,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -258,11 +265,14 @@
       <if test="geom != null">
         geom =  ST_GeomFromText(#{geom}, 4326),
       </if>
-      <if test="deleteState != null">
-        delete_state = #{deleteState,jdbcType=VARCHAR},
+      <if test="delState != null">
+        del_state = #{delState,jdbcType=VARCHAR},
       </if>
-      <if test="updateState != null">
-        update_state = #{updateState,jdbcType=VARCHAR},
+      <if test="updState != null">
+        upd_state = #{updState,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null">
+        style = #{style,jdbcType=VARCHAR},
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}
@@ -287,18 +297,19 @@
       road = #{road,jdbcType=VARCHAR},
       "owner" = #{owner,jdbcType=VARCHAR},
       geom =  ST_GeomFromText(#{geom}, 4326),
-      delete_state = #{deleteState,jdbcType=VARCHAR},
-      update_state = #{updateState,jdbcType=VARCHAR}
+      del_state = #{delState,jdbcType=VARCHAR},
+      upd_state = #{updState,jdbcType=VARCHAR},
+      style = #{style,jdbcType=VARCHAR}
     where gid = #{gid,jdbcType=INTEGER}
   </update>
   <update id="updateState">
     update "yslines"
     <set>
-      <if test="deleteState != null">
-        delete_state = #{deleteState,jdbcType=VARCHAR},
+      <if test="delState != null">
+        del_state = #{delState,jdbcType=VARCHAR},
       </if>
-      <if test="updateState != null">
-        update_state = #{updateState,jdbcType=VARCHAR},
+      <if test="updState != null">
+        upd_state = #{updState,jdbcType=VARCHAR},
       </if>
     </set>
     where gid = #{gid,jdbcType=INTEGER}

@@ -2,6 +2,7 @@ package com.ruoyi.hdsw.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.hdsw.mapper.WslinesMapper;
+import com.ruoyi.hdsw.model.Gxmodel;
 import com.ruoyi.hdsw.model.Wslines;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class WslinesController {
      **/
     @PostMapping("/insert")
     @ResponseBody
-    public AjaxResult insert(@RequestBody Wslines record) {
+    public AjaxResult insert(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(wslinesMapper.insert(record));
         } catch (Exception e) {
@@ -32,7 +33,7 @@ public class WslinesController {
      **/
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(@RequestBody Wslines record) {
+    public AjaxResult update(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(wslinesMapper.updateByPrimaryKeySelective(record));
         } catch (Exception e) {

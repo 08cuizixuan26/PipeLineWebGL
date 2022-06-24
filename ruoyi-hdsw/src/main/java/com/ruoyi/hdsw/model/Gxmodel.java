@@ -46,15 +46,17 @@ public class Gxmodel implements Serializable {
 
     private Object geom;
 
+    private String style;
+
     /**
      * 0-正常，1-删除，2-废弃
      */
-    private String deleteState;
+    private String delState;
 
     /**
      * 0-已更新，1-未更新
      */
-    private String updateState;
+    private String updState;
 
     private static final long serialVersionUID = 1L;
 
@@ -210,20 +212,28 @@ public class Gxmodel implements Serializable {
         this.geom = geom;
     }
 
-    public String getDeleteState() {
-        return deleteState;
+    public String getStyle() {
+        return style;
     }
 
-    public void setDeleteState(String deleteState) {
-        this.deleteState = deleteState;
+    public void setStyle(String style) {
+        this.style = style;
     }
 
-    public String getUpdateState() {
-        return updateState;
+    public String getDelState() {
+        return delState;
     }
 
-    public void setUpdateState(String updateState) {
-        this.updateState = updateState;
+    public void setDelState(String delState) {
+        this.delState = delState;
+    }
+
+    public String getUpdState() {
+        return updState;
+    }
+
+    public void setUpdState(String updState) {
+        this.updState = updState;
     }
 
     @Override
@@ -249,8 +259,9 @@ public class Gxmodel implements Serializable {
         result = prime * result + ((getRoad() == null) ? 0 : getRoad().hashCode());
         result = prime * result + ((getOwner() == null) ? 0 : getOwner().hashCode());
         result = prime * result + ((getGeom() == null) ? 0 : getGeom().hashCode());
-        result = prime * result + ((getDeleteState() == null) ? 0 : getDeleteState().hashCode());
-        result = prime * result + ((getUpdateState() == null) ? 0 : getUpdateState().hashCode());
+        result = prime * result + ((getDelState()== null) ? 0 : getDelState().hashCode());
+        result = prime * result + ((getUpdState() == null) ? 0 : getUpdState().hashCode());
+        result = prime * result + ((getStyle() == null) ? 0 : getStyle().hashCode());
         return result;
     }
 
@@ -279,8 +290,9 @@ public class Gxmodel implements Serializable {
         sb.append(", road=").append(road);
         sb.append(", owner=").append(owner);
         sb.append(", geom=").append(geom);
-        sb.append(", deleteState=").append(deleteState);
-        sb.append(", updateState=").append(updateState);
+        sb.append(", delState=").append(delState);
+        sb.append(", updState=").append(updState);
+        sb.append(", style=").append(style);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

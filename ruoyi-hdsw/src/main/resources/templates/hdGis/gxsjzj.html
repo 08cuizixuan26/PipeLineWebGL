@@ -1336,15 +1336,17 @@
                 var coordinate4 =[feature[0].values_.geometry.extent_[2],feature[0].values_.geometry.extent_[3]];
                 var point = intersects(coordinate1,coordinate2,coordinate3,coordinate4);
                 var lonlat = ol.proj.transform([point[0],point[1]], 'BD:09', 'EPSG:4326')
-
+                var lonlat1 = ol.proj.transform([point[0],point[1]-0.007422], 'BD:09', 'EPSG:4326')
                 $("#gxbh4").attr("value", feature[0].values_.pipeid)
                 $("#qdbh4").attr("value", feature[0].values_.s_point)
                 $("#zdbh4").attr("value", feature[0].values_.e_point)
                 $("#szdl4").attr("value", feature[0].values_.road)
                 $("#qsdw4").attr("value", feature[0].values_.owner)
                 $("#ywlb4").attr("value", feature[0].values_.type)
-                $("#xcor4").attr("value", lonlat[0])
-                $("#ycor4").attr("value", lonlat[1])
+                var x = parseFloat(lonlat[0]) +0.012653;
+                var y = parseFloat(lonlat[1]) +0.007422;
+                $("#xcor4").attr("value", x)
+                $("#ycor4").attr("value", y)
 
                 var anchor = new ol.Feature({
                     geometry: new ol.geom.Point(point)
@@ -1386,9 +1388,9 @@
             y:$('#ycor1').val(),
             owner:$('#qsdw1').val(),
             road:$('#ssdl1').val(),
-            geom:"POINTZM("+$('#xcor1').val()+" " +$('#ycor1').val()+ " 0 0)",
-            deleteState:'0',
-            updateState:'0'
+            geom:"POINTZM("+$('#xcor1').val()+" " +$('#ycor1').val()+ " 0  -1.79769e+308)",
+            delState:'0',
+            updState:'0'
         };
         var url;
         var options=$("#czjd_type1 option:selected");
@@ -1437,8 +1439,8 @@
             owner:$('#qsdw2').val(),
             road:$('#ssdl2').val(),
             geom:"POINTZM("+$('#xcor2').val()+" " +$('#ycor2').val()+ " 0 0)",
-            deleteState:'0',
-            updateState:'0'
+            delState:'0',
+            updState:'0'
         };
         var url;
         var options=$("#czjd_type2 option:selected");
@@ -1484,8 +1486,8 @@
             road:$('#szdl3').val(),
             owner:$('#qsdwbh3').val(),
             geom:"MULTILINESTRING ZM(("+$('#qdxcor3').val()+" " +$('#qdycor3').val()+ " 0 0,"+$('#zdxcor3').val()+" " +$('#zdycor3').val()+ " 0 0"+"))",
-            deleteState:'0',
-            updateState:'0'
+            delState:'0',
+            updState:'0'
         };
         var url;
         var options=$("#czjd_type3 option:selected");
@@ -1512,6 +1514,9 @@
     }
     //插入点保存
     function save4() {
+       // var new_lonlat = ol.proj.transform([$('#xcor4').val(),$('#ycor4').val()], 'EPSG:4326', 'BD:09')
+        var x = parseFloat($('#xcor4').val()) +0.012653;
+        var y = parseFloat($('#ycor4').val()) +0.012653;
         var params = {
             expNo:$('#gdbh4').val(),
             feature:$('#tz4').val(),
@@ -1533,23 +1538,23 @@
             y:$('#ycor4').val(),
             owner:$('#qsdw4').val(),
             road:$('#ssdl4').val(),
-            geom:"POINTZM("+$('#xcor4').val()+" " +$('#ycor4').val()+ " 0 0)",
-            deleteState:'0',
-            updateState:'0'
+            geom:"POINTZM("+$('#xcor4').val()+" " +$('#ycor4').val()+ " 0 -1.79769e+308)",
+            delState:'0',
+            updState:'0'
         };
         var url;
         var url1;
         var options=$('#ywlb4').val();
-        if(options.text() == "供水"){
+        if(options == "供水"){
             url="/hdsw/gspoint/insert"
             url1="/hdsw/gsline/update"
-        }else if(options.text() == "雨水"){
+        }else if(options == "雨水"){
             url="/hdsw/yspoint/insert"
-            url1="/hdsw/ysline/update"
-        }else if(options.text() == "污水"){
+            url1="/hdsw/ysline/interruptLine"
+        }else if(options == "污水"){
             url="/hdsw/wspoint/insert"
             url1="/hdsw/wsline/update"
-        }else if(options.text() == "再生水"){
+        }else if(options == "再生水"){
             url="/hdsw/zsspoint/insert"
             url1="/hdsw/zssline/update"
         }
@@ -1559,8 +1564,33 @@
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(params),
-            success: function (data) {
-                LoadMap.map.render();
+            success: function (res) {
+                if(res.code==0){
+                    Debugger:
+                    $.ajax({
+                        url: url1,
+                        type: "post",
+                        dataType: 'json',
+                        data: {
+                            gxbh:$('#gxbh4').val().toString(),
+                            gdbh:$('#gdbh4').val().toString()
+                        },
+                        success: function (res) {
+                            if(res.code==0){
+                                layui.use('layer', () => {
+                                    let layer = layui.layer;
+                                    layer.msg("添加成功")
+                                })
+                            }else{
+                                layui.use('layer', () => {
+                                    let layer = layui.layer;
+                                    layer.msg("添加失败")
+                                })
+                            }
+                        }
+                    })
+                    LoadMap.map.render();
+                }
             }
         })
     }
