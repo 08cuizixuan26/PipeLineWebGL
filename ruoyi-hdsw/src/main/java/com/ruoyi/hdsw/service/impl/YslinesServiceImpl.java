@@ -46,29 +46,27 @@ public class YslinesServiceImpl implements YslinesService {
         Gdmodel zjd = yspointsMapper.selectByGdbh(gdbh);
         Gdmodel qd = yspointsMapper.selectByGdbh(gxmodel1.getsPoint());
         Gdmodel zd = yspointsMapper.selectByGdbh(gxmodel1.getePoint());
-        try {
-            //删除原有线段,添加新的两条线段
-            gxmodel1.setUpdateState("1");
-            yslinesMapper.updateState(gxmodel1.getGid(),"1",null);
 
-            gxmodel1.setUpdateState("0");
-            String geom1="MULTILINESTRING ZM(("+qd.getX()+" "+qd.getY()+" 0 0,"+zjd.getX()+" "+zjd.getY()+ " 0 0"+"))";
-            gxmodel1.setsPoint(qd.getExpNo());
-            gxmodel1.setePoint(zjd.getExpNo());
-            yslinesMapper.insert(gxmodel1);
+        //删除原有线段
+        yslinesMapper.updateState(gxmodel1.getGid(),"1",null);
+        //添加新的两条线段
+        String geom1="MULTILINESTRING ZM(("+qd.getX()+" "+qd.getY()+" 0 0,"+zjd.getX()+" "+zjd.getY()+ " 0 0"+"))";
+        gxmodel1.setsPoint(qd.getExpNo());
+        gxmodel1.setePoint(zjd.getExpNo());
+        gxmodel1.setGeom(geom1);
+        yslinesMapper.insertSelective(gxmodel1);
 
-            String geom2="MULTILINESTRING ZM(("+zjd.getX()+" "+zjd.getY()+" 0 0,"+zd.getX()+" "+zd.getY()+ " 0 0"+"))";
-            gxmodel1.setsPoint(zjd.getExpNo());
-            gxmodel1.setePoint(zd.getExpNo());
-            yslinesMapper.insert(gxmodel1);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        String geom2="MULTILINESTRING ZM(("+zjd.getX()+" "+zjd.getY()+" 0 0,"+zd.getX()+" "+zd.getY()+ " 0 0"+"))";
+        gxmodel1.setsPoint(zjd.getExpNo());
+        gxmodel1.setePoint(zd.getExpNo());
+        gxmodel1.setGeom(geom2);
+        yslinesMapper.insertSelective(gxmodel1);
+        return true;
+
     }
 
     @Override
-    public Object updateState(Integer gid,String deleteState, String updateState) {
-        return yslinesMapper.updateState(gid,deleteState,updateState);
+    public Object updateState(Integer gid,String delState, String updState) {
+        return yslinesMapper.updateState(gid,delState,updState);
     }
 }

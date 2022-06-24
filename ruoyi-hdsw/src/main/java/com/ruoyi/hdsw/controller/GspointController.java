@@ -1,6 +1,7 @@
 package com.ruoyi.hdsw.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Gspoint;
 import com.ruoyi.hdsw.mapper.GspointMapper;
 import com.ruoyi.hdsw.service.GspointService;
@@ -19,7 +20,7 @@ public class GspointController {
      **/
     @PostMapping("/insert")
     @ResponseBody
-    public AjaxResult insert(@RequestBody Gspoint record) {
+    public AjaxResult insert(@RequestBody Gdmodel record) {
         try {
             return AjaxResult.success(gspointService.insert(record));
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class GspointController {
      **/
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(@RequestBody Gspoint record) {
+    public AjaxResult update(@RequestBody Gdmodel record) {
         try {
             return AjaxResult.success(gspointService.update(record));
         } catch (Exception e) {

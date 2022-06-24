@@ -254,11 +254,11 @@ if (!LoadMap) var LoadMap = {
             if(LoadMap.currentMapType="管线更新"){
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if(LoadMap.getCoordinateFlag == 1){
-                    $("#x1").attr("value", coor[0])
-                    $("#y1").attr("value", coor[1])
+                    $("#x1").attr("value", coor[0]+0.012653)
+                    $("#y1").attr("value", coor[1]+0.012653)
                 }else if(LoadMap.getCoordinateFlag == 2){
-                    $("#x2").attr("value", coor[0])
-                    $("#y2").attr("value", coor[1])
+                    $("#x2").attr("value", coor[0]+0.012653)
+                    $("#y2").attr("value", coor[1]+0.012653)
                 }
             }
             this.closeFeatureInfo();

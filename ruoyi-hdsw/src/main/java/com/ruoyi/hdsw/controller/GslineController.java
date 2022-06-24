@@ -3,6 +3,7 @@ package com.ruoyi.hdsw.controller;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.hdsw.model.Gsline;
 import com.ruoyi.hdsw.mapper.GslineMapper;
+import com.ruoyi.hdsw.model.Gxmodel;
 import com.ruoyi.hdsw.service.GslineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class GslineController {
      **/
     @PostMapping("/insert")
     @ResponseBody
-    public AjaxResult insert(@RequestBody Gsline record) {
+    public AjaxResult insert(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(gslineService.insert(record));
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class GslineController {
      **/
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(@RequestBody Gsline record) {
+    public AjaxResult update(@RequestBody Gxmodel record) {
         try {
             return AjaxResult.success(gslineService.update(record));
         } catch (Exception e) {

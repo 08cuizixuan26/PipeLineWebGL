@@ -8,5 +8,5 @@ public interface YspointsService {
     Object update(Gdmodel record);
     Object delete(Integer[] ids);
     Object selectByGdbh(String gdbh);
-    Object updateState(Integer gid,String deleteState,String updateState);
+    Object updateState(Integer gid,String delState,String updState);
 }

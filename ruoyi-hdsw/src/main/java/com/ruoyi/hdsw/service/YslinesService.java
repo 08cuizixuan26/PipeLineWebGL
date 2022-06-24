@@ -9,5 +9,5 @@ public interface YslinesService {
     Object delete(Integer[] ids);
     Object selectByGxbh(String gxbh);
     Object interruptLine(String gxbh,String gdbh);
-    Object updateState(Integer gid,String deleteState,String updateState);
+    Object updateState(Integer gid,String delState,String updState);
 }

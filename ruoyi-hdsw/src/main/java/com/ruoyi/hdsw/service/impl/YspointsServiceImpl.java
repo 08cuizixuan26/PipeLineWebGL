@@ -37,7 +37,7 @@ public class YspointsServiceImpl implements YspointsService {
     }
 
     @Override
-    public Object updateState(Integer gid,String deleteState, String updateState) {
-        return yspointsMapper.updateState(gid,deleteState,updateState);
+    public Object updateState(Integer gid,String delState, String updState) {
+        return yspointsMapper.updateState(gid,delState,updState);
     }
 }

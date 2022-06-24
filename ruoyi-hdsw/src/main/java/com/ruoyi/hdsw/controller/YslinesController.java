@@ -64,7 +64,6 @@ public class YslinesController {
      * 在线中间插入点
      **/
     @PostMapping("/interruptLine")
-    @ResponseBody
     public AjaxResult interruptLine(@RequestParam(value = "gxbh") String gxbh,@RequestParam(value = "gdbh") String gdbh) {
         try {
             return AjaxResult.success(yslinesService.interruptLine(gxbh,gdbh));
