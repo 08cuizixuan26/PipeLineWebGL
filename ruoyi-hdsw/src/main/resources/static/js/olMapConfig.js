@@ -547,3 +547,15 @@ var olMapConfig = {
         },
     ],
 }
+
+if(ol.Map.prototype.getLayerById===undefined){
+    ol.Map.prototype.getLayerById=function(id){
+        var layer;
+        this.getLayers().forEach(function(lyr){
+            if(lyr.values_.id==id){
+                layer=lyr;
+            }
+        })
+        return layer;
+    }
+};

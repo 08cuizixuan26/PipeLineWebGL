@@ -69,4 +69,8 @@ public class WslinesServiceImpl implements WslinesService {
     public Object updateState(Integer gid,String delState, String updState) {
         return wslinesMapper.updateState(gid,delState,updState);
     }
+    @Override
+    public Object getMaxNum() {
+        return wslinesMapper.getMaxNum();
+    }
 }

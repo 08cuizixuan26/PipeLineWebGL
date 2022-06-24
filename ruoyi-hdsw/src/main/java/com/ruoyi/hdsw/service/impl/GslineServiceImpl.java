@@ -68,4 +68,10 @@ public class GslineServiceImpl implements GslineService{
     @Override
     public Object updateState(Integer gid,String delState, String updState) {
         return gslineMapper.updateState(gid,delState,updState);
-    }}
+    }
+
+    @Override
+    public Object getMaxNum() {
+        return gslineMapper.getMaxNum();
+    }
+}

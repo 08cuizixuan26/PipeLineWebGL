@@ -133,8 +133,8 @@ if (!LoadMap) var LoadMap = {
             $("#zdbh5").attr("value", properties["exp_no"])
             $("#zdms5").attr("value", properties["bot_depth"])
             $("#zdgc5").attr("value", properties["sure_h"])
-            $("#zdxcor3").attr("value", properties["x"])
-            $("#zdycor3").attr("value", properties["y"])
+            $("#zdxcor5").attr("value", properties["x"])
+            $("#zdycor5").attr("value", properties["y"])
         }
 
         if(LoadMap.getCoordinateFlag == "guandian"){

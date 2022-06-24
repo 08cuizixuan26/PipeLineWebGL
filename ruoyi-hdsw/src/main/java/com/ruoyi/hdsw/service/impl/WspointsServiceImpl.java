@@ -39,4 +39,9 @@ public class WspointsServiceImpl implements WspointsService {
     @Override
     public Object updateState(Integer gid,String delState, String updState) {
         return wspointsMapper.updateState(gid,delState,updState);
-    }}
+    }
+    @Override
+    public Object getMaxNum() {
+        return wspointsMapper.getMaxNum();
+    }
+}

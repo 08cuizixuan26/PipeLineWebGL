@@ -350,4 +350,7 @@
     </set>
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+  <select id="getMaxNum" resultType="int">
+    select max(cast(substring(wspoints.exp_no,4) as integer)) from wspoints
+  </select>
 </mapper>

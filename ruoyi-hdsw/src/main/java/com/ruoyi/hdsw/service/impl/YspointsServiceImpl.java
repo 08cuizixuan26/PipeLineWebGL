@@ -40,4 +40,8 @@ public class YspointsServiceImpl implements YspointsService {
     public Object updateState(Integer gid,String delState, String updState) {
         return yspointsMapper.updateState(gid,delState,updState);
     }
+    @Override
+    public Object getMaxNum() {
+        return yspointsMapper.getMaxNum();
+    }
 }

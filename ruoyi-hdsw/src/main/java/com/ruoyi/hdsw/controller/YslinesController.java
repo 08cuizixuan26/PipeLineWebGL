@@ -72,4 +72,16 @@ public class YslinesController {
             return AjaxResult.error(e.getMessage());
         }
     }
+    /**
+     * 获取最大编号
+     **/
+    @GetMapping("/getMaxnum")
+    public AjaxResult getMaxnum() {
+        try {
+            return AjaxResult.success(yslinesService.getMaxNum());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
+    }
 }

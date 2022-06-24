@@ -40,4 +40,8 @@ public class GspointServiceImpl implements GspointService {
     public Object updateState(Integer gid,String delState, String updState) {
         return gspointMapper.updateState(gid,delState,updState);
     }
+    @Override
+    public Object getMaxNum() {
+        return gspointMapper.getMaxNum();
+    }
 }
