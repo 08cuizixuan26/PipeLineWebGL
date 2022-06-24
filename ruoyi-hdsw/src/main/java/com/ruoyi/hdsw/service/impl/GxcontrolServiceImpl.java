@@ -1,5 +1,7 @@
 package com.ruoyi.hdsw.service.impl;
 
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import com.ruoyi.hdsw.mapper.GxcontrolMapper;
 import com.ruoyi.hdsw.model.Gxcontrol;
 import com.ruoyi.hdsw.service.GxcontrolService;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@DataSource(value = DataSourceType.SLAVE)
 public class GxcontrolServiceImpl implements GxcontrolService {
 
     @Autowired
