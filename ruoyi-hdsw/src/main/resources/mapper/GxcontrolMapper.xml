@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hdsw.mapper.GxcontrolMapper">
+  <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gxcontrol">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="visibility" jdbcType="VARCHAR" property="visibility" />
+    <result column="iocn" jdbcType="VARCHAR" property="iocn" />
+  </resultMap>
+  <select id="select" parameterType="java.lang.String" resultType="com.ruoyi.hdsw.model.Gxcontrol">
+    select *
+    from "gxcontrol"
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from "gxcontrol"
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ruoyi.hdsw.model.Gxcontrol">
+    insert into "gxcontrol"
+    (gid,width,color,visibility,iocn)
+    values (#{gid,jdbcType=INTEGER},
+      #{width,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR},
+      #{visibility,jdbcType=VARCHAR},#{iocn,jdbcType=VARCHAR})
+  </insert>
+  <update id="update" parameterType="com.ruoyi.hdsw.model.Gxcontrol">
+    update "gxcontrol"
+    <set>
+
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="color != null and name!=''">
+        name = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="visibility != null">
+        visibility = #{visibility,jdbcType=VARCHAR},
+      </if>
+      <if test="iocn != null">
+        iocn = #{iocn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>
