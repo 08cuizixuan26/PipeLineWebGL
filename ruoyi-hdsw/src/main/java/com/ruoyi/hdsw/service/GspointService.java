@@ -9,4 +9,5 @@ public interface GspointService {
     Object delete(Integer[] ids);
     Object selectByGdbh(String gdbh);
     Object updateState(Integer gid,String delState,String updState);
+    Object getMaxNum();
 }

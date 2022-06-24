@@ -501,25 +501,25 @@
                             <div class="gdtb" style="display: flex;justify-content: center">
                                 <label class="layui-form-label" style="margin-left: -35px;font-weight: bold">管点图标:</label>
                                 <div class="gdiconbox" style="display: flex;">
-                                    <div class="gdicon" style="margin-left: 5px;">
-                                        <img src="../../images/0518/gsgd.png" style="width: 30px" alt="">
-                                        供水管点
-                                    </div>
-                                    <div class="gdicon" style="margin-left: 15px;">
-                                        <img src="../../images/0518/ysgd.png" style="width: 30px" alt="">
-                                        雨水管点
-                                    </div>
-                                    <div class="gdicon" style="margin-left: 15px;">
-                                        <img src="../../images/0518/wsgd.png" style="width: 30px" alt="">
-                                        污水管点
-                                    </div>
-                                    <div class="gdicon" style="margin-left: 15px;">
+                                    <div class="gdicon" style="margin-left: 5px;" id="asc">
                                         <img src="../../images/0518/zssgd.png" style="width: 30px" alt="">
                                         再生水管点
                                     </div>
+                                    <div class="gdicon" style="margin-left: 15px; display: none" id="asc1">
+                                        <img src="../../images/0518/gsgd.png" style="width: 30px" alt="">
+                                        供水管点
+                                    </div>
+                                    <div class="gdicon" style="margin-left: 15px; display: none" id="asc2">
+                                        <img src="../../images/0518/ysgd.png" style="width: 30px" alt="">
+                                        雨水管点
+                                    </div>
+                                    <div class="gdicon" style="margin-left: 15px; display: none" id="asc3">
+                                        <img src="../../images/0518/wsgd.png" style="width: 30px" alt="">
+                                        污水管点
+                                    </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary" style="height: 34px;margin-left: 15px;">修改</button>
+                                <button type="button" id="gdtype" class="btn btn-primary" style="height: 34px;margin-left: 15px;">修改</button>
                             </div>
                         </div>
                     </div>
@@ -649,24 +649,41 @@
     $('#gdgxChangePage1').change(function () {
         if($(this).val() == 1) {
             $('#line').show();
+            $('#asc').show();
+            $('#asc1').hide();
+            $('#asc2').hide();
+            $('#asc3').hide();
             $('#point').hide();
         } else if($(this).val() == 2) {
             $('#point').show();
             $('#line').hide();
         } else if($(this).val() == 3) {
             $('#line').show();
+            $('#asc').hide();
+            $('#asc1').show();
+            $('#asc2').hide();
+            $('#asc3').hide();
+            $('#point').hide();
             $('#point').hide();
         } else if($(this).val() == 4) {
             $('#point').show();
             $('#line').hide();
         } else if($(this).val() == 5) {
             $('#line').show();
+            $('#asc').hide();
+            $('#asc1').hide();
+            $('#asc2').show();
+            $('#asc3').hide();
             $('#point').hide();
         } else if($(this).val() == 6) {
             $('#point').show();
             $('#line').hide();
         } else if($(this).val() == 7) {
             $('#line').show();
+            $('#asc').hide();
+            $('#asc1').hide();
+            $('#asc2').hide();
+            $('#asc3').show();
             $('#point').hide();
         } else if($(this).val() == 8) {
             $('#point').show();
@@ -744,6 +761,17 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                if(data.code==0){
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改成功")
+                    })
+                }else{
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改失败")
+                    })
+                }
                 LoadMap.getCoordinateFlag=undefined;
             }
         })
@@ -788,6 +816,17 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                if(data.code==0){
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改成功")
+                    })
+                }else{
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改失败")
+                    })
+                }
                 LoadMap.getCoordinateFlag=undefined;
             }
         })
@@ -832,6 +871,17 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                if(data.code==0){
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改成功")
+                    })
+                }else{
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改失败")
+                    })
+                }
                 LoadMap.getCoordinateFlag=undefined;
             }
         })

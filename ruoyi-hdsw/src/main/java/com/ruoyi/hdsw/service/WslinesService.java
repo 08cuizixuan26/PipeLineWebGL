@@ -10,4 +10,5 @@ public interface WslinesService {
     Object selectByGxbh(String gxbh);
     Object interruptLine(String gxbh,String gdbh);
     Object updateState(Integer gid,String delState,String updState);
+    Object getMaxNum();
 }

@@ -157,8 +157,8 @@
       </ul>
        <div class="nav_content">
            <div class="sty" id="czjd">
-               <p class="sear_sty"><input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
-                 <button class="btn btn-primary" id="search_btn" onclick="search()">查询</button>
+               <p class="sear_sty"><input type="text" id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
+                 <button class="btn btn-primary" id="search_btn1">查询</button>
                </p>
                <form class="layui-form" action="">
                    <div class="Mapczw">
@@ -207,7 +207,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管点编号</label>
-                           <input type="text" name="title" id="gdbh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly" id="gdbh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">地面高程</label>
@@ -368,7 +368,7 @@
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">管点编号</label>
-                               <input type="text" name="title" id="gdbh2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <input type="text" name="title" readonly="readonly"  id="gdbh2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">地面高程</label>
@@ -544,7 +544,7 @@
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">管线编号</label>
-                               <input type="text" name="title" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <input type="text" name="title" readonly="readonly" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
 <!--                           <div class="layui-input-inline">
                                <label class="layui-form-label">起点点号</label>
@@ -645,8 +645,8 @@
                        <option value="4">杭州</option>
                    </select>-->
 
-                   <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
-                   <button class="btn btn-primary" onclick="search()">查询</button>
+                   <input type="text"  id="search_content4" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
+                   <button class="btn btn-primary" id="search_btn4">查询</button>
                </p>
                <form class="layui-form" action="">
                    <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" onclick="drawLine()">请点击地图中的管线获取信息</button></h4>
@@ -861,7 +861,7 @@
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管线编号</label>
-                           <input type="text" name="title" id="gxbh5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly"  id="gxbh5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">起点点号</label>
@@ -979,18 +979,22 @@
         if($(this).index() == 0){
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
+            setBh("gspoint","GSP","gdbh1")
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
+            setBh("gspoint","GSP","gdbh2")
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
+            setBh("gsline","GSL","gxbh3")
         }else if($(this).index() == 3){
             $('#crd').toggle();
             $('#crd').siblings().hide();
         }else if($(this).index() == 4){
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
+            setBh("gsline","GSL","gxbh5")
         }
     })
 
@@ -1112,23 +1116,31 @@
 <script>
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
+        setBh("gspoint","GSP","gdbh1")
     })
-    $('#search_content').bind('keypress', function (event) {
+    $('#search_content1') .bind('keypress', function (event) {
         if(event.keyCode == "13"){
-           search();
+           search($('#search_content1').val());
         }
     })
-
-    $('#czjd_type5').change(function() {
-        var options=$("#czjd_type5 option:selected");
-        $("#lb5").attr("value", options.text());
+    $('#search_content4') .bind('keypress', function (event) {
+        if(event.keyCode == "13"){
+            search($('#search_content4').val());
+        }
     })
-
+    $('#search_btn1').click(function () {
+        var seacheStr = $('#search_content1').val()
+        search(seacheStr)
+    })
+    $('#search_btn4').click(function () {
+        var seacheStr = $('#search_content4').val()
+        search(seacheStr)
+    })
     //百度地图道路查询
-    function search() {
+    function search(seacheStr) {
         $.ajax({
             //url中的参数含义参见百度地图官网webAPI文档
-            url: 'http://api.map.baidu.com/place/v2/search?query='+$('#search_content').val()+'&region=北京市&page_size=40&page_num=0&output=json&ak=nSxiPohfziUaCuONe4ViUP2N',
+            url: 'http://api.map.baidu.com/place/v2/search?query='+seacheStr+'&region=北京市&page_size=40&page_num=0&output=json&ak=nSxiPohfziUaCuONe4ViUP2N',
             type: "GET",
             async: false,
             dataType: "jsonp",
@@ -1152,15 +1164,15 @@
                     var anchor = new ol.Feature({
                         geometry: new ol.geom.Point(new_lonlat)
                     });
-/*
-                                            var searchLayer = new ol.layer.Vector({
-                                                id: "search",
-                                                source:  new ol.source.Vector({
-                                                    features: [anchor]
-                                                }),
-                                                style: olMapStyle.wsc_Style
-                                            });
-                                            LoadMap.map.addLayer(searchLayer)*/
+                    /*
+                                                                var searchLayer = new ol.layer.Vector({
+                                                                    id: "search",
+                                                                    source:  new ol.source.Vector({
+                                                                        features: [anchor]
+                                                                    }),
+                                                                    style: olMapStyle.wsc_Style
+                                                                });
+                                                                LoadMap.map.addLayer(searchLayer)*/
                     LoadMap.map.getView().setCenter(new_lonlat);
                 }
             },
@@ -1169,6 +1181,75 @@
             }
         })
     }
+
+    $('#czjd_type1').change(function() {
+        var str;
+        var options=$("#czjd_type1 option:selected");
+        if(options.text() == "供水"){
+            setBh("gspoint","GSP","gdbh1")
+        }else if(options.text() == "雨水"){
+            setBh("yspoint","YSP","gdbh1")
+        }else if(options.text() == "污水"){
+            setBh("wspoint","WSP","gdbh1")
+        }else if(options.text() == "再生水"){
+            setBh("zsspoint","ZSSP","gdbh1")
+        }
+    })
+
+    function setBh(tableName,header,id) {
+        $.ajax({
+            url: "/hdsw/"+tableName+"/getMaxnum",
+            type: "get",
+            success: function (res) {
+                var num = parseInt(res.data)+1
+                var bh = header+num;
+                $("#"+id+"").attr("value", bh);
+            }
+        })
+    }
+
+    $('#czjd_type2').change(function() {
+        var str;
+        var options=$("#czjd_type2 option:selected");
+        if(options.text() == "供水"){
+            setBh("gspoint","GSP","gdbh2")
+        }else if(options.text() == "雨水"){
+            setBh("yspoint","YSP","gdbh2")
+        }else if(options.text() == "污水"){
+            setBh("wspoint","WSP","gdbh2")
+        }else if(options.text() == "再生水"){
+            setBh("zsspoint","ZSSP","gdbh2")
+        }
+    })
+
+    $('#czjd_type3').change(function() {
+        var str;
+        var options=$("#czjd_type3 option:selected");
+        if(options.text() == "供水"){
+            setBh("gsline","GSL","gxbh3")
+        }else if(options.text() == "雨水"){
+            setBh("ysline","YSL","gxbh3")
+        }else if(options.text() == "污水"){
+            setBh("wsline","WSL","gxbh3")
+        }else if(options.text() == "再生水"){
+            setBh("zssline","ZSSL","gxbh3")
+        }
+    })
+
+    $('#czjd_type5').change(function() {
+        var options=$("#czjd_type5 option:selected");
+        if(options.text() == "供水"){
+            setBh("gsline","GSL","gxbh5")
+        }else if(options.text() == "雨水"){
+            setBh("ysline","YSL","gxbh5")
+        }else if(options.text() == "污水"){
+            setBh("wsline","WSL","gxbh5")
+        }else if(options.text() == "再生水"){
+            setBh("zssline","ZSSL","gdbh5")
+        }
+        $("#lb5").attr("value", options.text());
+    })
+
     //计算参考选点坐标
     function computeCoordinate() {
         if(num== 1){
@@ -1206,6 +1287,7 @@
             });
             LoadMap.map.addLayer(searchLayer)*/
         }
+        LoadMap.getCoordinateFlag = undefined;
     }
 
     //获取坐标
@@ -1379,10 +1461,35 @@
                 $("#szdl4").attr("value", feature[0].values_.road)
                 $("#qsdw4").attr("value", feature[0].values_.owner)
                 $("#ywlb4").attr("value", feature[0].values_.type)
+
                 var x = parseFloat(lonlat[0])-LoadMap.xOffset;
                 var y = parseFloat(lonlat[1])-LoadMap.yOffset;
                 $("#xcor4").attr("value", x)
                 $("#ycor4").attr("value", y)
+
+
+
+                if(feature[0].values_.type == "供水"){
+                    url="/hdsw/gspoint/getMaxnum"
+                    str = "GSP"
+                }else if(feature[0].values_.type == "雨水"){
+                    url="/hdsw/yspoint/getMaxnum"
+                    str = "YSP"
+                }else if(feature[0].values_.type == "污水"){
+                    url="/hdsw/wspoint/getMaxnum"
+                    str = "WSP"
+                }else if(feature[0].values_.type == "再生水"){
+                    url="/hdsw/zsspoint/getMaxnum"
+                    str = "ZSSP"
+                }
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    success: function (res) {
+                        var num = parseInt(res.data)+1
+                        $("#gdbh4").attr("value", str+num);
+                    }
+                })
                 LoadMap.map.render();
 /*                var anchor = new ol.Feature({
                     geometry: new ol.geom.Point(point)
@@ -1403,6 +1510,7 @@
     }
     //参考选点保存
     function save1() {
+        var layer;
         var params = {
             expNo:$('#gdbh1').val(),
             feature:$('#tz1').val(),
@@ -1431,12 +1539,16 @@
         var url;
         var options=$("#czjd_type1 option:selected");
         if(options.text() == "供水"){
+            layer = LoadMap.map.getLayerById("gsjg");
             url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
+            layer = LoadMap.map.getLayerById("ysjg");
             url="/hdsw/yspoint/insert"
         }else if(options.text() == "污水"){
+            layer = LoadMap.map.getLayerById("wsjg");
             url="/hdsw/wspoint/insert"
         }else if(options.text() == "再生水"){
+            layer = LoadMap.map.getLayerById("zssjg");
             url="/hdsw/zsspoint/insert"
         }
         $.ajax({
@@ -1458,7 +1570,7 @@
                     })
                 }
                 LoadMap.getCoordinateFlag=undefined;
-                LoadMap.map.render();
+                layer.getSource().changed();
             }
         })
     }

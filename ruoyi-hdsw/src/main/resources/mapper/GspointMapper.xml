@@ -350,4 +350,7 @@
     </set>
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+  <select id="getMaxNum" resultType="int">
+    select max(cast(substring(gspoint.exp_no,4) as integer)) from gspoint
+  </select>
 </mapper>

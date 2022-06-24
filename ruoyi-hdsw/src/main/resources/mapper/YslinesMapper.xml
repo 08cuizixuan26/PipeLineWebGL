@@ -314,4 +314,7 @@
     </set>
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+  <select id="getMaxNum" resultType="int">
+    select max(cast(substring(yslines.pipeid,4) as integer)) from yslines
+  </select>
 </mapper>
