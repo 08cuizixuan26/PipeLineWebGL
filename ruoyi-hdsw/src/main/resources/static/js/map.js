@@ -137,6 +137,48 @@ if (!LoadMap) var LoadMap = {
             $("#zdycor3").attr("value", properties["y"])
         }
 
+        if(LoadMap.getCoordinateFlag == "guandian"){
+            $("#guandian1").attr("value", properties["exp_no"])
+            $("#guandian2").attr("value", properties["sure_h"])
+            $("#guandian3").attr("value", properties["feature"])
+            $("#guandian4").attr("value", properties["subsid"])
+            $("#guandian5").attr("value", properties["bot_depth"])
+            $("#guandian6").attr("value", properties["cov_type"])
+            $("#guandian7").attr("value", properties["cov_dn"])
+            $("#guandian8").attr("value", properties["cov_meat"])
+            $("#guandian9").attr("value", properties["wcha_meat"])
+            $("#guandian10").attr("value", properties["wcha_type"])
+            $("#guandian11").attr("value", properties["fo_deep"])
+            $("#guandian12").attr("value", properties["wcha_dn"])
+            $("#guandian13").attr("value", properties["owner"])
+            $("#guandian14").attr("value", properties["b_time"])
+            $("#guandian15").attr("value", properties["offc_no"])
+            $("#guandian16").attr("value", properties["rotation"])
+            $("#guandian17").attr("value", properties["road"])
+            $("#guandian18").attr("value", properties["x"])
+            $("#guandian19").attr("value", properties["y"])
+            $("#guandian20").attr("value", properties["elevation"])
+        }else if(LoadMap.getCoordinateFlag == "guanxian"){
+            $("#guanxian1").attr("value", properties["pipeid"])
+            $("#guanxian2").attr("value", properties["s_point"])
+            $("#guanxian3").attr("value", properties["e_point"])
+            $("#guanxian4").attr("value", properties["s_deep"])
+            $("#guanxian5").attr("value", properties["e_deep"])
+            $("#guanxian6").attr("value", properties["s_height"])
+            $("#guanxian7").attr("value", properties["e_height"])
+            $("#guanxian8").attr("value", properties["material"])
+            $("#guanxian9").attr("value", properties["d_type"])
+            $("#guanxian10").attr("value", properties["style"])
+            $("#guanxian11").attr("value", properties["d_s"])
+            $("#guanxian12").attr("value", properties["b_time"])
+            $("#guanxian13").attr("value", properties["owner"])
+            $("#guanxian14").attr("value", properties["flowdirect"])
+            $("#guanxian15").attr("value", properties["road"])
+            $("#guanxian16").attr("value", properties["state"])
+            $("#guanxian17").attr("value", properties["type"])
+            $("#guanxian18").attr("value", properties["shape_leng"])
+        }
+
         if (type == 0) {
             for (var key in properties) {
                 let value = properties[key] == null ? '' : properties[key];
