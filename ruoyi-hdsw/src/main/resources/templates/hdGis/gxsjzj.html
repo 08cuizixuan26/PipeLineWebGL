@@ -199,7 +199,6 @@
                        <div class="layui-input-inline">
                            <label class="layui-form-label">业务类别</label>
                            <select name="czjd_type1" id="czjd_type1" class="form-control" lay-verify="required">
-                               <option></option>
                                <option value="0">供水</option>
                                <option value="1">污水</option>
                                <option value="2">雨水</option>
@@ -208,7 +207,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管点编号</label>
-                           <input type="text" name="title" id="gdbh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly" id="gdbh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">地面高程</label>
@@ -361,7 +360,6 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">业务类别</label>
                                <select name="czjd_type2" id="czjd_type2" class="form-control" lay-verify="required">
-                                   <option></option>
                                    <option value="0">供水</option>
                                    <option value="1">污水</option>
                                    <option value="2">雨水</option>
@@ -370,7 +368,7 @@
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">管点编号</label>
-                               <input type="text" name="title" id="gdbh2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <input type="text" name="title" readonly="readonly"  id="gdbh2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">地面高程</label>
@@ -538,7 +536,6 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">业务类别</label>
                                <select name="czjd_type3" id="czjd_type3" class="form-control" lay-verify="required">
-                                   <option></option>
                                    <option value="0">供水</option>
                                    <option value="1">污水</option>
                                    <option value="2">雨水</option>
@@ -547,7 +544,7 @@
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">管线编号</label>
-                               <input type="text" name="title" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <input type="text" name="title" readonly="readonly" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
 <!--                           <div class="layui-input-inline">
                                <label class="layui-form-label">起点点号</label>
@@ -782,7 +779,6 @@
                <p class="sear_sty">
                    <label class="layui-form-label">业务类别</label>
                    <select name="czjd_type5" id="czjd_type5" class="form-control" lay-verify="required">
-                       <option></option>
                        <option value="0">供水</option>
                        <option value="1">污水</option>
                        <option value="2">雨水</option>
@@ -865,7 +861,7 @@
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管线编号</label>
-                           <input type="text" name="title" id="gxbh5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly"  id="gxbh5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">起点点号</label>
@@ -983,18 +979,22 @@
         if($(this).index() == 0){
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
+            setBh("gspoint","GSP","gdbh1")
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
+            setBh("gspoint","GSP","gdbh2")
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
+            setBh("gsline","GSL","gxbh3")
         }else if($(this).index() == 3){
             $('#crd').toggle();
             $('#crd').siblings().hide();
         }else if($(this).index() == 4){
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
+            setBh("gsline","GSL","gxbh5")
         }
     })
 
@@ -1116,6 +1116,7 @@
 <script>
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
+        setBh("gspoint","GSP","gdbh1")
     })
     $('#search_content1') .bind('keypress', function (event) {
         if(event.keyCode == "13"){
@@ -1185,106 +1186,67 @@
         var str;
         var options=$("#czjd_type1 option:selected");
         if(options.text() == "供水"){
-            url="/hdsw/gspoint/getMaxnum"
-            str = "GSP"
+            setBh("gspoint","GSP","gdbh1")
         }else if(options.text() == "雨水"){
-            url="/hdsw/yspoint/getMaxnum"
-            str = "YSP"
+            setBh("yspoint","YSP","gdbh1")
         }else if(options.text() == "污水"){
-            url="/hdsw/wspoint/getMaxnum"
-            str = "WSP"
+            setBh("wspoint","WSP","gdbh1")
         }else if(options.text() == "再生水"){
-            url="/hdsw/zsspoint/getMaxnum"
-            str = "ZSSP"
+            setBh("zsspoint","ZSSP","gdbh1")
         }
+    })
+
+    function setBh(tableName,header,id) {
         $.ajax({
-            url: url,
+            url: "/hdsw/"+tableName+"/getMaxnum",
             type: "get",
             success: function (res) {
                 var num = parseInt(res.data)+1
-                $("#gdbh1").attr("value", str+num);
+                var bh = header+num;
+                $("#"+id+"").attr("value", bh);
             }
         })
-
-    })
+    }
 
     $('#czjd_type2').change(function() {
         var str;
         var options=$("#czjd_type2 option:selected");
         if(options.text() == "供水"){
-            url="/hdsw/gspoint/getMaxnum"
-            str = "GSP"
+            setBh("gspoint","GSP","gdbh2")
         }else if(options.text() == "雨水"){
-            url="/hdsw/yspoint/getMaxnum"
-            str = "YSP"
+            setBh("yspoint","YSP","gdbh2")
         }else if(options.text() == "污水"){
-            url="/hdsw/wspoint/getMaxnum"
-            str = "WSP"
+            setBh("wspoint","WSP","gdbh2")
         }else if(options.text() == "再生水"){
-            url="/hdsw/zsspoint/getMaxnum"
-            str = "ZSSP"
+            setBh("zsspoint","ZSSP","gdbh2")
         }
-        $.ajax({
-            url: url,
-            type: "get",
-            success: function (res) {
-                var num = parseInt(res.data)+1
-                $("#gdbh2").attr("value", str+num);
-            }
-        })
-
     })
 
     $('#czjd_type3').change(function() {
         var str;
         var options=$("#czjd_type3 option:selected");
         if(options.text() == "供水"){
-            url="/hdsw/gsline/getMaxnum"
-            str = "GSP"
+            setBh("gsline","GSL","gxbh3")
         }else if(options.text() == "雨水"){
-            url="/hdsw/ysline/getMaxnum"
-            str = "YSP"
+            setBh("ysline","YSL","gxbh3")
         }else if(options.text() == "污水"){
-            url="/hdsw/wsline/getMaxnum"
-            str = "WSP"
+            setBh("wsline","WSL","gxbh3")
         }else if(options.text() == "再生水"){
-            url="/hdsw/zssline/getMaxnum"
-            str = "ZSSP"
+            setBh("zssline","ZSSL","gxbh3")
         }
-        $.ajax({
-            url: url,
-            type: "get",
-            success: function (res) {
-                var num = parseInt(res.data)+1
-                $("#gxbh3").attr("value", str+num);
-            }
-        })
-
     })
 
     $('#czjd_type5').change(function() {
         var options=$("#czjd_type5 option:selected");
         if(options.text() == "供水"){
-            url="/hdsw/gsline/getMaxnum"
-            str = "GSP"
+            setBh("gsline","GSL","gxbh5")
         }else if(options.text() == "雨水"){
-            url="/hdsw/ysline/getMaxnum"
-            str = "YSP"
+            setBh("ysline","YSL","gxbh5")
         }else if(options.text() == "污水"){
-            url="/hdsw/wsline/getMaxnum"
-            str = "WSP"
+            setBh("wsline","WSL","gxbh5")
         }else if(options.text() == "再生水"){
-            url="/hdsw/zssline/getMaxnum"
-            str = "ZSSP"
+            setBh("zssline","ZSSL","gdbh5")
         }
-        $.ajax({
-            url: url,
-            type: "get",
-            success: function (res) {
-                var num = parseInt(res.data)+1
-                $("#gxbh5").attr("value", str+num);
-            }
-        })
         $("#lb5").attr("value", options.text());
     })
 
