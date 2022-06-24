@@ -294,7 +294,6 @@
                         <span style="font-weight: bold">污水管线信息</span>
                         <button type="button" class="btn btn-primary" style="margin-left: 15px;height: 25px;padding: 0 10px"  onclick="getCoordinateFlag(this.id)">
                             地图上选定管线</button>
-                        <button style="color: gray;margin-left: 15px;padding: 0 10px;border-radius: 6px" disabled>已废弃</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -587,3 +586,31 @@
 
 
 </script>
+
+<!--<script>-->
+<!--$('.tabNavbutton').click(function () {-->
+<!--    search()-->
+<!--})-->
+<!--&lt;!&ndash;    管线数据废弃数据请求&ndash;&gt;-->
+<!--    // search()-->
+<!--    function search() {-->
+<!--        $.ajax({-->
+<!--            //url中的参数含义参见百度地图官网webAPI文档-->
+<!--            url: 'http://localhost:8085/hdsw/gxtype/delete',-->
+<!--            type: "GET",-->
+<!--            async: false,-->
+<!--            dataType: "jsonp",-->
+<!--            jsonp: "callback",-->
+<!--            jsonpCallback: "callback",-->
+<!--            contentType: "application/json;charset=utf-8",-->
+<!--            success: function (data) {-->
+<!--                console.log('成功成功成功')-->
+<!--                console.log(data)-->
+<!--            },-->
+<!--            error: function (data) {-->
+<!--                console.log('失败')-->
+<!--                console.log(data)-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
