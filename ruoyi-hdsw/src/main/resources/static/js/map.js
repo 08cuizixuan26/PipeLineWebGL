@@ -21,6 +21,9 @@ if (!LoadMap) var LoadMap = {
     //绘制
     draw:null,
     mapClick:null,
+    //坐标系偏移量
+    xOffset:0.012653,
+    yOffset:0.007422,
     setLayerVisible: function (event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         var nodes = treeObj.getChangeCheckedNodes();
@@ -106,8 +109,30 @@ if (!LoadMap) var LoadMap = {
             $("#qdbh3").attr("value", properties["exp_no"])
             $("#qdxcor3").attr("value", properties["x"])
             $("#qdycor3").attr("value", properties["y"])
+            $("#qdms3").attr("value", properties["bot_depth"])
+            $("#qdgc3").attr("value", properties["sure_h"])
         }else if(LoadMap.getCoordinateFlag=="xzd"){
             $("#zdbh3").attr("value", properties["exp_no"])
+            $("#zdxcor3").attr("value", properties["x"])
+            $("#zdycor3").attr("value", properties["y"])
+            $("#zdms3").attr("value", properties["bot_depth"])
+            $("#zdgc3").attr("value", properties["sure_h"])
+        }else if(LoadMap.getCoordinateFlag=="xqd5"){
+            $("#qdgdbh5").attr("value", properties["exp_no"])
+            $("#qdgdlx5").attr("value", properties["feature"])
+            $("#qdgdqsdw5").attr("value", properties["owner"])
+            $("#qdbh5").attr("value", properties["exp_no"])
+            $("#qdms5").attr("value", properties["bot_depth"])
+            $("#qdgc5").attr("value", properties["sure_h"])
+            $("#qdxcor5").attr("value", properties["x"])
+            $("#qdycor5").attr("value", properties["y"])
+        }else if(LoadMap.getCoordinateFlag=="xzd5"){
+            $("#zdgdbh5").attr("value", properties["exp_no"])
+            $("#zdgdlx5").attr("value", properties["feature"])
+            $("#zdgdqsdw5").attr("value", properties["owner"])
+            $("#zdbh5").attr("value", properties["exp_no"])
+            $("#zdms5").attr("value", properties["bot_depth"])
+            $("#zdgc5").attr("value", properties["sure_h"])
             $("#zdxcor3").attr("value", properties["x"])
             $("#zdycor3").attr("value", properties["y"])
         }
@@ -157,43 +182,47 @@ if (!LoadMap) var LoadMap = {
         if (type == 0) {
             for (var key in properties) {
                 let value = properties[key] == null ? '' : properties[key];
-                if (key == 'objname') {
-                    keyChina = '部件名称';
-                } else if (key == 'ordate') {
-                    keyChina = '初始时间';
-                } else if (key == 'chdate') {
-                    keyChina = '变更时间';
-                } else if (key == 'community') {
-                    keyChina = '所属社区';
-                } else if (key == 'datasource') {
-                    keyChina = '数据来源';
-                } else if (key == 'deptname1') {
-                    keyChina = '主管部门';
-                } else if (key == 'deptname2') {
+                if (key == 'exp_no') {
+                    keyChina = '管点编号';
+                } else if (key == 'sure_h') {
+                    keyChina = '地面高程';
+                } else if (key == 'feature') {
+                    keyChina = '特征';
+                } else if (key == 'subsid') {
+                    keyChina = '附属物';
+                } else if (key == 'bot_depth') {
+                    keyChina = '井底埋深';
+                } else if (key == 'cov_type') {
+                    keyChina = '井盖类型';
+                } else if (key == 'cov_dn') {
+                    keyChina = '井盖规格';
+                } else if (key == 'cov_meat') {
+                    keyChina = '井盖材质';
+                } else if (key == 'wcha_meat') {
+                    keyChina = '井室材质';
+                } else if (key == 'wcha_type') {
+                    keyChina = '井室类型';
+                } else if (key == 'fo_deep') {
+                    keyChina = '井脖深';
+                } else if (key == 'wcha_dn') {
+                    keyChina = '井室直径';
+                } else if (key == 'owner') {
                     keyChina = '权属单位';
-                } else if (key == 'deptname3') {
-                    keyChina = '养护单位';
-                } else if (key == 'deptname4') {
-                    keyChina = '现场调查权属';
-                } else if (key == 'deptname5') {
-                    keyChina = '专业部门确认权属';
-                } else if (key == 'deptname6') {
-                    keyChina = '案件资料确认权属';
-                } else if (key == 'deptname7') {
-                    keyChina = '其他来源权属';
-                } else if (key == 'note') {
-                    keyChina = '备注';
-                } else if (key == 'objpos') {
-                    keyChina = '位置描述';
-                } else if (key == 'objstate') {
-                    keyChina = '状态';
-                } else if (key == 'section') {
-                    keyChina = '所属部门';
-                } else if (key == 'street') {
-                    keyChina = '所属街道';
-                } else if (key == 'geometry') {
+                } else if (key == 'b_time') {
+                    keyChina = '建设日期';
+                } else if (key == 'offc_no') {
+                    keyChina = '偏心井点号';
+                } else if (key == 'rotation') {
+                    keyChina = '旋转角度';
+                } else if (key == 'road') {
+                    keyChina = '所在道路';
+                }  else if (key == 'elevation') {
+                    keyChina = '标高';
+                }else if (key == 'geometry') {
                     keyChina = '位置坐标';
-                    html += '<tr><td>' + keyChina + '</td><td>' + properties[key].extent_[0] + ',' + properties[key].extent_[1] + '</td></tr>'
+                    var coor = ol.proj.transform([properties[key].extent_[0], properties[key].extent_[1]], 'BD:09', 'EPSG:4326')
+                    var coor1 = [coor[0]-LoadMap.xOffset,coor[1]-LoadMap.yOffset]
+                    html += '<tr><td>' + keyChina + '</td><td>' + coor1[0] + ',' + coor1[1] + '</td></tr>'
                     continue;
                 } else {
                     continue;
@@ -255,7 +284,8 @@ if (!LoadMap) var LoadMap = {
                     keyChina = '单位负责人';
                 } else if (key == 'geometry') {
                     keyChina = '坐标';
-                    html += '<tr><td>' + keyChina + '</td><td>' + properties[key].extent_[0] + ',' + properties[key].extent_[1] + '</td></tr>'
+                    var coor = ol.proj.transform([properties[key].extent_[0], properties[key].extent_[1]], 'BD:09', 'EPSG:4326')
+                    html += '<tr><td>' + keyChina + '</td><td>' + coor[0] + ',' + coor[1] + '</td></tr>'
                     continue;
                 } else if (key == 'tel') {
                     keyChina = '联系电话';
@@ -279,7 +309,8 @@ if (!LoadMap) var LoadMap = {
                     keyChina = '名称';
                 } else if (key == 'geometry') {
                     keyChina = '位置坐标';
-                    html += '<tr><td>' + keyChina + '</td><td>' + properties[key].extent_[0] + ',' + properties[key].extent_[1] + '</td></tr>'
+                    var coor = ol.proj.transform([properties[key].extent_[0], properties[key].extent_[1]], 'BD:09', 'EPSG:4326')
+                    html += '<tr><td>' + keyChina + '</td><td>' + coor[0] + ',' + coor[1] + '</td></tr>'
                     continue;
                 }
                 html += '<tr><td>' + keyChina + '</td><td>' + value + '</td></tr>'
@@ -296,11 +327,11 @@ if (!LoadMap) var LoadMap = {
             if(LoadMap.currentMapType="管线更新"){
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if(LoadMap.getCoordinateFlag == 1){
-                    $("#x1").attr("value", coor[0]+0.012653)
-                    $("#y1").attr("value", coor[1]+0.012653)
+                    $("#x1").attr("value", coor[0]-LoadMap.xOffset)
+                    $("#y1").attr("value", coor[1]-LoadMap.xOffset)
                 }else if(LoadMap.getCoordinateFlag == 2){
-                    $("#x2").attr("value", coor[0]+0.012653)
-                    $("#y2").attr("value", coor[1]+0.012653)
+                    $("#x2").attr("value", coor[0]-LoadMap.xOffset)
+                    $("#y2").attr("value", coor[1]-LoadMap.yOffset)
                 }
             }
             this.closeFeatureInfo();
