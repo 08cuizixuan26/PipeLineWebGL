@@ -1,6 +1,5 @@
 package com.ruoyi.hdsw.service;
 
-import com.ruoyi.hdsw.model.Gsline;
 import com.ruoyi.hdsw.model.Gxmodel;
 
 public interface GslineService {
