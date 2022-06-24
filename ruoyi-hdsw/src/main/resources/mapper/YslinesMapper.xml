@@ -275,7 +275,7 @@
         style = #{style,jdbcType=VARCHAR},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where pipeid = #{pipeid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Gxmodel">
     update "yslines"
