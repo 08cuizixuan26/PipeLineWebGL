@@ -11,7 +11,7 @@
     <script th:src="@{/js/baiduMercator.js}"></script>
     <script th:src="@{/js/olMapConfig.js}"></script>
     <script th:src="@{/js/map.js}"></script>
-    <script th:src="@{/js/coordinateTransform.js}"></script>
+<!--    <script th:src="@{/js/coordinateTransform.js}"></script>-->
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
@@ -19,7 +19,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="//unpkg.com/layui@2.6.13/dist/css/layui.css" rel="stylesheet"/>
     <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
-    <link th:href="@{static/layuiv2.5.6/layui/css/layui.css}" rel="stylesheet"/>
+<!--    <link th:href="@{static/layuiv2.5.6/layui/css/layui.css}" rel="stylesheet"/>-->
     <link th:href="@{/openlayersv6.5/css/ol.css}" rel="stylesheet"/>
     <link th:href="@{/css/map.css}" rel="stylesheet"/>
     <style>
@@ -411,17 +411,17 @@
 
 </body>
 </html>
-<!--<script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>-->
+<!--&lt;!&ndash;<script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>&ndash;&gt;-->
 
 <!--<script>-->
 
-<!--    layui.use('table', function () {-->
-<!--        var table = layui.table;-->
-<!--        alert(1)-->
+<!--    layui.use('laytable', function(){-->
+<!--        var table = layui.laytable;-->
+<!--        // alert(1)-->
 <!--    //    第一个实例-->
 <!--        table.render({-->
 <!--            elem: '#recoveryFromData',-->
-<!--            height: 312,-->
+<!--            // height: 312,-->
 <!--            // url: 'http://localhost:8085/hdsw/gxtype/select',-->
 
 <!--            page: true,-->
@@ -429,7 +429,7 @@
 <!--                {field: '唯一', title: 'name', width: 80, sort: true, fixed: left},-->
 <!--                {field: 'sex', title: 'name', width: 80, sort: true, fixed: left},-->
 <!--                {field: 'age', title: 'name', width: 80, sort: true, fixed: left},-->
-<!--                {field: 'city', title: 'name', width: 80, sort: true, fixed: left},-->
+<!--                {field: 'city', title: 'name', width: 80, sort: true, fixed: left}-->
 <!--            ]]-->
 <!--        })-->
 <!--    })-->
@@ -456,9 +456,6 @@
             $('#fqgxhf').siblings().hide();
         }
     })
-
-
-
 
     //管线删除——建设日期
     layui.use('laydate', function(){
