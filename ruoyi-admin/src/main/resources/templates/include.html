@@ -14,7 +14,36 @@
 	<link th:href="@{/css/style.min.css?v=20210831}" rel="stylesheet"/>
 	<link th:href="@{/ruoyi/css/ry-ui.css?v=4.7.0}" rel="stylesheet"/>
 </head>
+<!--GIS-JS-->
+<div th:fragment=GIS_JS>
+    <script th:src="@{/openlayersv6.5/build/ol.js}"></script>
+    <script th:src="@{/js/bd09.js}"></script>
+    <script th:src="@{/js/baiduMercator.js}"></script>
+    <script th:src="@{/js/olMapConfig.js}"></script>
+    <script th:src="@{/js/map.js}"></script>
+</div>
 
+<div th:fragment=GN_JS>
+    <script th:inline="javascript">var ctx = [[@{/}]]; var lockscreen = [[${session.lockscreen}]]; if(lockscreen){window.top.location=ctx+"lockscreen";}</script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
+    <script th:src="@{/layuiv2.5.6/layui/lay/modules/layer.js}"></script>
+
+</div>
+<div th:fragment=GIS_CSS>
+    <link th:href="@{/openlayersv6.5/css/ol.css}" rel="stylesheet"/>
+    <link th:href="@{/css/map.css}" rel="stylesheet"/>
+
+</div>
+<div th:fragment=GN_CSS>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
+    <link th:href="@{/layui-v2.6.13/layui/css/layui.css}" rel="stylesheet"/>
+    <link th:href="@{/layui-v2.6.13/layui/css/modules/layer/default/layer.css}" rel="stylesheet"/>
+</div>
 <!-- 通用JS -->
 <div th:fragment="footer">
     <script th:inline="javascript"> var ctx = [[@{/}]]; var lockscreen = [[${session.lockscreen}]]; if(lockscreen){window.top.location=ctx+"lockscreen";} </script>
