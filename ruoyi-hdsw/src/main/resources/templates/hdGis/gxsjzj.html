@@ -672,7 +672,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管点编号</label>
-                           <input type="text" name="title" id="gdbh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly" id="gdbh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">地面高程</label>
@@ -980,14 +980,20 @@
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
             setBh("gspoint","GSP","gdbh1")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
             setBh("gspoint","GSP","gdbh2")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
             setBh("gsline","GSL","gxbh3")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 3){
             $('#crd').toggle();
             $('#crd').siblings().hide();
@@ -995,6 +1001,8 @@
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
             setBh("gsline","GSL","gxbh5")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }
     })
 
@@ -1256,7 +1264,9 @@
             var lonLatObj = getLonAndLat($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#dis1").val())
             $("#xcor1").attr("value", lonLatObj.lon)
             $("#ycor1").attr("value", lonLatObj.lat)
-/*            var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
+           /* var new_lonlat = ol.proj.transform([lonLatObj.lon,lonLatObj.lat], 'EPSG:4326', 'BD:09')
+            //var new_lonlat = ol.proj.transform([lonLatObj.lon+0.012653,lonLatObj.lat+0.007422], 'EPSG:4326', 'BD:09')
+            new_lonlat = [new_lonlat[0]-LoadMap.xOffset,new_lonlat[1]-LoadMap.yOffset];
             var anchor = new ol.Feature({
                 geometry: new ol.geom.Point(new_lonlat)
             });
@@ -1267,7 +1277,8 @@
                 }),
                 style: olMapStyle.wsc_Style
             });
-            LoadMap.map.addLayer(searchLayer)*/
+            LoadMap.map.addLayer(searchLayer)
+            LoadMap.map.render();*/
         }else{
             //var tt = getIntersection(110.1112,36.61,Math.PI/4,110.1129,36.62,Math.PI/4*3)
 
@@ -1467,8 +1478,6 @@
                 $("#xcor4").attr("value", x)
                 $("#ycor4").attr("value", y)
 
-
-
                 if(feature[0].values_.type == "供水"){
                     url="/hdsw/gspoint/getMaxnum"
                     str = "GSP"
@@ -1490,9 +1499,9 @@
                         $("#gdbh4").attr("value", str+num);
                     }
                 })
-                LoadMap.map.render();
-/*                var anchor = new ol.Feature({
-                    geometry: new ol.geom.Point(point)
+/*                LoadMap.map.render();
+                var anchor = new ol.Feature({
+                    geometry: new ol.geom.Point([x,y])
                 });
                 var searchLayer = new ol.layer.Vector({
                     id: "search",
@@ -1540,17 +1549,18 @@
         var options=$("#czjd_type1 option:selected");
         if(options.text() == "供水"){
             layer = LoadMap.map.getLayerById("gsjg");
-            url="/hdsw/gspoint/insert"
+            url="/hdsw/gspoint/insert";
         }else if(options.text() == "雨水"){
             layer = LoadMap.map.getLayerById("ysjg");
-            url="/hdsw/yspoint/insert"
+            url="/hdsw/yspoint/insert";
         }else if(options.text() == "污水"){
             layer = LoadMap.map.getLayerById("wsjg");
-            url="/hdsw/wspoint/insert"
+            url="/hdsw/wspoint/insert";
         }else if(options.text() == "再生水"){
             layer = LoadMap.map.getLayerById("zssjg");
-            url="/hdsw/zsspoint/insert"
+            url="/hdsw/zsspoint/insert";
         }
+        LoadMap.map.removeLayer(layer);
         $.ajax({
             url: url,
             type: "post",
@@ -1560,8 +1570,17 @@
             success: function (data) {
                 if(data.code==0){
                     layui.use('layer', () => {
-                        let layer = layui.layer;
-                        layer.msg("添加成功")
+                        let layerUI = layui.layer;
+                        LoadMap.map.removeLayer(layer);
+                        olMapConfig.layers.forEach(function(item) {
+                            if(item.values_.id == layer.values_.id){
+                                LoadMap.map.addLayer(item);
+                                LoadMap.map.render();
+                            }
+                        })
+
+                        //LoadMap.map.getLayerById(layerId).refresh({ force: true, active: true });
+                        layerUI.msg("添加成功")
                     })
                 }else{
                     layui.use('layer', () => {
@@ -1570,7 +1589,7 @@
                     })
                 }
                 LoadMap.getCoordinateFlag=undefined;
-                layer.getSource().changed();
+                //layer.getSource().changed();
             }
         })
     }

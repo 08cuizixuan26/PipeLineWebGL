@@ -22,8 +22,10 @@ if (!LoadMap) var LoadMap = {
     draw:null,
     mapClick:null,
     //坐标系偏移量
-    xOffset:0.012653,
-    yOffset:0.007422,
+/*    xOffset:0.012653,
+    yOffset:0.007422,*/
+    xOffset:0.012693,
+    yOffset:0.006953,
     setLayerVisible: function (event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         var nodes = treeObj.getChangeCheckedNodes();
@@ -328,7 +330,7 @@ if (!LoadMap) var LoadMap = {
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if(LoadMap.getCoordinateFlag == 1){
                     $("#x1").attr("value", coor[0]-LoadMap.xOffset)
-                    $("#y1").attr("value", coor[1]-LoadMap.xOffset)
+                    $("#y1").attr("value", coor[1]-LoadMap.yOffset)
                 }else if(LoadMap.getCoordinateFlag == 2){
                     $("#x2").attr("value", coor[0]-LoadMap.xOffset)
                     $("#y2").attr("value", coor[1]-LoadMap.yOffset)
