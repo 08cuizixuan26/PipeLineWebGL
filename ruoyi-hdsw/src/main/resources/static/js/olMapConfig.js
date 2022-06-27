@@ -171,6 +171,49 @@ var olMapStyle = {
     }
 }
 
+//调用方式sourceConfig.sourceConfig("hdq:hdq_zsslines","hdq","hdq","hdq_zsslines","0","0"),
+var sourceConfig={
+    getSource:function (typename,featureNS,featurePrefix,featureTypes,delState,updState){
+        var source = new ol.source.Vector({
+            format: new ol.format.GeoJSON(),
+            loader: function (extent, resolution, projection) {  //加载函数
+                var url = 'http://101.43.236.93:8092/geoserver/wfs?service=WFS&' +
+                    'version=1.1.0&request=GetFeature&typename='+typename+'&' +
+                    'outputFormat=application/json&srsname=EPSG:4326&' +
+                    'bbox=' + extent.join(',') + ',EPSG:4326';
+                var featureRequest = new ol.format.WFS().writeGetFeature({
+                    srsName: 'EPSG:4326',//坐标系
+                    featureNS: featureNS,// 注意这个值必须为创建工作区时的命名空间URI
+                    featurePrefix: featurePrefix,//工作区的命名
+                    featureTypes: [featureTypes],//所要访问的图层
+                    //maxFeatures: 5000,
+                    outputFormat: 'application/json',
+                    filter : new ol.format.filter.or(
+                        new ol.format.filter.EqualTo('del_state', delState),
+                        new ol.format.filter.EqualTo('upd_state', updState),
+                    )
+                });
+                fetch(url, {
+                    method: 'POST',
+                    body: new XMLSerializer().serializeToString(featureRequest)
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    var features = new ol.format.GeoJSON().readFeatures(json);
+                    console.log(features.length);
+                    if (features.length > 0) {
+                        source.clear();
+                        source.addFeatures(features);
+                    }
+                });
+            },
+            strategy: ol.loadingstrategy.bbox,
+            projection: 'EPSG:4326'
+        })
+        return source;
+    },
+}
+
 var olMapConfig = {
     layers: [
         //0
