@@ -138,6 +138,42 @@
             right: 2%;
             color: #bebbbb;
         }
+        #fqgxhf {
+            width: auto;
+            height: auto;
+        }
+        #fqgxhf table {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #fqgxhf table td {
+            width: 130px;
+            text-align: center;
+            line-height: 35px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .recovery_btn {
+            color: #fff;
+            background-color: #337ab7;
+            width: 60px;
+            display: inline-block;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            vertical-align: middle;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+        /*#all {*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    flex-wrap: nowrap;*/
+        /*    align-items: center;*/
+        /*}*/
+        .firstTr {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 <body>
@@ -380,7 +416,111 @@
             <div class="sty" id="fqgxhf" style="display: none">
 <!--                废弃管线恢复-->
                 <div style="margin: 10px">
-                    <table id="recoveryFromData" lay-filter="">111</table>
+                    <table border="">
+                        <tr class="firstTr">
+                            <td>
+<!--                                <button id="all">全选恢复</button>-->
+                                全选恢复<input id="all" style="margin-left: 5px;" type="checkbox">
+                            </td>
+                            <td>管线编号</td>
+                            <td>起点点号</td>
+                            <td>终点点号</td>
+                            <td>起点埋深</td>
+                            <td>终点埋深</td>
+                            <td>起点高程</td>
+                            <td>终点高程</td>
+                            <td>材质</td>
+                            <td>埋设方式</td>
+                            <td>线型</td>
+                            <td>建设日期</td>
+                            <td>管径</td>
+                            <td>权属单位编号</td>
+                            <td>流向</td>
+                            <td>所在道路</td>
+                            <td>状态</td>
+                            <td>类别</td>
+                            <td>长度</td>
+                            <td>编辑</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="sub" type="checkbox">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="sub" type="checkbox">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="sub" type="checkbox">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -428,6 +568,20 @@
     $('.icon-bar').click(function(){
         $('.layerTreeDiv').toggle();
     })
+
+    //废弃管线恢复全选恢复页面
+    // $('.recoveryAll').click(function () {
+    //     $('.recoveryAllChildren').attr('checked', true)
+    // })
+
+    $("#all").on('click',function() {
+        $("input[name='sub']").prop("checked", this.checked);
+    });
+
+    $("input[name='sub']").on('click',function() {
+        var $subs = $("input[name='sub']");
+        $("#all").prop("checked" , $subs.length == $subs.filter(":checked").length ? true :false);
+    });
 
 
     $('.tabNav li').click(function(){
