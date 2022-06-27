@@ -583,14 +583,9 @@
     })
 
     //废弃管线恢复全选恢复页面
-    // $('.recoveryAll').click(function () {
-    //     $('.recoveryAllChildren').attr('checked', true)
-    // })
-
     $("#all").on('click',function() {
         $("input[name='sub']").prop("checked", this.checked);
     });
-
     $("input[name='sub']").on('click',function() {
         var $subs = $("input[name='sub']");
         $("#all").prop("checked" , $subs.length == $subs.filter(":checked").length ? true :false);

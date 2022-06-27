@@ -47,13 +47,18 @@
             left: 117px;
             top: 30px;
         }
+        /*.sidebar-collapse .side-menu li{*/
+        /*    color: #4A98F7;*/
+        /*    background: #f0f0f0;*/
+        /*}*/
 
         .theme-dark .nav:not(.navbar-toolbar) > li.active {
             background: #4A98F7;
         }
 
         .theme-dark .navbar-default .nav > li > a:hover, .theme-dark .navbar-default .nav > li > a:focus {
-            background: #ffd700;
+            background: #f4f4f4;
+            color: #4A98F7;
         }
 
         .text-success {
@@ -62,6 +67,16 @@
         #page-wrapper{
             margin-left:280px!important;
             width: 88%!important;
+        }
+        .selected {
+            background: #fff;
+        }
+        .selected a {
+            color: #4A98F7;
+        }
+        .side-menu li {
+            background: #fff;
+            color: #4A98F7;
         }
     </style>
 </head>
@@ -146,8 +161,9 @@
                     </div>
                 </li>
                 <li>
-                    <a class="menuItem" th:href="@{/hdsw}"><i class="fa fa-home"></i> <span class="nav-label"
-                                                                                            style="font: bold 20px  'Microsoft YaHei';color: #ffd700">首页</span>
+                    <a class="menuItem" th:href="@{/hdsw}">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label" style="font: bold 20px  'Microsoft YaHei';color: #ffd700">首页</span>
                     </a>
                 </li>
                 <li th:each="menu : ${menus}" style="font: bold 20px  'Microsoft YaHei';">
@@ -176,10 +192,10 @@
                                             class="fa arrow"></span></a>
                                     <ul th:if="${not #lists.isEmpty(emenu.children)}" class="nav nav-four-level">
                                         <li th:each="fmenu : ${emenu.children}"><a
-                                                th:if="${#lists.isEmpty(fmenu.children)}"
-                                                th:class="${#strings.isEmpty(fmenu.target)} ? |menuItem| : ${fmenu.target}"
-                                                th:text="${fmenu.menuName}" th:href="@{${fmenu.url}}"
-                                                th:data-refresh="${fmenu.isRefresh == '0'}">四级菜单</a></li>
+                                            th:if="${#lists.isEmpty(fmenu.children)}"
+                                            th:class="${#strings.isEmpty(fmenu.target)} ? |menuItem| : ${fmenu.target}"
+                                            th:text="${fmenu.menuName}" th:href="@{${fmenu.url}}"
+                                            th:data-refresh="${fmenu.isRefresh == '0'}">四级菜单</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -381,6 +397,14 @@
 <script th:src="@{/ruoyi/index.js?v=20201208}"></script>
 <script th:src="@{/ajax/libs/fullscreen/jquery.fullscreen.js}"></script>
 <script th:inline="javascript">
+
+<!--    左侧菜单栏选中变色-->
+    $('.collapse li nav li').click(function(){
+        console.log(12345678910),
+        $(this).css('background-color', '#fff'),
+            $(this).css('color', '#4A98F7')
+    })
+
     window.history.forward(1);
     var ctx = [[@{/}]];
     var lockscreen = [[${session.lockscreen}]];
