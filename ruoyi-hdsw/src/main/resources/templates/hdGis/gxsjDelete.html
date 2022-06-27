@@ -151,6 +151,34 @@
             right: 2%;
             color: #bebbbb;
         }
+        #fqgxhf {
+            width: auto;
+            height: auto;
+        }
+        #fqgxhf table {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #fqgxhf table td {
+            width: 140px;
+            text-align: center;
+            line-height: 35px;
+            border: 1px solid #ccc;
+        }
+        .recovery_btn {
+            color: #fff;
+            background-color: #337ab7;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            display: inline-block;
+            /*padding: 6px 12px;*/
+            border: 1px solid transparent;
+            border-radius: 4px;
+            vertical-align: middle;
+            text-align: center;
+            margin-bottom: 2px;
+        }
     </style>
 </head>
 <body>
@@ -393,7 +421,53 @@
             <div class="sty" id="fqgxhf" style="display: none">
 <!--                废弃管线恢复-->
                 <div style="margin: 10px">
-                    <table id="recoveryFromData" lay-filter="">111</table>
+                    <table border="">
+                        <tr>
+                            <td>全选<input type="checkbox"></td>
+                            <td>起点点号</td>
+                            <td>终点点号</td>
+                            <td>起点埋深</td>
+                            <td>终点埋深</td>
+                            <td>起点高程</td>
+                            <td>终点高程</td>
+                            <td>材质</td>
+                            <td>埋设方式</td>
+                            <td>线型</td>
+                            <td>建设日期</td>
+                            <td>管径</td>
+                            <td>权属单位编号</td>
+                            <td>流向</td>
+                            <td>所在道路</td>
+                            <td>状态</td>
+                            <td>类别</td>
+                            <td>长度</td>
+                            <td>编辑</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button class="recovery_btn">恢复</button>
+                            </td>
+                        </tr>
+                        <tr>
+                    </table>
                 </div>
             </div>
 
