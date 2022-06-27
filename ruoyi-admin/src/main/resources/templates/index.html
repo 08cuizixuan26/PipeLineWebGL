@@ -399,10 +399,11 @@
 <script th:inline="javascript">
 
 <!--    左侧菜单栏选中变色-->
-    $('.collapse li nav li').click(function(){
+    $('.menuItem').click(function(){
         console.log(12345678910),
-        $(this).css('background-color', '#fff'),
-            $(this).css('color', '#4A98F7')
+            $(this).addClass('menuItemsChilren').siblings().removeClass('menuItemsChilren')
+        // $(this).css({'background-color':'#fff', 'color': '#4A98F7'}).siblings().css({'background-color': '#4A98F7','color': '#fff'})
+        // $(this).siblings().css({'background-color': '#4A98F7','color': '#fff'})
     })
 
     window.history.forward(1);
