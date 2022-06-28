@@ -171,13 +171,13 @@ var olMapStyle = {
     }
 }
 
-//调用方式sourceConfig.sourceConfig("hdq:hdq_zsslines","hdq","hdq","hdq_zsslines","0","0"),
+//调用方式sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
 var sourceConfig={
     getSource:function (typename,featureNS,featurePrefix,featureTypes,delState,updState){
         var source = new ol.source.Vector({
             format: new ol.format.GeoJSON(),
             loader: function (extent, resolution, projection) {  //加载函数
-                var url = 'http://101.43.236.93:8092/geoserver/wfs?service=WFS&' +
+                var url = 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
                     'version=1.1.0&request=GetFeature&typename='+typename+'&' +
                     'outputFormat=application/json&srsname=EPSG:4326&' +
                     'bbox=' + extent.join(',') + ',EPSG:4326';
@@ -188,10 +188,10 @@ var sourceConfig={
                     featureTypes: [featureTypes],//所要访问的图层
                     //maxFeatures: 5000,
                     outputFormat: 'application/json',
-                    filter : new ol.format.filter.or(
+/*                    filter : new ol.format.filter.and(
                         new ol.format.filter.EqualTo('del_state', delState),
                         new ol.format.filter.EqualTo('upd_state', updState),
-                    )
+                    )*/
                 });
                 fetch(url, {
                     method: 'POST',

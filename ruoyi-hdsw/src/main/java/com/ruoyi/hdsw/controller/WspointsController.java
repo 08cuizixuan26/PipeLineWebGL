@@ -67,4 +67,16 @@ public class WspointsController {
             return AjaxResult.error(e.getMessage());
         }
     }
+    /**
+     * 查询未更新
+     **/
+    @GetMapping("/selectByState")
+    public AjaxResult selectByState(String delState, String updState) {
+        try {
+            return AjaxResult.success(wspointsService.selectByState(delState,updState));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
+    }
 }

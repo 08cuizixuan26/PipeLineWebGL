@@ -1,5 +1,7 @@
 package com.ruoyi.hdsw.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface MyBatisBaseMapper<Model, PK extends Serializable> {
     int updateByPrimaryKey(Model record);
 
     int getMaxNum();
+
+    List<Model> selectByState(@Param("delState") String delState, @Param("updState") String updState);
 }

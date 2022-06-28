@@ -11,6 +11,7 @@
     <script th:src="@{/js/baiduMercator.js}"></script>
     <script th:src="@{/js/olMapConfig.js}"></script>
     <script th:src="@{/js/map.js}"></script>
+    <script th:src="@{/js/convex-hull.js}"></script>
     <script th:src="@{/js/coordinateTransform.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
@@ -955,7 +956,7 @@
         <div class="layerControlTitle">图层控制</div>
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo" class=" ztree"></ul>
-    </div>
+    </div>F
 </div>
 
 </body>
@@ -1122,6 +1123,7 @@
     });
 </script>
 <script>
+    var tt;
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
         setBh("gspoint","GSP","gdbh1")
@@ -1517,6 +1519,7 @@
         });
 
     }
+
     //参考选点保存
     function save1() {
         var layer;
@@ -1560,7 +1563,6 @@
             layer = LoadMap.map.getLayerById("zssjg");
             url="/hdsw/zsspoint/insert";
         }
-        LoadMap.map.removeLayer(layer);
         $.ajax({
             url: url,
             type: "post",
@@ -1571,13 +1573,14 @@
                 if(data.code==0){
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
-                        LoadMap.map.removeLayer(layer);
+                        //layer.getSource().refresh();
+/*                        LoadMap.map.removeLayer(layer);
                         olMapConfig.layers.forEach(function(item) {
                             if(item.values_.id == layer.values_.id){
                                 LoadMap.map.addLayer(item);
                                 LoadMap.map.render();
                             }
-                        })
+                        })*/
 
                         //LoadMap.map.getLayerById(layerId).refresh({ force: true, active: true });
                         layerUI.msg("添加成功")

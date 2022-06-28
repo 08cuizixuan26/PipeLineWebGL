@@ -44,4 +44,9 @@ public class GspointServiceImpl implements GspointService {
     public Object getMaxNum() {
         return gspointMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return gspointMapper.selectByState(delState,updState);
+    }
 }

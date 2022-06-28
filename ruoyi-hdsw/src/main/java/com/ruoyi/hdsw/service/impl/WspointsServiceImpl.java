@@ -44,4 +44,9 @@ public class WspointsServiceImpl implements WspointsService {
     public Object getMaxNum() {
         return wspointsMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return wspointsMapper.selectByState(delState,updState);
+    }
 }

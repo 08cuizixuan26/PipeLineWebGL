@@ -353,4 +353,15 @@
   <select id="getMaxNum" resultType="int">
     select max(cast(substring(gspoint.exp_no,4) as integer)) from gspoint
   </select>
+  <select id="selectByState"  resultMap="BaseResultMap">
+    select
+    gid, exp_no, feature, subsid, elevation, sure_h, bot_depth, cov_type, cov_dn, cov_meat,
+    wcha_meat, wcha_type, fo_deep, wcha_dn, b_time, offc_no, rotation, x, y, "owner",
+    road, st_asgeojson(geom) geom, del_state, upd_state,type
+    from "gspoint"
+    <where>
+      <if test="delState != null and delState != '' "> AND del_state  =#{delState} </if>
+      <if test="updState != null and updState != '' "> AND upd_state  =#{updState} </if>
+    </where>
+  </select>
 </mapper>
