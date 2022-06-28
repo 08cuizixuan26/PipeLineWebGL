@@ -1750,16 +1750,16 @@
         var options=$('#ywlb4').val();
         if(options == "供水"){
             url="/hdsw/gspoint/insert"
-            url1="/hdsw/gsline/update"
+            url1="/hdsw/gsline/interruptLine"
         }else if(options == "雨水"){
             url="/hdsw/yspoint/insert"
             url1="/hdsw/ysline/interruptLine"
         }else if(options == "污水"){
             url="/hdsw/wspoint/insert"
-            url1="/hdsw/wsline/update"
+            url1="/hdsw/wsline/interruptLine"
         }else if(options == "再生水"){
             url="/hdsw/zsspoint/insert"
-            url1="/hdsw/zssline/update"
+            url1="/hdsw/zssline/interruptLine"
         }
         $.ajax({
             url: url,
