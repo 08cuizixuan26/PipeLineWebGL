@@ -178,14 +178,30 @@
             text-align: center;
             margin-bottom: 2px;
         }
-        /*#all {*/
-        /*    display: flex;*/
-        /*    justify-content: center;*/
-        /*    flex-wrap: nowrap;*/
-        /*    align-items: center;*/
-        /*}*/
         .firstTr {
             background: #f5f5f5;
+        }
+        #popUpBox {
+            position: absolute;
+            top: 22%;
+            left: 32%;
+            width: 500px;
+            height: 270px;
+            background: #fff;
+            /*border-radius: 6px;*/
+            box-shadow:0px 0px 10px 3px #ccc;
+        }
+        #popUpBox .tip {
+            /*text-align: center;*/
+            margin-top: 50px;
+        }
+        #popUpBox .tip span {
+            font-size: 20px;
+            margin-left: 30px;
+        }
+        .popUpDown {
+            margin-left: 67%;
+            margin-top: 67px;
         }
     </style>
 </head>
@@ -428,7 +444,7 @@
 
             <div class="sty" id="fqgxhf" style="display: none">
 <!--                废弃管线恢复-->
-                <div style="margin: 10px">
+                <div class="tableDataBox" style="margin: 10px">
                     <table border="">
                         <tr class="firstTr">
                             <td>
@@ -478,7 +494,7 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
+                                <button type="button" class="btn ShowBox btn-primary recovery_btn">恢复</button>
                             </td>
                         </tr>
                         <tr>
@@ -504,36 +520,21 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input name="sub" type="checkbox">
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-primary recovery_btn">恢复</button>
+                                <button type="button" class="btn ShowBox btn-primary recovery_btn">恢复</button>
                             </td>
                         </tr>
                     </table>
+                    <div id="popUpBox" style="margin-top: 30px;display: none">
+                        <a style="text-decoration: none"><i id="confirmCancle" style="font-size: 29px;margin-left: 92%;margin-top: 20px;line-height: 1.8" class="layui-icon layui-icon-close"></i></a>
+                        <hr>
+                        <div class="tip">
+                            <span>确定要恢复此条管线数据吗？</span>
+                        </div>
+                        <div class="popUpDown">
+                            <button class="layui-btn layui-btn-normal">确定</button>
+                            <button id="confirmCancle1" class="layui-btn layui-btn-primary layui-border-blue">取消</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -576,6 +577,25 @@
 
 <!--</script>-->
 <script>
+
+    $('.ShowBox').click(function () {
+        $('#popUpBox').show()
+    })
+
+    $('#confirmCancle').click(function () {
+        $('#popUpBox').hide()
+    })
+    $('#confirmCancle1').click(function () {
+        $('#popUpBox').hide()
+    })
+
+    // layui.use('layer', function(){
+    //     var layer = layui.layer;
+    //     layer.open({
+    //         type: 4,
+    //         content: ['确定要删除吗？', '#popUpBox'] //数组第二项即吸附元素选择器或者DOM
+    //     });
+    // });
 
     //图层收缩事件
     $('.icon-bar').click(function(){
