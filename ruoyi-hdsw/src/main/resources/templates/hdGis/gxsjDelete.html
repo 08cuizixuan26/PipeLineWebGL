@@ -194,7 +194,7 @@
             margin-top: 42px;
         }
         #popUpBox .tip span {
-            font-size: 20px;
+            font-size: 19px;
             margin-left: 30px;
         }
         .popUpDown {
@@ -530,7 +530,8 @@
                         </div>
                         <div class="popUpDown">
                             <button class="layui-btn layui-btn-normal">确定</button>
-                            <button id="confirmCancle1" class="layui-btn layui-btn-primary layui-border-blue">取消</button>
+                            <button id="confirmCancle1" class="layui-btn layui-btn-primary layui-border">
+                                <span class="cancle">取消</span></button>
                         </div>
                     </div>
                 </div>
@@ -581,6 +582,17 @@
     $('#confirmCancle').click(function () {
         $('#popUpBox').hide()
     })
+    $('#confirmCancle1').mouseenter(function () {
+        // alert('取消')
+        $(this).css({'border': '1px solid #4A98F7', 'color': '#4A98F7'})
+        $('.cancle').css('color', '#4A98F7')
+    })
+    $('#confirmCancle1').mouseleave(function () {
+        // alert('取消')
+        $(this).css({'border': '1px solid #ccc', 'color': '#555'})
+        $('.cancle').css('color', '#555')
+    })
+
     //取消按钮confirm提示框关闭
     $('#confirmCancle1').click(function () {
         $('#popUpBox').hide()
