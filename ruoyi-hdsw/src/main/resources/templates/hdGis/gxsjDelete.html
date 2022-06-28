@@ -582,6 +582,13 @@
     $('#confirmCancle').click(function () {
         $('#popUpBox').hide()
     })
+    $('#confirmCancle').mouseenter(function () {
+        $(this).css('color', '#4A98F7')
+    })
+    $('#confirmCancle').mouseleave(function () {
+        $(this).css('color', '#555')
+    })
+
     $('#confirmCancle1').mouseenter(function () {
         // alert('取消')
         $(this).css({'border': '1px solid #4A98F7', 'color': '#4A98F7'})
