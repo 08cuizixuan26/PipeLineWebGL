@@ -186,22 +186,20 @@
             top: 22%;
             left: 32%;
             width: 500px;
-            height: 270px;
+            height: 267px;
             background: #fff;
-            /*border-radius: 6px;*/
             box-shadow:0px 0px 10px 3px #ccc;
         }
         #popUpBox .tip {
-            /*text-align: center;*/
-            margin-top: 50px;
+            margin-top: 42px;
         }
         #popUpBox .tip span {
             font-size: 20px;
             margin-left: 30px;
         }
         .popUpDown {
-            margin-left: 67%;
-            margin-top: 67px;
+            margin-left: 66%;
+            margin-top: 66px;
         }
     </style>
 </head>
@@ -538,8 +536,6 @@
                 </div>
             </div>
 
-
-
         </div>
     </div>
 
@@ -577,25 +573,18 @@
 
 <!--</script>-->
 <script>
-
+<!--    恢复confirm提示框显示-->
     $('.ShowBox').click(function () {
         $('#popUpBox').show()
     })
-
+    //右上角confirm提示框关闭
     $('#confirmCancle').click(function () {
         $('#popUpBox').hide()
     })
+    //取消按钮confirm提示框关闭
     $('#confirmCancle1').click(function () {
         $('#popUpBox').hide()
     })
-
-    // layui.use('layer', function(){
-    //     var layer = layui.layer;
-    //     layer.open({
-    //         type: 4,
-    //         content: ['确定要删除吗？', '#popUpBox'] //数组第二项即吸附元素选择器或者DOM
-    //     });
-    // });
 
     //图层收缩事件
     $('.icon-bar').click(function(){
@@ -666,9 +655,6 @@
             search();
         }
     })
-
-
-
 
 </script>
 
