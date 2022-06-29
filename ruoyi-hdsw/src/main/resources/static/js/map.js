@@ -44,6 +44,65 @@ if (!LoadMap) var LoadMap = {
             })
         });
     },
+    //凸多边形点集合
+    linePoints:undefined,
+
+    //获取待更新的数据
+    getUpdateData:function(){
+    var points = [];
+    var url = "/hdsw/gsline/selectByState"
+    $.ajax({
+        url: url,
+        type: "get",
+        contentType: 'application/json',
+        dataType: 'json',
+        data: {updState:"1"},
+        success: function (data) {
+            if(data.code==0) {
+                data.data.forEach( function(element, index) {
+                    var geom = JSON.parse(element.geom);
+                    var point = {x:geom.coordinates[0][0][0],y:geom.coordinates[0][0][1]};
+                    points.push(point);
+                    var point1 = {x:geom.coordinates[0][1][0],y:geom.coordinates[0][1][1]};
+                    points.push(point1);
+                })
+                var newPoints = convexhull.makeHull(points)
+                LoadMap.linePoints = newPoints;
+            }
+        }
+    })
+
+},
+    //绘制多边形
+    drawLine:function() {
+        var targetArr = [];
+        LoadMap.linePoints.forEach(function (obj, index) {
+            var newArr = [];
+            newArr.push(obj.x);
+            newArr.push(obj.y);
+            targetArr.push(newArr);
+        });
+        if (targetArr.length > 0) {
+            var polygonArr = [];
+            polygonArr.push(targetArr);
+            var myPolygon = new ol.geom.Polygon(polygonArr);//绘制多边形（点集数组结构是[[[xxxx,xxxx],[   xxxx,xxxx],.....]]）
+            myPolygon.applyTransform(ol.proj.getTransform('EPSG:4326', 'BD:09'));
+            var feature = new ol.Feature(myPolygon);
+            var lineStyle = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: "#00ffff",
+                    width: 4,
+                }),
+            });
+            feature.setStyle(lineStyle)
+            var layer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    features: [feature]
+                })
+            });
+            LoadMap.map.addLayer(layer);
+        }
+    },
 
     showFeatureInfo: function (e, properties) {
         let v = $("#featureInfo")[0];

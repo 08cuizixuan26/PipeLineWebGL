@@ -74,4 +74,9 @@ public class GslineServiceImpl implements GslineService{
     public Object getMaxNum() {
         return gslineMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return gslineMapper.selectByState(delState,updState);
+    }
 }

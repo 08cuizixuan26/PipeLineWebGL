@@ -73,4 +73,9 @@ public class WslinesServiceImpl implements WslinesService {
     public Object getMaxNum() {
         return wslinesMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return wslinesMapper.selectByState(delState,updState);
+    }
 }

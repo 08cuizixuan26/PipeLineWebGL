@@ -73,4 +73,9 @@ public class YslinesServiceImpl implements YslinesService {
     public Object getMaxNum() {
         return yslinesMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return yslinesMapper.selectByState(delState,updState);
+    }
 }
