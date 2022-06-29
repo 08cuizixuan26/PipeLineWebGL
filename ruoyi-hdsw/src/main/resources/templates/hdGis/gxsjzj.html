@@ -650,7 +650,7 @@
                    <button class="btn btn-primary" id="search_btn4">查询</button>
                </p>
                <form class="layui-form" action="">
-                   <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" onclick="drawLine()">请点击地图中的管线获取信息</button></h4>
+                   <h4>管线信息:<button type="button" class="btn btn-primary" id="crd4" style="height: 20px;padding: 0!important" onclick="selectPoint(this.id)">请点击地图中的管线获取信息</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管线编号</label>
@@ -1368,12 +1368,39 @@
 
         return lonLatObj;
     }
-    //根据两个点坐标以及与水平方向夹角求交点
+    //根据两个点坐标以及与垂直方向夹角求交点
     function getIntersection(lon1,lat1,angle1,lon2,lat2,angle2) {
         var lon, lat;
         var rad1 = mapNumberUtil.rad(angle1);
         var rad2 = mapNumberUtil.rad(angle2);
-        if (angle1 == angle2 || angle1 + angle2 == 360) {
+        //平行线
+        if (angle1 == angle2 || angle1 + angle2 == 180) {
+            return null;
+        } else if (angle1 == 90 || angle1 == 270) {
+            lon = (lat2-lat1)*Math.tan(rad2) + lon2;
+            lat = lat1
+
+        } else if (angle2 == 90 || angle2 == 270) {
+            lon = (lat1-lat2)*Math.tan(rad1) + lon1;
+            lat = lat2
+        } else {
+            lat = (lon2 - lon1 + lat1 * Math.tan(rad1) - lat2 * Math.tan(rad2)) / (Math.tan(rad1) - Math.tan(rad2));
+            lon = (Math.tan(rad1) * Math.tan(rad2) * (lat2 - lat1) + Math.tan(rad2) * lon1 - Math.tan(rad1) * lon2) / (Math.tan(rad2) - Math.tan(rad1))
+        }
+
+        var lonLatObj = {
+            lon: lon,
+            lat: lat
+        }
+        return lonLatObj;
+    }
+/*    //根据两个点坐标以及与水平方向夹角求交点
+    function getIntersection(lon1,lat1,angle1,lon2,lat2,angle2) {
+        var lon, lat;
+        var rad1 = mapNumberUtil.rad(angle1);
+        var rad2 = mapNumberUtil.rad(angle2);
+        //平行线
+        if (angle1 == angle2 || angle1 + angle2 == 180) {
             return null;
         } else if (angle1 == 90 || angle1 == 270) {
             lon = lon1;
@@ -1392,7 +1419,7 @@
             lat: lat
         }
         return lonLatObj;
-    }
+    }*/
 
         /*
     * 线段与线段的交点
@@ -1475,8 +1502,8 @@
                 $("#qsdw4").attr("value", feature[0].values_.owner)
                 $("#ywlb4").attr("value", feature[0].values_.type)
 
-                var x = parseFloat(lonlat[0])-LoadMap.xOffset;
-                var y = parseFloat(lonlat[1])-LoadMap.yOffset;
+                var x = parseFloat(lonlat[0]);
+                var y = parseFloat(lonlat[1]);
                 $("#xcor4").attr("value", x)
                 $("#ycor4").attr("value", y)
 
@@ -1501,9 +1528,9 @@
                         $("#gdbh4").attr("value", str+num);
                     }
                 })
-/*                LoadMap.map.render();
+
                 var anchor = new ol.Feature({
-                    geometry: new ol.geom.Point([x,y])
+                    geometry: new ol.geom.Point(point)
                 });
                 var searchLayer = new ol.layer.Vector({
                     id: "search",
@@ -1512,13 +1539,18 @@
                     }),
                     style: olMapStyle.wsc_Style
                 });
-                LoadMap.map.addLayer(searchLayer)*/
+                LoadMap.map.addLayer(searchLayer)
+                LoadMap.map.render();
             }else{
 
             }
         });
 
     }
+
+    function selectPoint(clicked_id) {
+        LoadMap.getCoordinateFlag = clicked_id;
+     }
 
     //参考选点保存
     function save1() {
@@ -1574,13 +1606,13 @@
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
                         //layer.getSource().refresh();
-/*                        LoadMap.map.removeLayer(layer);
+                        LoadMap.map.removeLayer(layer);
                         olMapConfig.layers.forEach(function(item) {
                             if(item.values_.id == layer.values_.id){
                                 LoadMap.map.addLayer(item);
                                 LoadMap.map.render();
                             }
-                        })*/
+                        })
 
                         //LoadMap.map.getLayerById(layerId).refresh({ force: true, active: true });
                         layerUI.msg("添加成功")
@@ -1717,9 +1749,6 @@
     }
     //插入点保存
     function save4() {
-       // var new_lonlat = ol.proj.transform([$('#xcor4').val(),$('#ycor4').val()], 'EPSG:4326', 'BD:09')
-        var x = parseFloat($('#xcor4').val()) +0.012653;
-        var y = parseFloat($('#ycor4').val()) +0.012653;
         var params = {
             expNo:$('#gdbh4').val(),
             feature:$('#tz4').val(),
