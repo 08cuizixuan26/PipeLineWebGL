@@ -156,16 +156,16 @@
             height: auto;
         }
         #fqgxhf table {
-            border: 1px solid #ccc;
             border-radius: 4px;
+            border: none;
         }
         #fqgxhf table td {
-            width: 130px;
             text-align: center;
-            line-height: 35px;
-            border: 1px solid #ccc;
+            width: 160px;
+            line-height: 45px;
+            border: none;
+            border-bottom: 1px solid #dde0e7;
             box-sizing: border-box;
-            font-weight: bold;
         }
         .recovery_btn {
             color: #fff;
@@ -179,7 +179,7 @@
             margin-bottom: 2px;
         }
         .firstTr {
-            background: #f5f5f5;
+            background: #edeff2;
         }
         #popUpBox {
             position: absolute;
@@ -331,16 +331,16 @@
 
             <div class="sty" style="display: none" id="gxfq">
 <!--                管线废弃-->
-                <p class="sear_sty">
-                    <select name="czjd_type"  class="form-control" lay-verify="required">
-                        <option value="0">污水管线</option>
-                        <option value="1">污水</option>
-                        <option value="2">雨水</option>
-                        <option value="3">再生水</option>>
-                    </select>
-                    <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
-                    <button class="btn btn-primary"  onclick="search()">查询</button>
-                </p>
+<!--                <p class="sear_sty">-->
+<!--                    <select name="czjd_type"  class="form-control" lay-verify="required">-->
+<!--                        <option value="0">污水管线</option>-->
+<!--                        <option value="1">污水</option>-->
+<!--                        <option value="2">雨水</option>-->
+<!--                        <option value="3">再生水</option>>-->
+<!--                    </select>-->
+<!--                    <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">-->
+<!--                    <button class="btn btn-primary"  onclick="search()">查询</button>-->
+<!--                </p>-->
                 <form class="layui-form" action="">
                     <div class="form-group" style="display: flex;align-items: center">
                         <span style="font-weight: bold">污水管线信息</span>
@@ -442,83 +442,63 @@
 
             <div class="sty" id="fqgxhf" style="display: none">
 <!--                废弃管线恢复-->
+                <p class="sear_sty">
+                    <select name="czjd_type"  class="form-control" lay-verify="required">
+                        <option value="0">污水管线</option>
+                        <option value="1">给水管线</option>
+                        <option value="2">雨水管线</option>
+                        <option value="3">再生水管线</option>>
+                    </select>
+                    <button class="btn btn-primary"style="background: #4A98F7;border: none">查询</button>
+                </p>
                 <div class="tableDataBox" style="margin: 10px">
                     <table border="">
                         <tr class="firstTr">
                             <td>
-<!--                                <button id="all">全选恢复</button>-->
-                                全选恢复<input id="all" style="margin-left: 5px;" type="checkbox">
+                                <input id="all" style="width: 60px" type="checkbox">
                             </td>
                             <td>管线编号</td>
-                            <td>起点点号</td>
-                            <td>终点点号</td>
-                            <td>起点埋深</td>
-                            <td>终点埋深</td>
-                            <td>起点高程</td>
-                            <td>终点高程</td>
-                            <td>材质</td>
-                            <td>埋设方式</td>
-                            <td>线型</td>
-                            <td>建设日期</td>
-                            <td>管径</td>
-                            <td>权属单位编号</td>
-                            <td>流向</td>
                             <td>所在道路</td>
-                            <td>状态</td>
-                            <td>类别</td>
-                            <td>长度</td>
-                            <td>编辑</td>
+                            <td>操作</td>
                         </tr>
                         <tr>
                             <td>
                                 <input name="sub" type="checkbox">
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>12363</td>
+                            <td>123</td>
                             <td>
-                                <button type="button" class="btn ShowBox btn-primary recovery_btn">恢复</button>
+                                <button class="ShowBox" style="text-decoration: none;color: #157bd8;border: none;background: #fff">恢复</button>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <input name="sub" type="checkbox">
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>123</td>
+                            <td>123</td>
                             <td>
-                                <button type="button" class="btn ShowBox btn-primary recovery_btn">恢复</button>
+                                <button class="ShowBox" style="text-decoration: none;color: #157bd8;border: none;background: #fff">恢复</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="sub" type="checkbox">
+                            </td>
+                            <td>123</td>
+                            <td>123</td>
+                            <td>
+                                <button class="ShowBox" style="text-decoration: none;color: #157bd8;border: none;background: #fff">恢复</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="sub" type="checkbox">
+                            </td>
+                            <td>123</td>
+                            <td>123</td>
+                            <td>
+                                <button class="ShowBox" style="text-decoration: none;color: #157bd8;border: none;background: #fff">恢复</button>
                             </td>
                         </tr>
                     </table>
