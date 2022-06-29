@@ -200,12 +200,17 @@
                            <label class="layui-form-label">纵坐标</label>
                            <input type="text" name="title" id="y1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                       <div class="layui-input-inline">
+                       <div class="layui-input-inline company1">
                            <label class="layui-form-label">距离</label>
-
-                           <input type="text" name="title" id="dis1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
-
+                           <input type="text" id="dis1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
+                           <em class="em">m</em>
                        </div>
+<!--                       <div class="layui-input-inline">-->
+<!--                           <label class="layui-form-label">距离</label>-->
+
+<!--                           <input type="text" name="title" id="dis1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">-->
+<!--                           -->
+<!--                       </div>-->
                      </div>
                    </div>
                    <div class="form-group">
@@ -374,6 +379,16 @@
                </div>
 
                <div id="ymsrf" style="display: none">
+<!--                   解析加点的页面输入法-->
+<!--                   <div class="layui-input-inline">-->
+<!--                      <label class="layui-form-label">业务类别</label>-->
+<!--                      <select name="czjd_type2" id="czjd_type2" class="form-control" lay-verify="required">-->
+<!--                          <option value="0">供水</option>-->
+<!--                          <option value="1">污水</option>-->
+<!--                          <option value="2">雨水</option>-->
+<!--                          <option value="3">再生水</option>>-->
+<!--                      </select>-->
+<!--                  </div>-->
                    <form class="layui-form" action="">
                        <h4>管点坐标:</h4>
                        <div class="form-group">
@@ -384,6 +399,9 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">纵坐标</label>
                                <input type="text" name="title" id="ycor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important">获取坐标</button>
                            </div>
                        </div>
                        <h4>管点属性:</h4>
@@ -468,7 +486,6 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">建设日期</label>
                                <input type="text" class="layui-input form-control" id="jsrq2">
-                               <!--                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
                            </div>
                        </div>
                        <div class="form-group">
@@ -530,6 +547,16 @@
                </div>
 
                <div id="ymsrf_" style="display: none">
+<!--                   解析加线的页面输入法-->
+                   <div class="layui-input-inline">
+                      <label class="layui-form-label">业务类别</label>
+                      <select name="czjd_type3" id="czjd_type3" class="form-control" lay-verify="required">
+                          <option value="0">供水</option>
+                          <option value="1">污水</option>
+                          <option value="2">雨水</option>
+                          <option value="3">再生水</option>>
+                      </select>
+                  </div>
                    <form class="layui-form" action="">
                        <h4>起点坐标:</h4>
                        <div class="form-group">
@@ -570,26 +597,9 @@
                        <h4>管线属性:</h4>
                        <div class="form-group">
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">业务类别</label>
-                               <select name="czjd_type3" id="czjd_type3" class="form-control" lay-verify="required">
-                                   <option value="0">供水</option>
-                                   <option value="1">污水</option>
-                                   <option value="2">雨水</option>
-                                   <option value="3">再生水</option>>
-                               </select>
-                           </div>
-                           <div class="layui-input-inline">
                                <label class="layui-form-label">管线编号</label>
                                <input type="text" name="title" readonly="readonly" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-<!--                           <div class="layui-input-inline">
-                               <label class="layui-form-label">起点点号</label>
-                               <input type="text" name="title" id="" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">终点点号</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>-->
                            <div class="layui-input-inline">
                                <label class="layui-form-label">起点埋深</label>
                                <input type="text" name="title" id="qdms3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -630,11 +640,6 @@
                                <input type="text" name="title" id="gj3"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                                <em class="em">mm</em>
                            </div>
-<!--                           <div class="layui-input-inline">-->
-<!--                               <label class="layui-form-label">管径</label>-->
-<!--                               <input type="text" name="title" id="gj3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
-<!--                               <em>毫米</em>-->
-<!--                           </div>-->
                            <div class="layui-input-inline">
                                <label class="layui-form-label">建设日期</label>
                                <input type="text" name="title" id="jsrq3" class="form-control">
