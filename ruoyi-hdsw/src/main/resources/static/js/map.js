@@ -501,6 +501,9 @@ if (!LoadMap) var LoadMap = {
                 }else if(LoadMap.getCoordinateFlag == 2){
                     $("#x2").attr("value", coor[0]-LoadMap.xOffset)
                     $("#y2").attr("value", coor[1]-LoadMap.yOffset)
+                }else if(LoadMap.getCoordinateFlag == "hqzb2"){
+                    $("#xcor2").attr("value", coor[0]-LoadMap.xOffset)
+                    $("#ycor2").attr("value", coor[1]-LoadMap.yOffset)
                 }
                 LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
                     console.log(feature.getProperties());

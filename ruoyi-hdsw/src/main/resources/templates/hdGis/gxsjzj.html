@@ -401,7 +401,7 @@
                                <input type="text" name="title" id="ycor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
-                               <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important">获取坐标</button>
+                               <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="hqzb2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                            </div>
                        </div>
                        <h4>管点属性:</h4>
@@ -1667,7 +1667,7 @@
                 if(data.code==0){
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId)
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
                         layerUI.msg("添加成功")
@@ -1776,14 +1776,19 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type2 option:selected");
         if(options.text() == "供水"){
+            layer = LoadMap.map.getLayerById("gsjg");
             url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
+            layer = LoadMap.map.getLayerById("ysjg");
             url="/hdsw/yspoint/insert"
         }else if(options.text() == "污水"){
+            layer = LoadMap.map.getLayerById("wsjg");
             url="/hdsw/wspoint/insert"
         }else if(options.text() == "再生水"){
+            layer = LoadMap.map.getLayerById("zssjg");
             url="/hdsw/zsspoint/insert"
         }
         $.ajax({
@@ -1794,6 +1799,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -1834,15 +1842,20 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type3 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gsline/insert"
+            layer = LoadMap.map.getLayerById("gsgx");
         }else if(options.text() == "雨水"){
             url="/hdsw/ysline/insert"
+            layer = LoadMap.map.getLayerById("ysgx");
         }else if(options.text() == "污水"){
             url="/hdsw/wsline/insert"
+            layer = LoadMap.map.getLayerById("wsgx");
         }else if(options.text() == "再生水"){
             url="/hdsw/zssline/insert"
+            layer = LoadMap.map.getLayerById("zssgx");
         }
         $.ajax({
             url: url,
@@ -1852,6 +1865,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -1896,19 +1912,24 @@
         };
         var url;
         var url1;
+        var layer;
         var options=$('#ywlb4').val();
         if(options == "供水"){
             url="/hdsw/gspoint/insert"
             url1="/hdsw/gsline/interruptLine"
+            layer = LoadMap.map.getLayerById("gsjg");
         }else if(options == "雨水"){
             url="/hdsw/yspoint/insert"
             url1="/hdsw/ysline/interruptLine"
+            layer = LoadMap.map.getLayerById("ysjg");
         }else if(options == "污水"){
             url="/hdsw/wspoint/insert"
             url1="/hdsw/wsline/interruptLine"
+            layer = LoadMap.map.getLayerById("wsjg");
         }else if(options == "再生水"){
             url="/hdsw/zsspoint/insert"
             url1="/hdsw/zssline/interruptLine"
+            layer = LoadMap.map.getLayerById("zssjg");
         }
         $.ajax({
             url: url,
@@ -1918,7 +1939,6 @@
             data: JSON.stringify(params),
             success: function (res) {
                 if(res.code==0){
-                    Debugger:
                     $.ajax({
                         url: url1,
                         type: "post",
@@ -1929,6 +1949,9 @@
                         },
                         success: function (res) {
                             if(res.code==0){
+                                LoadMap.map.removeLayer(layer);
+                                var layerId = layer.values_.id;
+                                loadNewLayer(layerId);
                                 layui.use('layer', () => {
                                     let layer = layui.layer;
                                     layer.msg("添加成功")
@@ -1971,15 +1994,20 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type5 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gsline/insert"
+            layer = LoadMap.map.getLayerById("gsgx");
         }else if(options.text() == "雨水"){
             url="/hdsw/ysline/insert"
+            layer = LoadMap.map.getLayerById("ysgx");
         }else if(options.text() == "污水"){
             url="/hdsw/wsline/insert"
+            layer = LoadMap.map.getLayerById("wsgx");
         }else if(options.text() == "再生水"){
             url="/hdsw/zssline/insert"
+            layer = LoadMap.map.getLayerById("zssgx");
         }
         $.ajax({
             url: url,
@@ -1989,6 +2017,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
