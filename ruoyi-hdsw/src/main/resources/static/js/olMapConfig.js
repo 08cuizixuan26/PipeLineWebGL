@@ -188,10 +188,10 @@ var sourceConfig={
                     featureTypes: [featureTypes],//所要访问的图层
                     //maxFeatures: 5000,
                     outputFormat: 'application/json',
-/*                    filter : new ol.format.filter.and(
+                    filter : new ol.format.filter.and(
                         new ol.format.filter.EqualTo('del_state', delState),
                         new ol.format.filter.EqualTo('upd_state', updState),
-                    )*/
+                    )
                 });
                 fetch(url, {
                     method: 'POST',
@@ -199,7 +199,10 @@ var sourceConfig={
                 }).then(function (response) {
                     return response.json();
                 }).then(function (json) {
-                    var features = new ol.format.GeoJSON().readFeatures(json);
+                    var features =  (new ol.format.GeoJSON()).readFeatures(json, {     // 用readFeatures方法可以自定义坐标系
+                        dataProjection: 'EPSG:4326',    // 设定JSON数据使用的坐标系
+                        featureProjection: 'BD:09' // 设定当前地图使用的feature的坐标系
+                    })
                     console.log(features.length);
                     if (features.length > 0) {
                         source.clear();
@@ -241,16 +244,7 @@ var olMapConfig = {
         //2 供水管线
         new ol.layer.Vector({
             id: "gsgx",
-            source: new ol.source.Vector({
-                format: new ol.format.GeoJSON(),
-                url: function (extent) {
-                    return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
-                        'version=1.1.0&request=GetFeature&typename=HD:gsline&' +
-                        'outputFormat=application/json&srsname=EPSG:4326&' +
-                        'bbox=' + extent.join(',') + ',EPSG:4326';
-                },
-                strategy: ol.loadingstrategy.bbox,
-            }),
+            source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color: "rgba(0,255,255,0.8)",
@@ -261,7 +255,8 @@ var olMapConfig = {
         //3 雨水管线
         new ol.layer.Vector({
             id: "ysgx",
-            source: new ol.source.Vector({
+            source: sourceConfig.getSource("HD:yslines","HD","HD","yslines","0","0"),
+/*            source: new ol.source.Vector({
                 format: new ol.format.GeoJSON(),
                 url: function (extent) {
                     return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
@@ -270,7 +265,7 @@ var olMapConfig = {
                         'bbox=' + extent.join(',') + ',EPSG:4326';
                 },
                 strategy: ol.loadingstrategy.bbox,
-            }),
+            }),*/
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color: "rgba(139,90,43,0.8)",
@@ -281,7 +276,8 @@ var olMapConfig = {
         //4 供水井盖
         new ol.layer.Vector({
             id: "gsjg",
-            source: new ol.source.Vector({
+            source: sourceConfig.getSource("HD:gspoint","HD","HD","gspoint","0","0"),
+            /*source: new ol.source.Vector({
                 format: new ol.format.GeoJSON(),
                 url: function (extent) {
                     return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
@@ -292,7 +288,7 @@ var olMapConfig = {
                 // url: 'http://10.111.15.8:8085/api/getAPIService/23e72e1f64c143f7a060824112a11111' +
                 //     '?token=2c91808f783ddb7d0178621faa620001&layerName=ZHJY_GIS%3Ahd_bj_0101',
                 strategy: ol.loadingstrategy.bbox,
-            }),
+            }),*/
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
@@ -304,7 +300,8 @@ var olMapConfig = {
         //5 污水井盖
         new ol.layer.Vector({
             id: "wsjg",
-            source: new ol.source.Vector({
+            source: sourceConfig.getSource("HD:wspoints","HD","HD","wspoints","0","0"),
+ /*           source: new ol.source.Vector({
                 format: new ol.format.GeoJSON(),
                 url: function (extent) {
                     return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
@@ -315,7 +312,7 @@ var olMapConfig = {
                 // url: 'http://10.111.15.8:8085/api/getAPIService/39d15f2450084cbca76bd3b7fc211111' +
                 //     '?token=2c91808f783ddb7d0178621faa620001&layerName=ZHJY_GIS%3Ahd_bj_0102',
                 strategy: ol.loadingstrategy.bbox,
-            }),
+            }),*/
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
@@ -327,7 +324,8 @@ var olMapConfig = {
         //6 再生水井盖
         new ol.layer.Vector({
             id: "zssjg",
-            source: new ol.source.Vector({
+            source: sourceConfig.getSource("HD:wspoints","HD","HD","wspoints","0","0"),
+/*            source: new ol.source.Vector({
                 format: new ol.format.GeoJSON(),
                 url: function (extent) {
                     return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
@@ -338,7 +336,7 @@ var olMapConfig = {
                 // url: 'http://10.111.15.8:8085/api/getAPIService/6c1a54536ba143929d1dd55b4ae11111' +
                 //     '?token=2c91808f783ddb7d0178621faa620001&layerName=ZHJY_GIS%3Ahd_bj_0127',
                 strategy: ol.loadingstrategy.bbox,
-            }),
+            }),*/
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
@@ -350,7 +348,8 @@ var olMapConfig = {
         //7 雨水井盖
         new ol.layer.Vector({
             id: "ysjg",
-            source: new ol.source.Vector({
+            source: sourceConfig.getSource("HD:yspoints","HD","HD","yspoints","0","0"),
+/*            source: new ol.source.Vector({
                 format: new ol.format.GeoJSON(),
                 url: function (extent) {
                     return 'http://101.43.236.93:8092/geoserver/HD/wfs?service=WFS&' +
@@ -361,7 +360,7 @@ var olMapConfig = {
                 // url: 'http://10.111.15.8:8085/api/getAPIService/e04493a221c74d55a865b66dc5611111' +
                 //     '?token=2c91808f783ddb7d0178621faa620001&layerName=ZHJY_GIS%3Ahd_bj_0103',
                 strategy: ol.loadingstrategy.bbox,
-            }),
+            }),*/
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({

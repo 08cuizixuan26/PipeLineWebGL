@@ -1377,15 +1377,23 @@
         if (angle1 == angle2 || angle1 + angle2 == 180) {
             return null;
         } else if (angle1 == 90 || angle1 == 270) {
-            lon = (lat2-lat1)*Math.tan(rad2) + lon2;
             lat = lat1
+            if(angle2 == 0|| angle2 ==180){
+                lon = lon2;
+            }else{
+                lon = (lat2-lat1)*Math.tan(rad2) + parseFloat(lon2);
+            }
 
         } else if (angle2 == 90 || angle2 == 270) {
-            lon = (lat1-lat2)*Math.tan(rad1) + lon1;
             lat = lat2
+            if(angle1 == 0|| angle1 ==180){
+                lon = lon1;
+            }else{
+                lon = (lat1-lat2)*Math.tan(rad1) + parseFloat(lon1);
+            }
         } else {
-            lat = (lon2 - lon1 + lat1 * Math.tan(rad1) - lat2 * Math.tan(rad2)) / (Math.tan(rad1) - Math.tan(rad2));
-            lon = (Math.tan(rad1) * Math.tan(rad2) * (lat2 - lat1) + Math.tan(rad2) * lon1 - Math.tan(rad1) * lon2) / (Math.tan(rad2) - Math.tan(rad1))
+            lat = (parseFloat(lon2) - parseFloat(lon1) + lat1 * Math.tan(rad1) - lat2 * Math.tan(rad2)) / (Math.tan(rad1) - Math.tan(rad2));
+            lon = (Math.tan(rad1) * Math.tan(rad2) * (parseFloat(lat2) - parseFloat(lat1)) + Math.tan(rad2) * lon1 - Math.tan(rad1) * lon2) / (Math.tan(rad2) - Math.tan(rad1))
         }
 
         var lonLatObj = {
@@ -1603,18 +1611,11 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId)
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
-                        //layer.getSource().refresh();
-                        LoadMap.map.removeLayer(layer);
-                        olMapConfig.layers.forEach(function(item) {
-                            if(item.values_.id == layer.values_.id){
-                                LoadMap.map.addLayer(item);
-                                LoadMap.map.render();
-                            }
-                        })
-
-                        //LoadMap.map.getLayerById(layerId).refresh({ force: true, active: true });
                         layerUI.msg("添加成功")
                     })
                 }else{
@@ -1627,6 +1628,71 @@
                 //layer.getSource().changed();
             }
         })
+    }
+    function loadNewLayer(layerId) {
+        var layer;
+        switch (layerId) {
+            case "gsgx":
+                layer = new ol.layer.Vector({
+                    id: "gsgx",
+                    source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
+                    style: new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: "rgba(0,255,255,0.8)",
+                            width: 5,
+                        })
+                    })
+                });
+                break;
+            case "gsjg":
+                layer = new ol.layer.Vector({
+                    id: "gsjg",
+                    source: sourceConfig.getSource("HD:gspoint","HD","HD","gspoint","0","0"),
+                    style: new ol.style.Style({
+                        //形状
+                        image: new ol.style.Icon({
+                            src: '/images/0518/gsgd.png',
+                            scale: 0.2
+                        })
+                    }),
+                });
+                break;
+            case "ysgx":
+                layer = new ol.layer.Vector({
+                    id: "ysgx",
+                    source: sourceConfig.getSource("HD:yslines","HD","HD","yslines","0","0"),
+                    style: new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: "rgba(139,90,43,0.8)",
+                            width: 5,
+                        })
+                    }),
+                });
+                break;
+            case "ysjg":
+                layer = new ol.layer.Vector({
+                    id: "ysjg",
+                    source: sourceConfig.getSource("HD:yspoints","HD","HD","yspoints","0","0"),
+                    style: new ol.style.Style({
+                        //形状
+                        image: new ol.style.Icon({
+                            src: '/images/0518/ysgd.png',
+                            scale: 0.2
+                        })
+                    }),
+                });
+                break;
+            case "wsgx":
+                layer = olMapConfig.layers[1];
+                break;
+            case "wsjg":
+                layer = olMapConfig.layers[5];
+                break;
+            default:
+                break;
+        }
+        LoadMap.map.addLayer(layer);
+        LoadMap.map.render();
     }
     //解析加点点保存
     function save2() {

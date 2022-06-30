@@ -23,7 +23,7 @@ if (!LoadMap) var LoadMap = {
     mapClick:null,
     //坐标系偏移量
     xOffset:0.012531,
-    yOffset:0.007322,
+    yOffset:0.007319,
 /*    xOffset:0.012693,
     yOffset:0.006953,*/
     setLayerVisible: function (event, treeId, treeNode) {
