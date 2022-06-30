@@ -22,8 +22,10 @@ if (!LoadMap) var LoadMap = {
     draw:null,
     mapClick:null,
     //坐标系偏移量
-    xOffset:0.012653,
-    yOffset:0.007422,
+    xOffset:0.012531,
+    yOffset:0.007319,
+/*    xOffset:0.012693,
+    yOffset:0.006953,*/
     setLayerVisible: function (event, treeId, treeNode) {
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         var nodes = treeObj.getChangeCheckedNodes();
@@ -41,6 +43,65 @@ if (!LoadMap) var LoadMap = {
                 }
             })
         });
+    },
+    //凸多边形点集合
+    linePoints:undefined,
+
+    //获取待更新的数据
+    getUpdateData:function(){
+    var points = [];
+    var url = "/hdsw/gsline/selectByState"
+    $.ajax({
+        url: url,
+        type: "get",
+        contentType: 'application/json',
+        dataType: 'json',
+        data: {updState:"1"},
+        success: function (data) {
+            if(data.code==0) {
+                data.data.forEach( function(element, index) {
+                    var geom = JSON.parse(element.geom);
+                    var point = {x:geom.coordinates[0][0][0],y:geom.coordinates[0][0][1]};
+                    points.push(point);
+                    var point1 = {x:geom.coordinates[0][1][0],y:geom.coordinates[0][1][1]};
+                    points.push(point1);
+                })
+                var newPoints = convexhull.makeHull(points)
+                LoadMap.linePoints = newPoints;
+            }
+        }
+    })
+
+},
+    //绘制多边形
+    drawLine:function() {
+        var targetArr = [];
+        LoadMap.linePoints.forEach(function (obj, index) {
+            var newArr = [];
+            newArr.push(obj.x);
+            newArr.push(obj.y);
+            targetArr.push(newArr);
+        });
+        if (targetArr.length > 0) {
+            var polygonArr = [];
+            polygonArr.push(targetArr);
+            var myPolygon = new ol.geom.Polygon(polygonArr);//绘制多边形（点集数组结构是[[[xxxx,xxxx],[   xxxx,xxxx],.....]]）
+            myPolygon.applyTransform(ol.proj.getTransform('EPSG:4326', 'BD:09'));
+            var feature = new ol.Feature(myPolygon);
+            var lineStyle = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: "#00ffff",
+                    width: 4,
+                }),
+            });
+            feature.setStyle(lineStyle)
+            var layer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    features: [feature]
+                })
+            });
+            LoadMap.map.addLayer(layer);
+        }
     },
 
     showFeatureInfo: function (e, properties) {
@@ -322,31 +383,151 @@ if (!LoadMap) var LoadMap = {
         v.style.opacity = 1;
     },
 
+    //管线更新页面回显
+    showGxgxfeature: function (properties) {
+        $("#expNo1").attr("value", properties["exp_no"])
+        $("#covType1").attr("value", properties["cov_type"])
+        $("#type1").attr("value", properties["type"])
+        if(LoadMap.getCoordinateFlag=="xqd"){
+            $("#qdbh3").attr("value", properties["exp_no"])
+            $("#qdxcor3").attr("value", properties["x"])
+            $("#qdycor3").attr("value", properties["y"])
+            $("#qdms3").attr("value", properties["bot_depth"])
+            $("#qdgc3").attr("value", properties["sure_h"])
+        }else if(LoadMap.getCoordinateFlag=="xzd"){
+            $("#zdbh3").attr("value", properties["exp_no"])
+            $("#zdxcor3").attr("value", properties["x"])
+            $("#zdycor3").attr("value", properties["y"])
+            $("#zdms3").attr("value", properties["bot_depth"])
+            $("#zdgc3").attr("value", properties["sure_h"])
+        }else if(LoadMap.getCoordinateFlag=="xqd5"){
+            $("#qdgdbh5").attr("value", properties["exp_no"])
+            $("#qdgdlx5").attr("value", properties["feature"])
+            $("#qdgdqsdw5").attr("value", properties["owner"])
+            $("#qdbh5").attr("value", properties["exp_no"])
+            $("#qdms5").attr("value", properties["bot_depth"])
+            $("#qdgc5").attr("value", properties["sure_h"])
+            $("#qdxcor5").attr("value", properties["x"])
+            $("#qdycor5").attr("value", properties["y"])
+        }else if(LoadMap.getCoordinateFlag=="xzd5"){
+            $("#zdgdbh5").attr("value", properties["exp_no"])
+            $("#zdgdlx5").attr("value", properties["feature"])
+            $("#zdgdqsdw5").attr("value", properties["owner"])
+            $("#zdbh5").attr("value", properties["exp_no"])
+            $("#zdms5").attr("value", properties["bot_depth"])
+            $("#zdgc5").attr("value", properties["sure_h"])
+            $("#zdxcor5").attr("value", properties["x"])
+            $("#zdycor5").attr("value", properties["y"])
+        }else if(LoadMap.getCoordinateFlag=="crd4"){
+            $("#gxbh4").attr("value", properties["pipeid"])
+            $("#qdbh4").attr("value", properties["s_point"])
+            $("#zdbh4").attr("value", properties["e_point"])
+            $("#szdl4").attr("value", properties["road"])
+            $("#qsdw4").attr("value", properties["owner"])
+            $("#ywlb4").attr("value", properties["type"])
+            if(properties["type"] == "供水"){
+                url="/hdsw/gspoint/getMaxnum"
+                str = "GSP"
+            }else if(properties["type"] == "雨水"){
+                url="/hdsw/yspoint/getMaxnum"
+                str = "YSP"
+            }else if(properties["type"] == "污水"){
+                url="/hdsw/wspoint/getMaxnum"
+                str = "WSP"
+            }else if(properties["type"]  == "再生水"){
+                url="/hdsw/zsspoint/getMaxnum"
+                str = "ZSSP"
+            }
+            $.ajax({
+                url: url,
+                type: "get",
+                success: function (res) {
+                    var num = parseInt(res.data)+1
+                    $("#gdbh4").attr("value", str+num);
+                }
+            })
+        }
+
+        if(LoadMap.getCoordinateFlag == "guandian"){
+            $("#guandian1").attr("value", properties["exp_no"])
+            $("#guandian2").attr("value", properties["sure_h"])
+            $("#guandian3").attr("value", properties["feature"])
+            $("#guandian4").attr("value", properties["subsid"])
+            $("#guandian5").attr("value", properties["bot_depth"])
+            $("#guandian6").attr("value", properties["cov_type"])
+            $("#guandian7").attr("value", properties["cov_dn"])
+            $("#guandian8").attr("value", properties["cov_meat"])
+            $("#guandian9").attr("value", properties["wcha_meat"])
+            $("#guandian10").attr("value", properties["wcha_type"])
+            $("#guandian11").attr("value", properties["fo_deep"])
+            $("#guandian12").attr("value", properties["wcha_dn"])
+            $("#guandian13").attr("value", properties["owner"])
+            $("#guandian14").attr("value", properties["b_time"])
+            $("#guandian15").attr("value", properties["offc_no"])
+            $("#guandian16").attr("value", properties["rotation"])
+            $("#guandian17").attr("value", properties["road"])
+            $("#guandian18").attr("value", properties["x"])
+            $("#guandian19").attr("value", properties["y"])
+            $("#guandian20").attr("value", properties["elevation"])
+        }else if(LoadMap.getCoordinateFlag == "guanxian"){
+            $("#guanxian1").attr("value", properties["pipeid"])
+            $("#guanxian2").attr("value", properties["s_point"])
+            $("#guanxian3").attr("value", properties["e_point"])
+            $("#guanxian4").attr("value", properties["s_deep"])
+            $("#guanxian5").attr("value", properties["e_deep"])
+            $("#guanxian6").attr("value", properties["s_height"])
+            $("#guanxian7").attr("value", properties["e_height"])
+            $("#guanxian8").attr("value", properties["material"])
+            $("#guanxian9").attr("value", properties["d_type"])
+            $("#guanxian10").attr("value", properties["style"])
+            $("#guanxian11").attr("value", properties["d_s"])
+            $("#guanxian12").attr("value", properties["b_time"])
+            $("#guanxian13").attr("value", properties["owner"])
+            $("#guanxian14").attr("value", properties["flowdirect"])
+            $("#guanxian15").attr("value", properties["road"])
+            $("#guanxian16").attr("value", properties["state"])
+            $("#guanxian17").attr("value", properties["type"])
+            $("#guanxian18").attr("value", properties["shape_leng"])
+        }
+    },
+
     singleclick() {
         LoadMap.mapClick= LoadMap.map.on("singleclick", (e) => {
-            if(LoadMap.currentMapType="管线更新"){
+            if(LoadMap.currentMapType=="管线更新"){
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if(LoadMap.getCoordinateFlag == 1){
                     $("#x1").attr("value", coor[0]-LoadMap.xOffset)
-                    $("#y1").attr("value", coor[1]-LoadMap.xOffset)
+                    $("#y1").attr("value", coor[1]-LoadMap.yOffset)
                 }else if(LoadMap.getCoordinateFlag == 2){
                     $("#x2").attr("value", coor[0]-LoadMap.xOffset)
                     $("#y2").attr("value", coor[1]-LoadMap.yOffset)
+                }else if(LoadMap.getCoordinateFlag == "hqzb2"){
+                    $("#xcor2").attr("value", coor[0]-LoadMap.xOffset)
+                    $("#ycor2").attr("value", coor[1]-LoadMap.yOffset)
                 }
+                LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+                    console.log(feature.getProperties());
+                    LoadMap.showGxgxfeature(feature.getProperties());
+                    if(LoadMap.getCoordinateFlag == 'crd4'){
+                        $("#xcor4").attr("value", coor[0]-LoadMap.xOffset)
+                        $("#ycor4").attr("value", coor[1]-LoadMap.yOffset)
+                    }
+                })
+            }else{
+                this.closeFeatureInfo();
+                LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+                    console.log(feature.getProperties());
+                    if (layer.values_.id === "gsjg" || layer.values_.id === "wsjg" || layer.values_.id === "zssjg" || layer.values_.id === "ysjg") {
+                        LoadMap.showHdqfeature(feature.getProperties(), 0);
+                    } else if (layer.values_.id === "wsgx" || layer.values_.id === "gsgx" || layer.values_.id === "zssgx" || layer.values_.id === "ysgx") {
+                        LoadMap.showHdqfeature(feature.getProperties(), 1);
+                    } else if (layer.values_.id === "psh") {
+                        LoadMap.showHdqfeature(feature.getProperties(), 2);
+                    } else if (layer.values_.id === "zssc" || layer.values_.id === "wsc" || layer.values_.id === "zlsc") {
+                        LoadMap.showHdqfeature(feature.getProperties(), 3);
+                    }
+                })
             }
-            this.closeFeatureInfo();
-            LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-                console.log(feature.getProperties());
-                if (layer.values_.id === "gsjg" || layer.values_.id === "wsjg" || layer.values_.id === "zssjg" || layer.values_.id === "ysjg") {
-                    LoadMap.showHdqfeature(feature.getProperties(), 0);
-                } else if (layer.values_.id === "wsgx" || layer.values_.id === "gsgx" || layer.values_.id === "zssgx" || layer.values_.id === "ysgx") {
-                    LoadMap.showHdqfeature(feature.getProperties(), 1);
-                } else if (layer.values_.id === "psh") {
-                    LoadMap.showHdqfeature(feature.getProperties(), 2);
-                } else if (layer.values_.id === "zssc" || layer.values_.id === "wsc" || layer.values_.id === "zlsc") {
-                    LoadMap.showHdqfeature(feature.getProperties(), 3);
-                }
-            })
         });
     },
 

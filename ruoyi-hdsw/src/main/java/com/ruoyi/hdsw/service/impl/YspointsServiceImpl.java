@@ -44,4 +44,9 @@ public class YspointsServiceImpl implements YspointsService {
     public Object getMaxNum() {
         return yspointsMapper.getMaxNum();
     }
+
+    @Override
+    public Object selectByState(String delState, String updState) {
+        return yspointsMapper.selectByState(delState,updState);
+    }
 }

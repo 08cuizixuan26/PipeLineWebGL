@@ -11,4 +11,5 @@ public interface WslinesService {
     Object interruptLine(String gxbh,String gdbh);
     Object updateState(Integer gid,String delState,String updState);
     Object getMaxNum();
+    Object selectByState(String delState,String updState);
 }

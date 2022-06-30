@@ -5,11 +5,24 @@
     <title>地图</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <th:block th:include="include :: GN_JS"/>
-    <th:block th:include="include :: GIS_JS"/>
-    <th:block th:include="include :: GN_CSS"/>
-    <th:block th:include="include :: GIS_CSS"/>
+    <script th:src="@{/openlayersv6.5/build/ol.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bd09.js}"></script>
+    <script th:src="@{/js/baiduMercator.js}"></script>
+    <script th:src="@{/js/olMapConfig.js}"></script>
+    <script th:src="@{/js/map.js}"></script>
+    <script th:src="@{/js/convex-hull.js}"></script>
     <script th:src="@{/js/coordinateTransform.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
+    <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
+    <script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="//unpkg.com/layui@2.6.13/dist/css/layui.css" rel="stylesheet"/>
+    <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
+    <link th:href="@{static/layuiv2.5.6/layui/css/layui.css}" rel="stylesheet"/>
+    <link th:href="@{/openlayersv6.5/css/ol.css}" rel="stylesheet"/>
+    <link th:href="@{/css/map.css}" rel="stylesheet"/>
     <style>
         .ztree li a span.button {
             background-size: 16px 16px !important;
@@ -125,6 +138,15 @@
         .layui-input-inline{
             display: inline-block;
         }
+        .company1 {
+            position: relative;
+        }
+        .company1 .em {
+            position: absolute;
+            top: 19%;
+            right: 2%;
+            color: #bebbbb;
+        }
     </style>
 </head>
 <body>
@@ -145,8 +167,24 @@
       </ul>
        <div class="nav_content">
            <div class="sty" id="czjd">
-               <p class="sear_sty"><input type="text" id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
-                 <button class="btn btn-primary" id="search_btn1">查询</button>
+<!--               <select name="czjd_type"  class="form-control" lay-verify="required">-->
+<!--                   <option value="0">污水管线</option>-->
+<!--                   <option value="1">污水</option>-->
+<!--                   <option value="2">雨水</option>-->
+<!--                   <option value="3">再生水</option>>-->
+<!--               </select>-->
+<!--               <p class="sear_sty"><input type="text" id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">-->
+<!--                 <button class="btn btn-primary" id="search_btn1">查询</button>-->
+<!--               </p>-->
+               <p class="sear_sty">
+                   <select name="czjd_type"  class="form-control" lay-verify="required">
+                       <option value="0">污水管线</option>
+                       <option value="1">污水</option>
+                       <option value="2">雨水</option>
+                       <option value="3">再生水</option>>
+                   </select>
+                   <input type="text"  id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
+                   <button class="btn btn-primary" id="search_btn1">查询</button>
                </p>
                <form class="layui-form" action="">
                    <div class="Mapczw">
@@ -162,12 +200,17 @@
                            <label class="layui-form-label">纵坐标</label>
                            <input type="text" name="title" id="y1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                       <div class="layui-input-inline">
+                       <div class="layui-input-inline company1">
                            <label class="layui-form-label">距离</label>
-
-                           <input type="text" name="title" id="dis1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
-
+                           <input type="text" id="dis1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
+                           <em class="em">m</em>
                        </div>
+<!--                       <div class="layui-input-inline">-->
+<!--                           <label class="layui-form-label">距离</label>-->
+
+<!--                           <input type="text" name="title" id="dis1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">-->
+<!--                           -->
+<!--                       </div>-->
                      </div>
                    </div>
                    <div class="form-group">
@@ -247,11 +290,16 @@
                        </div>
                    </div>
                    <div class="form-group">
-                       <div class="layui-input-inline">
+                       <div class="layui-input-inline company1">
                            <label class="layui-form-label">井室直径</label>
-                           <input type="text" name="title" id="jszj1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           <em>米</em>
+                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <em class="em">m</em>
                        </div>
+<!--                           <div class="layui-input-inline">-->
+<!--                               <label class="layui-form-label">井室直径</label>-->
+<!--                               <input type="text" name="title" id="jszj1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                               <em>米</em>-->
+<!--                           </div>-->
                        <div class="layui-input-inline">
                            <label class="layui-form-label">权属单位</label>
                            <input type="text" name="title" id="qsdw1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -331,6 +379,16 @@
                </div>
 
                <div id="ymsrf" style="display: none">
+<!--                   解析加点的页面输入法-->
+<!--                   <div class="layui-input-inline">-->
+<!--                      <label class="layui-form-label">业务类别</label>-->
+<!--                      <select name="czjd_type2" id="czjd_type2" class="form-control" lay-verify="required">-->
+<!--                          <option value="0">供水</option>-->
+<!--                          <option value="1">污水</option>-->
+<!--                          <option value="2">雨水</option>-->
+<!--                          <option value="3">再生水</option>>-->
+<!--                      </select>-->
+<!--                  </div>-->
                    <form class="layui-form" action="">
                        <h4>管点坐标:</h4>
                        <div class="form-group">
@@ -341,6 +399,9 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">纵坐标</label>
                                <input type="text" name="title" id="ycor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="layui-input-inline">
+                               <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="hqzb2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                            </div>
                        </div>
                        <h4>管点属性:</h4>
@@ -408,11 +469,16 @@
                            </div>
                        </div>
                        <div class="form-group">
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">井室直径</label>
-                               <input type="text" name="title" id="jszj2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                               <em>米</em>
-                           </div>
+                               <div class="layui-input-inline company1">
+                                   <label class="layui-form-label">井室直径</label>
+                                   <input type="text" name="title" id="jszj2"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                                   <em class="em">m</em>
+                               </div>
+<!--                           <div class="layui-input-inline">-->
+<!--                               <label class="layui-form-label">井室直径</label>-->
+<!--                               <input type="text" name="title" id="jszj2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                               <em>米</em>-->
+<!--                           </div>-->
                            <div class="layui-input-inline">
                                <label class="layui-form-label">权属单位</label>
                                <input type="text" name="title" id="qsdw2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -420,7 +486,6 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">建设日期</label>
                                <input type="text" class="layui-input form-control" id="jsrq2">
-                               <!--                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
                            </div>
                        </div>
                        <div class="form-group">
@@ -482,6 +547,16 @@
                </div>
 
                <div id="ymsrf_" style="display: none">
+<!--                   解析加线的页面输入法-->
+                   <div class="layui-input-inline">
+                      <label class="layui-form-label">业务类别</label>
+                      <select name="czjd_type3" id="czjd_type3" class="form-control" lay-verify="required">
+                          <option value="0">供水</option>
+                          <option value="1">污水</option>
+                          <option value="2">雨水</option>
+                          <option value="3">再生水</option>>
+                      </select>
+                  </div>
                    <form class="layui-form" action="">
                        <h4>起点坐标:</h4>
                        <div class="form-group">
@@ -522,26 +597,9 @@
                        <h4>管线属性:</h4>
                        <div class="form-group">
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">业务类别</label>
-                               <select name="czjd_type3" id="czjd_type3" class="form-control" lay-verify="required">
-                                   <option value="0">供水</option>
-                                   <option value="1">污水</option>
-                                   <option value="2">雨水</option>
-                                   <option value="3">再生水</option>>
-                               </select>
-                           </div>
-                           <div class="layui-input-inline">
                                <label class="layui-form-label">管线编号</label>
                                <input type="text" name="title" readonly="readonly" id="gxbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-<!--                           <div class="layui-input-inline">
-                               <label class="layui-form-label">起点点号</label>
-                               <input type="text" name="title" id="" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                           <div class="layui-input-inline">
-                               <label class="layui-form-label">终点点号</label>
-                               <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>-->
                            <div class="layui-input-inline">
                                <label class="layui-form-label">起点埋深</label>
                                <input type="text" name="title" id="qdms3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -577,9 +635,10 @@
                            </div>
                        </div>
                        <div class="form-group">
-                           <div class="layui-input-inline">
+                           <div class="layui-input-inline company1">
                                <label class="layui-form-label">管径</label>
-                               <input type="text" name="title" id="gj3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                               <input type="text" name="title" id="gj3"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <em class="em">mm</em>
                            </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">建设日期</label>
@@ -624,20 +683,17 @@
 
            <div class="sty" id="crd" style="display: none">
                <p class="sear_sty">
-<!--                   <select name="city" class="form-control" lay-verify="required">
-                       <option value=""></option>
-                       <option value="0">北京</option>
-                       <option value="1">上海</option>
-                       <option value="2">广州</option>
-                       <option value="3">深圳</option>
-                       <option value="4">杭州</option>
-                   </select>-->
-
+                   <select name="czjd_type"  class="form-control" lay-verify="required">
+                       <option value="0">污水管线</option>
+                       <option value="1">污水</option>
+                       <option value="2">雨水</option>
+                       <option value="3">再生水</option>>
+                   </select>
                    <input type="text"  id="search_content4" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                    <button class="btn btn-primary" id="search_btn4">查询</button>
                </p>
                <form class="layui-form" action="">
-                   <h4>管线信息:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" onclick="drawLine()">请点击地图中的管线获取信息</button></h4>
+                   <h4>管线信息:<button type="button" class="btn btn-primary" id="crd4" style="height: 20px;padding: 0!important" onclick="selectPoint(this.id)">请点击地图中的管线获取信息</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管线编号</label>
@@ -660,7 +716,7 @@
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">管点编号</label>
-                           <input type="text" name="title" id="gdbh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <input type="text" name="title" readonly="readonly" id="gdbh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
                            <label class="layui-form-label">地面高程</label>
@@ -712,11 +768,16 @@
                        </div>
                    </div>
                    <div class="form-group">
-                       <div class="layui-input-inline">
+                       <div class="layui-input-inline company1">
                            <label class="layui-form-label">井室直径</label>
-                           <input type="text" name="title" id="jszj4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           <em>米</em>
+                           <input type="text" name="title" id="jszj4"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <em class="em">m</em>
                        </div>
+<!--                       <div class="layui-input-inline">-->
+<!--                           <label class="layui-form-label">井室直径</label>-->
+<!--                           <input type="text" name="title" id="jszj4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                           <em>米</em>-->
+<!--                       </div>-->
                        <div class="layui-input-inline">
                            <label class="layui-form-label">权属单位</label>
                            <input type="text" name="title" id="qsdw4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -772,7 +833,7 @@
                        <option value="2">雨水</option>
                        <option value="3">再生水</option>>
                    </select>
-                   <button class="btn btn-primary">查询</button>
+                   <button class="btn btn-primary" style="width: 50px;height: 34px">查询</button>
                </p>
                <form class="layui-form" action="">
                    <h4>起点信息:<button type="button" class="btn btn-primary" id="xqd5" onclick="getCoordinateFlag(this.id)" style="height: 20px;padding: 0!important">请点击地图中的管点获取信息</button></h4>
@@ -893,10 +954,16 @@
                            <label class="layui-form-label">线型</label>
                            <input type="text" name="title" id="xx5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">管径</label>
-                           <input type="text" name="title" id="gj5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control"><em>毫米</em>
+                       <div class="layui-input-inline company1">
+                           <label class="layui-form-label">井室直径</label>
+                           <input type="text" name="title" id="gj5"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                           <em class="em">m</em>
                        </div>
+<!--                       <div class="layui-input-inline">-->
+<!--                           <label class="layui-form-label">管径</label>-->
+<!--                           <input type="text" name="title" id="gj5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                           <em>毫米</em>-->
+<!--                       </div>-->
                        <div class="layui-input-inline">
                            <label class="layui-form-label">建设日期</label>
                            <input type="text" name="title" id="jsrq5" class="form-control">
@@ -968,14 +1035,20 @@
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
             setBh("gspoint","GSP","gdbh1")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
             setBh("gspoint","GSP","gdbh2")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
             setBh("gsline","GSL","gxbh3")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 3){
             $('#crd').toggle();
             $('#crd').siblings().hide();
@@ -983,6 +1056,8 @@
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
             setBh("gsline","GSL","gxbh5")
+            LoadMap.map.removeInteraction(LoadMap.draw);
+            LoadMap.map.removeLayer(LoadMap.drawLayer);
         }
     })
 
@@ -1102,6 +1177,7 @@
     });
 </script>
 <script>
+    var tt;
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
         setBh("gspoint","GSP","gdbh1")
@@ -1244,7 +1320,9 @@
             var lonLatObj = getLonAndLat($("#x1").val(),$("#y1").val(),$("#brng1").val(),$("#dis1").val())
             $("#xcor1").attr("value", lonLatObj.lon)
             $("#ycor1").attr("value", lonLatObj.lat)
-/*            var new_lonlat = ol.proj.transform([lonLatObj.lon-0.012653,lonLatObj.lat-0.007422], 'EPSG:4326', 'BD:09')
+           /* var new_lonlat = ol.proj.transform([lonLatObj.lon,lonLatObj.lat], 'EPSG:4326', 'BD:09')
+            //var new_lonlat = ol.proj.transform([lonLatObj.lon+0.012653,lonLatObj.lat+0.007422], 'EPSG:4326', 'BD:09')
+            new_lonlat = [new_lonlat[0]-LoadMap.xOffset,new_lonlat[1]-LoadMap.yOffset];
             var anchor = new ol.Feature({
                 geometry: new ol.geom.Point(new_lonlat)
             });
@@ -1255,7 +1333,8 @@
                 }),
                 style: olMapStyle.wsc_Style
             });
-            LoadMap.map.addLayer(searchLayer)*/
+            LoadMap.map.addLayer(searchLayer)
+            LoadMap.map.render();*/
         }else{
             //var tt = getIntersection(110.1112,36.61,Math.PI/4,110.1129,36.62,Math.PI/4*3)
 
@@ -1343,12 +1422,47 @@
 
         return lonLatObj;
     }
-    //根据两个点坐标以及与水平方向夹角求交点
+    //根据两个点坐标以及与垂直方向夹角求交点
     function getIntersection(lon1,lat1,angle1,lon2,lat2,angle2) {
         var lon, lat;
         var rad1 = mapNumberUtil.rad(angle1);
         var rad2 = mapNumberUtil.rad(angle2);
-        if (angle1 == angle2 || angle1 + angle2 == 360) {
+        //平行线
+        if (angle1 == angle2 || angle1 + angle2 == 180) {
+            return null;
+        } else if (angle1 == 90 || angle1 == 270) {
+            lat = lat1
+            if(angle2 == 0|| angle2 ==180){
+                lon = lon2;
+            }else{
+                lon = (lat2-lat1)*Math.tan(rad2) + parseFloat(lon2);
+            }
+
+        } else if (angle2 == 90 || angle2 == 270) {
+            lat = lat2
+            if(angle1 == 0|| angle1 ==180){
+                lon = lon1;
+            }else{
+                lon = (lat1-lat2)*Math.tan(rad1) + parseFloat(lon1);
+            }
+        } else {
+            lat = (parseFloat(lon2) - parseFloat(lon1) + lat1 * Math.tan(rad1) - lat2 * Math.tan(rad2)) / (Math.tan(rad1) - Math.tan(rad2));
+            lon = (Math.tan(rad1) * Math.tan(rad2) * (parseFloat(lat2) - parseFloat(lat1)) + Math.tan(rad2) * lon1 - Math.tan(rad1) * lon2) / (Math.tan(rad2) - Math.tan(rad1))
+        }
+
+        var lonLatObj = {
+            lon: lon,
+            lat: lat
+        }
+        return lonLatObj;
+    }
+/*    //根据两个点坐标以及与水平方向夹角求交点
+    function getIntersection(lon1,lat1,angle1,lon2,lat2,angle2) {
+        var lon, lat;
+        var rad1 = mapNumberUtil.rad(angle1);
+        var rad2 = mapNumberUtil.rad(angle2);
+        //平行线
+        if (angle1 == angle2 || angle1 + angle2 == 180) {
             return null;
         } else if (angle1 == 90 || angle1 == 270) {
             lon = lon1;
@@ -1367,7 +1481,7 @@
             lat: lat
         }
         return lonLatObj;
-    }
+    }*/
 
         /*
     * 线段与线段的交点
@@ -1450,12 +1564,10 @@
                 $("#qsdw4").attr("value", feature[0].values_.owner)
                 $("#ywlb4").attr("value", feature[0].values_.type)
 
-                var x = parseFloat(lonlat[0])-LoadMap.xOffset;
-                var y = parseFloat(lonlat[1])-LoadMap.yOffset;
+                var x = parseFloat(lonlat[0]);
+                var y = parseFloat(lonlat[1]);
                 $("#xcor4").attr("value", x)
                 $("#ycor4").attr("value", y)
-
-
 
                 if(feature[0].values_.type == "供水"){
                     url="/hdsw/gspoint/getMaxnum"
@@ -1478,8 +1590,8 @@
                         $("#gdbh4").attr("value", str+num);
                     }
                 })
-                LoadMap.map.render();
-/*                var anchor = new ol.Feature({
+
+                var anchor = new ol.Feature({
                     geometry: new ol.geom.Point(point)
                 });
                 var searchLayer = new ol.layer.Vector({
@@ -1489,13 +1601,19 @@
                     }),
                     style: olMapStyle.wsc_Style
                 });
-                LoadMap.map.addLayer(searchLayer)*/
+                LoadMap.map.addLayer(searchLayer)
+                LoadMap.map.render();
             }else{
 
             }
         });
 
     }
+
+    function selectPoint(clicked_id) {
+        LoadMap.getCoordinateFlag = clicked_id;
+     }
+
     //参考选点保存
     function save1() {
         var layer;
@@ -1528,16 +1646,16 @@
         var options=$("#czjd_type1 option:selected");
         if(options.text() == "供水"){
             layer = LoadMap.map.getLayerById("gsjg");
-            url="/hdsw/gspoint/insert"
+            url="/hdsw/gspoint/insert";
         }else if(options.text() == "雨水"){
             layer = LoadMap.map.getLayerById("ysjg");
-            url="/hdsw/yspoint/insert"
+            url="/hdsw/yspoint/insert";
         }else if(options.text() == "污水"){
             layer = LoadMap.map.getLayerById("wsjg");
-            url="/hdsw/wspoint/insert"
+            url="/hdsw/wspoint/insert";
         }else if(options.text() == "再生水"){
             layer = LoadMap.map.getLayerById("zssjg");
-            url="/hdsw/zsspoint/insert"
+            url="/hdsw/zsspoint/insert";
         }
         $.ajax({
             url: url,
@@ -1547,9 +1665,12 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
-                        let layer = layui.layer;
-                        layer.msg("添加成功")
+                        let layerUI = layui.layer;
+                        layerUI.msg("添加成功")
                     })
                 }else{
                     layui.use('layer', () => {
@@ -1558,9 +1679,74 @@
                     })
                 }
                 LoadMap.getCoordinateFlag=undefined;
-                layer.getSource().changed();
+                //layer.getSource().changed();
             }
         })
+    }
+    function loadNewLayer(layerId) {
+        var layer;
+        switch (layerId) {
+            case "gsgx":
+                layer = new ol.layer.Vector({
+                    id: "gsgx",
+                    source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
+                    style: new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: "rgba(0,255,255,0.8)",
+                            width: 5,
+                        })
+                    })
+                });
+                break;
+            case "gsjg":
+                layer = new ol.layer.Vector({
+                    id: "gsjg",
+                    source: sourceConfig.getSource("HD:gspoint","HD","HD","gspoint","0","0"),
+                    style: new ol.style.Style({
+                        //形状
+                        image: new ol.style.Icon({
+                            src: '/images/0518/gsgd.png',
+                            scale: 0.2
+                        })
+                    }),
+                });
+                break;
+            case "ysgx":
+                layer = new ol.layer.Vector({
+                    id: "ysgx",
+                    source: sourceConfig.getSource("HD:yslines","HD","HD","yslines","0","0"),
+                    style: new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: "rgba(139,90,43,0.8)",
+                            width: 5,
+                        })
+                    }),
+                });
+                break;
+            case "ysjg":
+                layer = new ol.layer.Vector({
+                    id: "ysjg",
+                    source: sourceConfig.getSource("HD:yspoints","HD","HD","yspoints","0","0"),
+                    style: new ol.style.Style({
+                        //形状
+                        image: new ol.style.Icon({
+                            src: '/images/0518/ysgd.png',
+                            scale: 0.2
+                        })
+                    }),
+                });
+                break;
+            case "wsgx":
+                layer = olMapConfig.layers[1];
+                break;
+            case "wsjg":
+                layer = olMapConfig.layers[5];
+                break;
+            default:
+                break;
+        }
+        LoadMap.map.addLayer(layer);
+        LoadMap.map.render();
     }
     //解析加点点保存
     function save2() {
@@ -1590,14 +1776,19 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type2 option:selected");
         if(options.text() == "供水"){
+            layer = LoadMap.map.getLayerById("gsjg");
             url="/hdsw/gspoint/insert"
         }else if(options.text() == "雨水"){
+            layer = LoadMap.map.getLayerById("ysjg");
             url="/hdsw/yspoint/insert"
         }else if(options.text() == "污水"){
+            layer = LoadMap.map.getLayerById("wsjg");
             url="/hdsw/wspoint/insert"
         }else if(options.text() == "再生水"){
+            layer = LoadMap.map.getLayerById("zssjg");
             url="/hdsw/zsspoint/insert"
         }
         $.ajax({
@@ -1608,6 +1799,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -1648,15 +1842,20 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type3 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gsline/insert"
+            layer = LoadMap.map.getLayerById("gsgx");
         }else if(options.text() == "雨水"){
             url="/hdsw/ysline/insert"
+            layer = LoadMap.map.getLayerById("ysgx");
         }else if(options.text() == "污水"){
             url="/hdsw/wsline/insert"
+            layer = LoadMap.map.getLayerById("wsgx");
         }else if(options.text() == "再生水"){
             url="/hdsw/zssline/insert"
+            layer = LoadMap.map.getLayerById("zssgx");
         }
         $.ajax({
             url: url,
@@ -1666,6 +1865,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -1683,9 +1885,6 @@
     }
     //插入点保存
     function save4() {
-       // var new_lonlat = ol.proj.transform([$('#xcor4').val(),$('#ycor4').val()], 'EPSG:4326', 'BD:09')
-        var x = parseFloat($('#xcor4').val()) +0.012653;
-        var y = parseFloat($('#ycor4').val()) +0.012653;
         var params = {
             expNo:$('#gdbh4').val(),
             feature:$('#tz4').val(),
@@ -1713,19 +1912,24 @@
         };
         var url;
         var url1;
+        var layer;
         var options=$('#ywlb4').val();
         if(options == "供水"){
             url="/hdsw/gspoint/insert"
-            url1="/hdsw/gsline/update"
+            url1="/hdsw/gsline/interruptLine"
+            layer = LoadMap.map.getLayerById("gsjg");
         }else if(options == "雨水"){
             url="/hdsw/yspoint/insert"
             url1="/hdsw/ysline/interruptLine"
+            layer = LoadMap.map.getLayerById("ysjg");
         }else if(options == "污水"){
             url="/hdsw/wspoint/insert"
-            url1="/hdsw/wsline/update"
+            url1="/hdsw/wsline/interruptLine"
+            layer = LoadMap.map.getLayerById("wsjg");
         }else if(options == "再生水"){
             url="/hdsw/zsspoint/insert"
-            url1="/hdsw/zssline/update"
+            url1="/hdsw/zssline/interruptLine"
+            layer = LoadMap.map.getLayerById("zssjg");
         }
         $.ajax({
             url: url,
@@ -1735,7 +1939,6 @@
             data: JSON.stringify(params),
             success: function (res) {
                 if(res.code==0){
-                    Debugger:
                     $.ajax({
                         url: url1,
                         type: "post",
@@ -1746,6 +1949,9 @@
                         },
                         success: function (res) {
                             if(res.code==0){
+                                LoadMap.map.removeLayer(layer);
+                                var layerId = layer.values_.id;
+                                loadNewLayer(layerId);
                                 layui.use('layer', () => {
                                     let layer = layui.layer;
                                     layer.msg("添加成功")
@@ -1788,15 +1994,20 @@
             updState:'0'
         };
         var url;
+        var layer;
         var options=$("#czjd_type5 option:selected");
         if(options.text() == "供水"){
             url="/hdsw/gsline/insert"
+            layer = LoadMap.map.getLayerById("gsgx");
         }else if(options.text() == "雨水"){
             url="/hdsw/ysline/insert"
+            layer = LoadMap.map.getLayerById("ysgx");
         }else if(options.text() == "污水"){
             url="/hdsw/wsline/insert"
+            layer = LoadMap.map.getLayerById("wsgx");
         }else if(options.text() == "再生水"){
             url="/hdsw/zssline/insert"
+            layer = LoadMap.map.getLayerById("zssgx");
         }
         $.ajax({
             url: url,
@@ -1806,6 +2017,9 @@
             data: JSON.stringify(params),
             success: function (data) {
                 if(data.code==0){
+                    LoadMap.map.removeLayer(layer);
+                    var layerId = layer.values_.id;
+                    loadNewLayer(layerId);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
