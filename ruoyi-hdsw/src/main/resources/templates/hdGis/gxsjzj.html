@@ -377,7 +377,7 @@
                    </div>
                </div>
 
-               <div id="ymsrf" style="display: none">
+               <div id="ymsrf" style="display: none;position: relative">
 <!--                   解析加点的页面输入法-->
 <!--                   <div class="layui-input-inline">-->
 <!--                      <label class="layui-form-label">业务类别</label>-->
@@ -392,6 +392,7 @@
                        <label class="layui-form-label">业务类别</label>
                        <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                        <select style="margin-left: 5px;" name="czjd_type2" id="czjd_type2" class="form-control" lay-verify="required">
+                           <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                            <option value="0">供水</option>
                            <option value="1">污水</option>
                            <option value="2">雨水</option>
@@ -403,6 +404,10 @@
 <!--                       margin-left: 254px;-->
 <!--                       color: #ed7470;position: absolute;top: 6.5%;left: 1%">请选择业务类别</p>-->
                    </div>
+                   <p class="slectTip1"
+                      style="font-size: 12px;
+                       margin-left: 254px;
+                       color: #ed7470;position: absolute;top: 6%;left: -12%">请选择业务类别</p>
                    <form class="layui-form" action="">
                        <h4>管点坐标:</h4>
                        <div class="form-group">
@@ -560,18 +565,23 @@
                    </div>
                </div>
 
-               <div id="ymsrf_" style="display: none">
+               <div id="ymsrf_" style="display: none;position: relative">
 <!--                   解析加线的页面输入法-->
                    <div class="layui-input-inline" style="display: flex">
                       <label class="layui-form-label">业务类别</label>
                        <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                       <select name="czjd_type3" style="margin-left: 5px;" id="czjd_type3" class="form-control" lay-verify="required">
+                          <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                           <option value="0">供水</option>
                           <option value="1">污水</option>
                           <option value="2">雨水</option>
-                          <option value="3">再生水</option>>
+                          <option value="3">再生水</option>
                       </select>
                   </div>
+                   <p class="slectTip2"
+                      style="font-size: 12px;
+                       margin-left: 254px;
+                       color: #ed7470;position: absolute;top: 6%;left: -12%">请选择业务类别</p>
                    <form class="layui-form" action="">
                        <h4>起点坐标:</h4>
                        <div class="form-group">
@@ -696,7 +706,7 @@
                </div>
            </div>
 
-           <div class="sty" id="crd" style="display: none">
+           <div class="sty" id="crd" style="display: none;position: relative">
 <!--               插入点-->
 <!--               <p class="sear_sty">-->
 <!--                   <select name="czjd_type"  class="form-control" lay-verify="required">-->
@@ -719,6 +729,22 @@
                    <input style="margin-left: 10px" type="text" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                    <button style="margin-left: 10px" class="btn btn-primary">查询</button>
                </div>
+<!--               <div class="layui-input-inline" style="margin-left: 240px; display: flex">-->
+<!--                   <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>-->
+<!--                   <select style="display: block;margin-left: 5px" name="czjd_type1" id="czjd_type1" class="form-control" lay-verify="required">-->
+<!--                       <option selected="selected" disabled="disabled"  style='display: none' value=''></option>-->
+<!--                       <option value="0">供水</option>-->
+<!--                       <option value="1">污水</option>-->
+<!--                       <option value="2">雨水</option>-->
+<!--                       <option value="3">再生水</option>>-->
+<!--                   </select>-->
+<!--                   <input style="margin-left: 10px" type="text"  id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">-->
+<!--                   <button style="margin-left: 10px" class="btn btn-primary" id="search_btn1">查询</button>-->
+<!--               </div>-->
+<!--               <p class="slectTip"-->
+<!--                  style="font-size: 12px;-->
+<!--                       margin-left: 254px;-->
+<!--                       color: #ed7470;position: absolute;top: 6.5%;left: 1%">请选择业务类别</p>-->
 
                <form class="layui-form" action="">
                    <h4>管线信息:<button type="button" class="btn btn-primary" id="crd4" style="height: 20px;padding: 0!important" onclick="selectPoint(this.id)">请点击地图中的管线获取信息</button></h4>
@@ -1315,6 +1341,14 @@
     $('#czjd_type1').change(function () {
         $(this).css('border','1px solid #ccc')
         $('.slectTip').css('display','none')
+    })
+    $('#czjd_type2').change(function () {
+        $(this).css('border','1px solid #ccc')
+        $('.slectTip1').css('display','none')
+    })
+    $('#czjd_type3').change(function () {
+        $(this).css('border','1px solid #ccc')
+        $('.slectTip2').css('display','none')
     })
 
     function setBh(tableName,header,id) {
