@@ -274,9 +274,10 @@
                     <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control dropDownChangePageinput">
                 </div>
                 <div id="jxf">
+<!--                    修改属性的管点-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管点属性</span>
-                        <button type="button" class="btn btn-primary" id="guandian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管点</button>
+<!--                        <button type="button" class="btn btn-primary" id="guandian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管点</button>-->
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -379,9 +380,10 @@
                     </div>
                 </div>
                 <div id="ymsrf" style="display: none">
+<!--                    修改属性的管线-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管线属性</span>
-                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>
+<!--                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>-->
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -492,9 +494,10 @@
                     <input type="text" name="title" required  lay-verify="required" placeholder="输入名称确定原始管点大致位置" autocomplete="off" class="form-control dropDownChangePageinput1">
                 </div>
                 <div id="line">
+<!--                    修改参数的管点-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管点参数</span>
-                        <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管点</button>
+<!--                        <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管点</button>-->
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -529,6 +532,7 @@
                     </div>
                 </div>
                 <div id="point" style="display: none">
+<!--                    修改参数的管线-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管线参数</span>
                         <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管线</button>
@@ -580,38 +584,6 @@
         //执行一个laydate实例
         laydate.render({
             elem: '#jsrq2'
-            , type: 'date'
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#jsrq3'
-            , type: 'date'
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#jsrq4'
-            , type: 'date'
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#jsrq5'
-            , type: 'date'
-        });
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#jsrq6'
             , type: 'date'
         });
     });
