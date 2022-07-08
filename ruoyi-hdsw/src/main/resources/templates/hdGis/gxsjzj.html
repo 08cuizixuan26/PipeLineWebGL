@@ -401,6 +401,9 @@
                            <option value="2">雨水</option>
                            <option value="3">再生水</option>>
                        </select>
+                       <div class="layui-input-inline" style="line-height: 30px;margin-left: 10px;">
+                           <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="hqzb2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
+                       </div>
 
 <!--                       <p class="slectTip"-->
 <!--                          style="font-size: 12px;-->
@@ -421,9 +424,6 @@
                            <div class="layui-input-inline">
                                <label class="layui-form-label">纵坐标</label>
                                <input type="text" name="title" id="ycor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                           </div>
-                           <div class="layui-input-inline">
-                               <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="hqzb2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                            </div>
                        </div>
                        <h4>管点属性:</h4>
@@ -746,7 +746,7 @@
 <!--               </div>-->
                <div class="layui-input-inline" style="margin-left: 240px; display: flex">
                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
-                   <select style="display: block;margin-left: 5px" class="form-control" lay-verify="required">
+                   <select style="display: block;margin-left: 5px" name="czjd_type4" id="czjd_type4" class="form-control" lay-verify="required">
                        <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                        <option value="0">供水</option>
                        <option value="1">污水</option>
@@ -756,7 +756,7 @@
                    <input style="margin-left: 10px" type="text" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                    <button style="margin-left: 10px" class="btn btn-primary">查询</button>
                </div>
-               <p class="slectTip"
+               <p class="slectTip3"
                   style="font-size: 12px;
                        margin-left: 254px;
                        color: #ed7470;position: absolute;top: 7.3%;left: 1%">请选择业务类别
@@ -915,7 +915,7 @@
                    </select>
                    <button class="btn btn-primary" style="width: 50px;height: 34px;margin-left: 10px;">查询</button>
                </div>
-               <p class="slectTip"
+               <p class="slectTip4"
                   style="font-size: 12px;
                        margin-left: 254px;
                        color: #ed7470;position: absolute;top: 7%;left: 15%">请选择业务类别
@@ -1384,6 +1384,14 @@
     $('#czjd_type3').change(function () {
         $(this).css('border','1px solid #ccc')
         $('.slectTip2').css('display','none')
+    })
+    $('#czjd_type4').change(function () {
+        $(this).css('border','1px solid #ccc')
+        $('.slectTip3').css('display','none')
+    })
+    $('#czjd_type5').change(function () {
+        $(this).css('border','1px solid #ccc')
+        $('.slectTip4').css('display','none')
     })
 
     function setBh(tableName,header,id) {
