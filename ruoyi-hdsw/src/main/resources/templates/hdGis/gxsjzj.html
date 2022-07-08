@@ -1760,6 +1760,7 @@
             bTime:$('#jsrq1').val(),
             offcNo:$('#pxjdh1').val(),
             rotation:$('#xzjd1').val(),
+            type:$("#czjd_type1 option:selected").text(),
             x:$('#xcor1').val(),
             y:$('#ycor1').val(),
             owner:$('#qsdw1').val(),
@@ -1893,6 +1894,7 @@
             bTime:$('#jsrq2').val(),
             offcNo:$('#pxjdh2').val(),
             rotation:$('#xzjd2').val(),
+            type:$("#czjd_type2 option:selected").text(),
             x:$('#xcor2').val(),
             y:$('#ycor2').val(),
             owner:$('#qsdw2').val(),
@@ -1960,7 +1962,7 @@
             eHeight:$('#zdgc3').val(),
             bTime:$('#jsrq3').val(),
             state:$('#zt3').val(),
-            type:$('#lb3').val(),
+            type:$("#czjd_type3 option:selected").text(),
             road:$('#szdl3').val(),
             owner:$('#qsdwbh3').val(),
             geom:"MULTILINESTRING ZM(("+$('#qdxcor3').val()+" " +$('#qdycor3').val()+ " 0 0,"+$('#zdxcor3').val()+" " +$('#zdycor3').val()+ " 0 0"+"))",
@@ -2028,6 +2030,7 @@
             bTime:$('#jsrq4').val(),
             offcNo:$('#pxjdh4').val(),
             rotation:$('#xzjd4').val(),
+            type:$('#ywlb4').val(),
             x:$('#xcor4').val(),
             y:$('#ycor4').val(),
             owner:$('#qsdw4').val(),
@@ -2038,24 +2041,29 @@
         };
         var url;
         var url1;
-        var layer;
+        var gdlayer;
+        var gxlayer;
         var options=$('#ywlb4').val();
         if(options == "供水"){
             url="/hdsw/gspoint/insert"
             url1="/hdsw/gsline/interruptLine"
-            layer = LoadMap.map.getLayerById("gsjg");
+            gdlayer = LoadMap.map.getLayerById("gsjg");
+            gxlayer = LoadMap.map.getLayerById("gsgx");
         }else if(options == "雨水"){
             url="/hdsw/yspoint/insert"
             url1="/hdsw/ysline/interruptLine"
-            layer = LoadMap.map.getLayerById("ysjg");
+            gdlayer = LoadMap.map.getLayerById("ysjg");
+            gxlayer = LoadMap.map.getLayerById("ysgx");
         }else if(options == "污水"){
             url="/hdsw/wspoint/insert"
             url1="/hdsw/wsline/interruptLine"
-            layer = LoadMap.map.getLayerById("wsjg");
+            gdlayer = LoadMap.map.getLayerById("wsjg");
+            gxlayer = LoadMap.map.getLayerById("wsgx");
         }else if(options == "再生水"){
             url="/hdsw/zsspoint/insert"
             url1="/hdsw/zssline/interruptLine"
-            layer = LoadMap.map.getLayerById("zssjg");
+            gdlayer = LoadMap.map.getLayerById("zssjg");
+            gxlayer = LoadMap.map.getLayerById("zssgx");
         }
         $.ajax({
             url: url,
@@ -2075,8 +2083,11 @@
                         },
                         success: function (res) {
                             if(res.code==0){
-                                LoadMap.map.removeLayer(layer);
-                                var layerId = layer.values_.id;
+                                LoadMap.map.removeLayer(gdlayer);
+                                var layerId = gdlayer.values_.id;
+                                loadNewLayer(layerId);
+                                LoadMap.map.removeLayer(gxlayer);
+                                layerId = gxlayer.values_.id;
                                 loadNewLayer(layerId);
                                 layui.use('layer', () => {
                                     let layer = layui.layer;
@@ -2112,7 +2123,7 @@
             eHeight:$('#zdgc5').val(),
             bTime:$('#jsrq5').val(),
             state:$('#zt5').val(),
-            type:$('#lb5').val(),
+            type:$("#czjd_type5 option:selected").text(),
             road:$('#szdl5').val(),
             owner:$('#qsdwbh5').val(),
             geom:"MULTILINESTRING ZM(("+$('#qdxcor5').val()+" " +$('#qdycor5').val()+ " 0 0,"+$('#zdxcor5').val()+" " +$('#zdycor5').val()+ " 0 0"+"))",
