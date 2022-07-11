@@ -49,6 +49,11 @@ public class Gxmodel implements Serializable {
     private String style;
 
     /**
+     * 管点数据库的管点
+     */
+    private String guandian;
+
+    /**
      * 0-正常，1-删除，2-废弃
      */
     private String delState;
@@ -234,6 +239,18 @@ public class Gxmodel implements Serializable {
 
     public void setUpdState(String updState) {
         this.updState = updState;
+    }
+
+    public String getGuandian() {
+        return guandian;
+    }
+
+    public void setGuandian(String guandian) {
+        this.guandian = guandian;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override

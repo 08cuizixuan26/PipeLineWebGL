@@ -241,7 +241,7 @@
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">业务类型</label>
-                            <input type="text" name="type" required id="type1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="czjd_type" required id="type1"  lay-verify="required" placeholder="" autocomplete="off" class="form-control czjd_type">
                         </div>
                     </div>
                     <div class="form-group">
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save3()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save3(),save4()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -411,7 +411,7 @@
 <!--                    修改属性的管线-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管线属性</span>
-<!--                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>-->
+                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -770,15 +770,43 @@ $('#gdgxChangePage1').change(function () {
             geom:"POINT ZM("+$('#x2').val()+" " +$('#y2').val()+ " 0 0)",
         };
         var url;
-        var options=$("#czjd_type option:selected");
-        if(options.text() == "供水"){
+        var options=$(".czjd_type").val();
+        if(options == "供水"){
             url="/hdsw/gspoint/update"
-        }else if(options.text() == "雨水"){
+        }else if(options == "雨水"){
             url="/hdsw/yspoint/update"
-        }else if(options.text() == "污水"){
+        }else if(options == "污水"){
             url="/hdsw/wspoint/update"
-        }else if(options.text() == "再生水"){
+        }else if(options == "再生水"){
             url="/hdsw/zsspoint/update"
+        }
+        $.ajax({
+            url: url,
+            type: "post",
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(params),
+        })
+    }
+
+    function save4() {
+        var params = {
+                pipeid:$('#guanxian1').val(),
+                sPoint:$('#guanxian2').val(),
+                ePoint:$('#guanxian3').val(),
+                guandian:$('#expNo1').val(),
+                geom:"MULTILINESTRING ZM(("+$('#x2').val()+" " +$('#y2').val()+ " 0 0"+"))",
+        };
+        var url;
+        var options=$(".czjd_type").val();
+        if(options== "供水"){
+            url="/hdsw/gsline/update"
+        }else if(options == "雨水"){
+            url="/hdsw/ysline/update"
+        }else if(options == "污水"){
+            url="/hdsw/wsline/update"
+        }else if(options == "再生水"){
+            url="/hdsw/zssline/update"
         }
         $.ajax({
             url: url,

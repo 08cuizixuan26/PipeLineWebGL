@@ -4,6 +4,8 @@ import com.ruoyi.hdsw.model.Gxmodel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * YslinesDAO继承基类
  */
@@ -11,4 +13,6 @@ import org.apache.ibatis.annotations.Param;
 public interface YslinesMapper extends MyBatisBaseMapper<com.ruoyi.hdsw.model.Gxmodel, Integer> {
     Gxmodel selectByGxbh(String dxbh);
     Integer updateState(@Param("gid") Integer gid,@Param("delState") String delState, @Param("updState") String updState);
+    List<Gxmodel> spoint(@Param("spoint")String spoint);
+    List<Gxmodel>  epoint(@Param("epoint")String epoint);
 }

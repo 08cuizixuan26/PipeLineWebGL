@@ -388,6 +388,9 @@ if (!LoadMap) var LoadMap = {
         $("#expNo1").attr("value", properties["exp_no"])
         $("#covType1").attr("value", properties["cov_type"])
         $("#type1").attr("value", properties["type"])
+        $("#guanxian1").attr("value", properties["pipeid"])
+        $("#guanxian2").attr("value", properties["s_point"])
+        $("#guanxian3").attr("value", properties["e_point"])
         if(LoadMap.getCoordinateFlag=="xqd"){
             $("#qdbh3").attr("value", properties["exp_no"])
             $("#qdxcor3").attr("value", properties["x"])
