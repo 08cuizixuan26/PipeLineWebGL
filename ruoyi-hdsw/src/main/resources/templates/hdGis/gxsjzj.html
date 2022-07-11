@@ -188,7 +188,7 @@
 <!--               <p class="sear_sty">-->
 <!--               参照加点的业务类别-->
                    <div class="layui-input-inline" style="margin-left: 240px; display: flex">
-                       <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
+                       <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                            <select style="display: block;margin-left: 5px" name="czjd_type1" id="czjd_type1" class="form-control" lay-verify="required">
                                <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                                <option value="0">供水</option>
@@ -393,7 +393,7 @@
 <!--                  </div>-->
                    <div class="layui-input-inline" style="display: flex">
                        <label class="layui-form-label">业务类别</label>
-                       <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
+                       <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                        <select style="margin-left: 5px;" name="czjd_type2" id="czjd_type2" class="form-control" lay-verify="required">
                            <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                            <option value="0">供水</option>
@@ -575,7 +575,7 @@
 <!--                   解析加线的页面输入法-->
                    <div class="layui-input-inline" style="display: flex">
                       <label class="layui-form-label">业务类别</label>
-                       <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
+                       <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                       <select name="czjd_type3" style="margin-left: 5px;" id="czjd_type3" class="form-control" lay-verify="required">
                           <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                           <option value="0">供水</option>
@@ -745,7 +745,7 @@
 <!--                   <button style="margin-left: 10px" class="btn btn-primary">查询</button>-->
 <!--               </div>-->
                <div class="layui-input-inline" style="margin-left: 240px; display: flex">
-                   <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
+                   <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                    <select style="display: block;margin-left: 5px" name="czjd_type4" id="czjd_type4" class="form-control" lay-verify="required">
                        <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                        <option value="0">供水</option>
@@ -905,7 +905,7 @@
 <!--               连接点-->
                <div class="layui-input-inline" style="display: flex;margin-left: 240px;">
                    <label class="layui-form-label">业务类别</label>
-                   <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
+                   <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                    <select style="margin-left: 5px;" name="czjd_type5" id="czjd_type5" class="form-control" lay-verify="required">
                        <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                        <option value="0">供水</option>
@@ -1357,6 +1357,23 @@
         })
     }
 
+    function czjdsure() {
+        var options = $("#czjd_type1 option:selected");
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type1").animate({opacity:'0.3'});
+            $("#czjd_type1").animate({opacity:'1'});
+            $(".slectTip").animate({opacity:'0.3'});
+            $(".slectTip").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
+    }
+
+
     //参照加点业务类别回显管点编号
     $('#czjd_type1').change(function() {
         var str;
@@ -1750,6 +1767,7 @@
 
     //参考选点保存
     function save1() {
+        czjdsure();
         var layer;
         var params = {
             expNo:$('#gdbh1').val(),
@@ -1885,6 +1903,19 @@
     }
     //解析加点点保存
     function save2() {
+        var options = $("#czjd_type2 option:selected");
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type2").animate({opacity:'0.3'});
+            $("#czjd_type2").animate({opacity:'1'});
+            $(".slectTip1").animate({opacity:'0.3'});
+            $(".slectTip1").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             expNo:$('#gdbh2').val(),
             feature:$('#tz2').val(),
@@ -1955,6 +1986,19 @@
     }
     //解析加线保存
     function save3() {
+        var options = $("#czjd_type3 option:selected");
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type3").animate({opacity:'0.3'});
+            $("#czjd_type3").animate({opacity:'1'});
+            $(".slectTip2").animate({opacity:'0.3'});
+            $(".slectTip2").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             shapeLeng:$('#cd3').val(),
             pipeid:$('#gxbh3').val(),
@@ -2021,6 +2065,19 @@
     }
     //插入点保存
     function save4() {
+        var options = $("#czjd_type4 option:selected");
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type4").animate({opacity:'0.3'});
+            $("#czjd_type4").animate({opacity:'1'});
+            $(".slectTip3").animate({opacity:'0.3'});
+            $(".slectTip3").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             expNo:$('#gdbh4').val(),
             feature:$('#tz4').val(),
@@ -2116,6 +2173,19 @@
     }
     //连接点保存
     function save5() {
+        var options = $("#czjd_type5 option:selected");
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type5").animate({opacity:'0.3'});
+            $("#czjd_type5").animate({opacity:'1'});
+            $(".slectTip4").animate({opacity:'0.3'});
+            $(".slectTip4").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             shapeLeng:$('#cd5').val(),
             pipeid:$('#gxbh5').val(),

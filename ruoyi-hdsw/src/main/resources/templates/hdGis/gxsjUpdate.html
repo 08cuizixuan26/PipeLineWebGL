@@ -208,7 +208,7 @@
             <div class="sty" id="czjd" style="position: relative">
 <!--                移动点信息-->
                 <div class="formTab">
-                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
                     <select name="czjd_type" id="czjd_type" class="form-control " lay-verify="required">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="0">污水</option>
@@ -277,7 +277,7 @@
             <div class="sty" style="display: none;position: relative" id="jxjd">
 <!--                修改属性信息-->
                 <div class="dropDownChangePage">
-                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
                     <select name="" id="gdgxChangePage" class="czjd_type1">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="1">给水管点</option>
@@ -514,8 +514,8 @@
             <div class="sty" style="display: none;position: relative" id="modifyParameters">
 <!--                修改参数信息-->
                 <div class="dropDownChangePage1">
-                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
-                    <select name="" id="gdgxChangePage1">
+                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <select name="" id="gdgxChangePage1" class="">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="1">再生水管点</option>
                         <option value="2">再生水管线</option>
@@ -568,7 +568,7 @@
                         </div>
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="ywlbSelect()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </div>
@@ -743,25 +743,48 @@ $('#gdgxChangePage1').change(function () {
 })
 
 
-
-    // //解析加线单选事件
-    // $('input[name="jxjx"]').click(function(){
-    //     if($(this).val() == 1){
-    //         $('#jxf_').show();
-    //         $('#ymsrf_').hide();
-    //     }else{
-    //         $('#ymsrf_').show();
-    //         $('#jxf_').hide();
-    //     }
-    // })
-
 </script>
 <script>
+
+
     //获取坐标
     function getCoordinateFlag(clicked_id) {
         LoadMap.getCoordinateFlag = clicked_id;
     }
+
+    function savelxSelected() {
+        var options = $("#czjd_type option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type").animate({opacity:'0.3'});
+            $("#czjd_type").animate({opacity:'1'});
+            $(".slectTip").animate({opacity:'0.3'});
+            $(".slectTip").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
+    }
+
     function save3() {
+        savelxSelected();
+        // var options = $("#czjd_type option:selected");
+        // console.log(options[0].innerHTML)
+        // if(options[0].innerHTML == ""){
+        //     $(".b").animate({opacity:'0.3'});
+        //     $(".b").animate({opacity:'1'});
+        //     $("#czjd_type").animate({opacity:'0.3'});
+        //     $("#czjd_type").animate({opacity:'1'});
+        //     $(".slectTip").animate({opacity:'0.3'});
+        //     $(".slectTip").animate({opacity:'1'});
+        //     layui.use('layer', () => {
+        //         let layer = layui.layer;
+        //         layer.msg("请选择业务类别")
+        //     })
+        // }
         var params = {
             expNo:$('#expNo1').val(),
             type:$('#type1').val(),
@@ -832,6 +855,21 @@ $('#gdgxChangePage1').change(function () {
     }
 
     function save2() {
+
+        var options = $(".czjd_type1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $(".czjd_type1").animate({opacity:'0.3'});
+            $(".czjd_type1").animate({opacity:'1'});
+            $(".slectTip1").animate({opacity:'0.3'});
+            $(".slectTip1").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             expNo:$('#guandian1').val(),
             sureH:$('#guandian2').val(),
@@ -886,7 +924,38 @@ $('#gdgxChangePage1').change(function () {
         })
     }
 
+    function ywlbSelect() {
+        var options = $("#gdgxChangePage1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#gdgxChangePage1").animate({opacity:'0.3'});
+            $("#gdgxChangePage1").animate({opacity:'1'});
+            $(".slectTip2").animate({opacity:'0.3'});
+            $(".slectTip2").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
+    }
+
     function save1() {
+        var options = $("#czjd_type1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type1").animate({opacity:'0.3'});
+            $("#czjd_type1").animate({opacity:'1'});
+            $(".slectTip1").animate({opacity:'0.3'});
+            $(".slectTip1").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             pipeid:$('#guanxian1').val(),
             sPoint:$('#guanxian2').val(),

@@ -26,7 +26,8 @@
 <div th:fragment=GN_JS>
     <script th:inline="javascript">var ctx = [[@{/}]]; var lockscreen = [[${session.lockscreen}]]; if(lockscreen){window.top.location=ctx+"lockscreen";}</script>
     <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>
+    <script th:src="@{/layui-v2.6.13/layui/layui.js}"></script>
+<!--    <script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>-->
     <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
     <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>

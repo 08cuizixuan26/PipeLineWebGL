@@ -139,54 +139,16 @@
             color: #bebbbb;
         }
         #fqgxhf {
-            width: auto;
+            width: 652px;
             height: auto;
         }
-        #fqgxhf table {
-            border-radius: 4px;
-            border: none;
-        }
-        #fqgxhf table td {
-            text-align: center;
-            width: 160px;
-            line-height: 45px;
-            border: none;
-            border-bottom: 1px solid #dde0e7;
-            box-sizing: border-box;
-        }
-        .recovery_btn {
-            color: #fff;
-            background-color: #337ab7;
-            width: 60px;
-            display: inline-block;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            vertical-align: middle;
-            text-align: center;
-            margin-bottom: 2px;
-        }
-        .firstTr {
-            background: #edeff2;
-        }
-        #popUpBox {
-            position: absolute;
-            top: 22%;
-            left: 32%;
-            width: 500px;
-            height: 267px;
-            background: #fff;
-            box-shadow:0px 0px 10px 3px #ccc;
-        }
+        .layui-table-body layui-table-main::-webkit-scrollbar {display:none}
         #popUpBox .tip {
             margin-top: 42px;
         }
         #popUpBox .tip span {
             font-size: 19px;
             margin-left: 30px;
-        }
-        .popUpDown {
-            margin-left: 66%;
-            margin-top: 66px;
         }
         .company1 {
             position: relative;
@@ -196,6 +158,27 @@
             top: 19%;
             right: 2%;
             color: #bebbbb;
+        }
+        .data_Div li{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .large_input {
+            width: 47%;
+        }
+        .layui-table td {
+            border-color: #eee;
+        }
+        .layui-table {
+            color: #0C0C0C;
+        }
+        .layui-table-tips-c {
+            padding: 0;
         }
     </style>
 </head>
@@ -448,34 +431,26 @@
                 </form>
             </div>
 
-            <div class="sty" id="fqgxhf" style="display: none;position: relative">
+            <div class="sty" id="fqgxhf" style="display: none;">
 <!--                废弃管线恢复-->
-<!--                <p class="sear_sty">-->
-<!--                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>-->
-<!--                    <select name="czjd_type" id="czjd_type1"  class="form-control" lay-verify="required">-->
-<!--                        <option value="0">污水管线</option>-->
-<!--                        <option value="1">给水管线</option>-->
-<!--                        <option value="2">雨水管线</option>-->
-<!--                        <option value="3">再生水管线</option>>-->
-<!--                    </select>-->
-<!--                    <button class="btn btn-primary"style="background: #4A98F7;border: none">查询</button>-->
-<!--                    <p class="slectTip"-->
-<!--                       style="font-size: 12px;-->
-<!--                           margin-left: 254px;-->
-<!--                           color: #ed7470;position: absolute;top: 13.5%;left: 7%">请选择业务类别-->
-<!--                    </p>-->
-<!--                </p>-->
                 <div class="tableDataBox" style="margin: 10px 10px 10px 10px">
-                    <div class="dataTitle">
-                        <button class="btn btn-primary">编号</button>
-                        <button class="btn btn-primary">所在道路</button>
-                        <button class="btn btn-primary">流向</button>
-                        <button class="btn btn-primary">业务类别</button>
+                    <div class="layui-input-inline dataTitle" style="display: flex;justify-content: center;align-items: center">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="根据编号、所在道路进行搜索" autocomplete="off" class="form-control large_input">
+                        <button class="btn btn-primary" style="margin-left: 15px;">查询</button>
                     </div>
-                    <p class="sear_sty">
-                        <input style="width: 165px" type="text" name="" placeholder="按编号、所在道路搜索" autocomplete="off" class="form-control">
-                        <button class="btn btn-primary">查询</button>
-                    </p>
+                    <div class="data_div">
+                        <table id="demo" lay-filter="test"></table>
+                    </div>
+<!--                    <div class="dataTitle">-->
+<!--                        <button class="btn btn-primary">编号</button>-->
+<!--                        <button class="btn btn-primary">所在道路</button>-->
+<!--                        <button class="btn btn-primary">流向</button>-->
+<!--                        <button class="btn btn-primary">业务类别</button>-->
+<!--                    </div>-->
+<!--                    <p class="sear_sty">-->
+<!--                        <input style="width: 165px" type="text" name="" placeholder="按编号、所在道路搜索" autocomplete="off" class="form-control">-->
+<!--                        <button class="btn btn-primary">查询</button>-->
+<!--                    </p>-->
 <!--                    <table border="">-->
 <!--                        <tr class="firstTr">-->
 <!--                            <td>-->
@@ -513,6 +488,11 @@
 
 </body>
 </html>
+<!-- 右侧工具栏 -->
+<script type="text/html" id="wTblPointRightToolsBar">
+<!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">恢复</a>
+</script>
 <!--&lt;!&ndash;<script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>&ndash;&gt;-->
 
 <!--<script>-->
@@ -538,11 +518,35 @@
 
 <!--</script>-->
 <script>
-    // <!--废弃管线恢复中的业务类别选项-->
-    //     $('#czjd_type1').change(function () {
-    //         $(this).css('border','1px solid #ccc')
-    //         $('.slectTip').css('display','none')
-    //     })
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/json/wTblCountDataDay.json' //数据接口
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                {field: 'receiveTime', title: '管线编号', width:120, sort: true, align: 'center',}
+                ,{field: 'zxzt', title: '业务类别', width:120, align: 'center',}
+                ,{field: 'ljll', title: '所在道路', width:120, align: 'center',}
+                ,{field: 'ckwd', title: '流向', width:120, align: 'center',}
+                ,{fixed: 'right', title: '管理',toolbar: '#wTblPointRightToolsBar',width: 120, align: 'center'}  //追加表头
+             ]
+            ]
+
+        });
+
+    });
+    //管线恢复页面切换
+    // $('.data_Div li').hover(function (){
+    //     $(this).addClass('active_nav').siblings().removeClass('active_nav');
+    // })
+    // function currentSelect() {
+    //     $('#featureInfo').hide();
+    // }
 
 
     //图层收缩事件
