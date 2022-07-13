@@ -11,14 +11,16 @@ import com.ruoyi.hdsw.service.WslinesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @DataSource(value = DataSourceType.SLAVE)
 public class WslinesServiceImpl implements WslinesService {
-    @Autowired
+    @Resource
     private WslinesMapper wslinesMapper;
-    @Autowired
+    @Resource
     private WspointsMapper wspointsMapper;
     @Override
     public Object insert(Gxmodel record) {
@@ -77,5 +79,15 @@ public class WslinesServiceImpl implements WslinesService {
     @Override
     public Object selectByState(String delState, String updState) {
         return wslinesMapper.selectByState(delState,updState);
+    }
+
+    @Override
+    public List<Gxmodel> spoint(String spoint) {
+        return wslinesMapper.spoint(spoint);
+    }
+
+    @Override
+    public List<Gxmodel> epoint(String epoint) {
+        return wslinesMapper.epoint(epoint);
     }
 }

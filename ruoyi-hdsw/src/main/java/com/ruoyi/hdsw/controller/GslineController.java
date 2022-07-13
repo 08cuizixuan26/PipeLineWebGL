@@ -1,5 +1,6 @@
 package com.ruoyi.hdsw.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.hdsw.model.Gsline;
 import com.ruoyi.hdsw.mapper.GslineMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/hdsw/gsline")
@@ -36,7 +38,51 @@ public class GslineController {
     @ResponseBody
     public AjaxResult update(@RequestBody Gxmodel record) {
         try {
-            return AjaxResult.success(gslineService.update(record));
+            String guandian = record.getGuandian();
+            Gxmodel gxmodel1=new Gxmodel();
+            gxmodel1.setGeom(record.getGeom());
+            gxmodel1.setGuandian(record.getGuandian());
+            List<Gxmodel> spoint=gslineService.spoint(guandian);
+            for(Gxmodel gxmodel:spoint){
+                gxmodel1.setPipeid(gxmodel.getPipeid());
+                String s =  JSON.toJSONString(gxmodel.getGeom());
+                int null1 = s.lastIndexOf("(");
+                int null2 = s.indexOf(")");
+                String ssa=s.substring(null1+1,null2);
+                int i = ssa.indexOf(",");
+                String substring = ssa.substring(0,i);
+                String substring1 = ssa.substring(i + 1);
+                String geom1 = gxmodel1.getGeom().toString();
+                StringBuffer stringBuilder1=new StringBuffer(geom1);
+                int null3 = geom1.lastIndexOf(")");
+                StringBuffer insert = stringBuilder1.insert(null3-1, ","+substring1);
+                String qi = insert.toString();
+                gxmodel1.setGeom(qi);
+                gslineService.update(gxmodel1);
+            }
+            Gxmodel gxmodel2=new Gxmodel();
+
+            gxmodel2.setGeom(record.getGeom());
+            gxmodel2.setGuandian(record.getGuandian());
+            List<Gxmodel>  epoint=gslineService.epoint(guandian);
+            for(Gxmodel epoint1:epoint){
+                gxmodel2.setPipeid(epoint1.getPipeid());
+                String s =  JSON.toJSONString(epoint1.getGeom());
+                int null1 = s.lastIndexOf("(");
+                int null2 = s.indexOf(")");
+                String ssa=s.substring(null1+1,null2);
+                int i = ssa.indexOf(",");
+                String substring = ssa.substring(0,i);
+                String substring1 = ssa.substring(i + 1);
+                String geom1 = gxmodel2.getGeom().toString();
+                StringBuffer stringBuilder1=new StringBuffer(geom1);
+                int null3 = geom1.lastIndexOf("(");
+                StringBuffer insert = stringBuilder1.insert(null3+1,substring+",");
+                String zong = insert.toString();
+                gxmodel2.setGeom(zong);
+                gslineService.update(gxmodel2);
+            }
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());

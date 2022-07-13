@@ -275,7 +275,7 @@
         style = #{style,jdbcType=VARCHAR},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where pipeid = #{pipeid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Gxmodel">
     update "gsline"
@@ -327,5 +327,11 @@
       <if test="delState != null and delState != '' "> AND del_state=#{delState} </if>
       <if test="updState != null and updState != '' "> AND upd_state=#{updState} </if>
     </where>
+  </select>
+  <select id="spoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
+    select pipeid,ST_Astext(geom) geom from "yslines" where s_point=#{spoint}
+  </select>
+  <select id="epoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
+    select pipeid,ST_Astext(geom) geom from "yslines" where e_point=#{epoint}
   </select>
 </mapper>
