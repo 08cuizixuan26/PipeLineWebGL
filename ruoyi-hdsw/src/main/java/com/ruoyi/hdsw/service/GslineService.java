@@ -2,6 +2,8 @@ package com.ruoyi.hdsw.service;
 
 import com.ruoyi.hdsw.model.Gxmodel;
 
+import java.util.List;
+
 public interface GslineService {
     Object insert(Gxmodel record);
     Object update(Gxmodel record);
@@ -11,4 +13,6 @@ public interface GslineService {
     Object updateState(String pipeid,String delState,String updState);
     Object getMaxNum();
     Object selectByState(String delState,String updState);
+    List<Gxmodel> spoint(String spoint);
+    List<Gxmodel> epoint(String epoint);
 }

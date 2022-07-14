@@ -2,23 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.hdsw.mapper.GxcontrolMapper">
   <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gxcontrol">
-    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <id column="gid" jdbcType="VARCHAR" property="gid" />
     <result column="width" jdbcType="DOUBLE" property="width" />
     <result column="color" jdbcType="VARCHAR" property="color" />
     <result column="visibility" jdbcType="VARCHAR" property="visibility" />
     <result column="iocn" jdbcType="VARCHAR" property="iocn" />
   </resultMap>
   <select id="select" parameterType="java.lang.String" resultType="com.ruoyi.hdsw.model.Gxcontrol">
-    select * from "gxcontrol"
+    SELECT * FROM (select gid,width,color,visibility,iocn from "gxcontrol" where gid='ws'
+union
+select gid,width,color,visibility,iocn from "gxcontrol" where gid='zss'
+union
+select gid,width,color,visibility,iocn from "gxcontrol" where gid='gs'
+union
+select gid,width,color,visibility,iocn from "gxcontrol" where gid='ys') v
+ORDER BY case when v.gid='ws' then 0 when v.gid='zss' then 1 when v.gid ='gs' then 2 when v.gid ='ys' then 3 end
   </select>
   <delete id="delete" parameterType="java.lang.String">
     delete from "gxcontrol"
-    where gid = #{gid,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.ruoyi.hdsw.model.Gxcontrol">
     insert into "gxcontrol"
     (gid,width,color,visibility,iocn)
-    values (#{gid,jdbcType=INTEGER},
+    values (#{gid,jdbcType=VARCHAR},
       #{width,jdbcType=DOUBLE}, #{color,jdbcType=VARCHAR},
       #{visibility,jdbcType=VARCHAR},#{iocn,jdbcType=VARCHAR})
   </insert>
@@ -39,6 +46,6 @@
         iocn = #{iocn,jdbcType=VARCHAR},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=VARCHAR}
   </update>
 </mapper>

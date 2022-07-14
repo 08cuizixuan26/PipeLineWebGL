@@ -10,6 +10,10 @@ import com.ruoyi.hdsw.service.YslinesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 @DataSource(value = DataSourceType.SLAVE)
 public class YslinesServiceImpl implements YslinesService {
@@ -21,6 +25,14 @@ public class YslinesServiceImpl implements YslinesService {
     @Override
     public Object insert(Gxmodel record) {
         return yslinesMapper.insertSelective(record);
+    }
+    @Override
+    public List<Gxmodel>  spoint(String spoint) {
+        return yslinesMapper.spoint(spoint);
+    }
+    @Override
+    public List<Gxmodel> epoint(String epoint) {
+        return yslinesMapper.epoint(epoint);
     }
 
     @Override

@@ -148,7 +148,7 @@ public class SysMenuController extends BaseController
     @GetMapping("/icon")
     public String icon()
     {
-        return prefix + "/icon";
+        return prefix + "/";
     }
 
     /**

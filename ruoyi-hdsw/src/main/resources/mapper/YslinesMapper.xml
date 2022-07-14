@@ -328,4 +328,11 @@
       <if test="updState != null and updState != '' "> AND upd_state  =#{updState} </if>
     </where>
   </select>
+  <select id="spoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
+    select pipeid,ST_Astext(geom) geom from "yslines" where s_point=#{spoint}
+  </select>
+  <select id="epoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
+    select pipeid,ST_Astext(geom) geom from "yslines" where e_point=#{epoint}
+  </select>
+
 </mapper>

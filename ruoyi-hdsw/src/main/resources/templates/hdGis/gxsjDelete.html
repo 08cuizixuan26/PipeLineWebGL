@@ -5,23 +5,13 @@
     <title>地图</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <script th:src="@{/openlayersv6.5/build/ol.js}"></script>
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bd09.js}"></script>
-    <script th:src="@{/js/baiduMercator.js}"></script>
-    <script th:src="@{/js/olMapConfig.js}"></script>
-    <script th:src="@{/js/map.js}"></script>
-    <!--    <script th:src="@{/js/coordinateTransform.js}"></script>-->
-    <script th:src="@{/zTree/jquery.ztree.core.js}"></script>
-    <script th:src="@{/zTree/jquery.ztree.excheck.js}"></script>
-    <script th:src="@{/zTree/jquery.ztree.exhide.js}"></script>
-    <script th:src="@{/layuiv2.5.6/layui/layui.js}"></script>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link href="//unpkg.com/layui@2.6.13/dist/css/layui.css" rel="stylesheet"/>
-    <link th:href="@{/zTree/zTreeStyle.css}" rel="stylesheet"/>
-    <!--    <link th:href="@{static/layuiv2.5.6/layui/css/layui.css}" rel="stylesheet"/>-->
-    <link th:href="@{/openlayersv6.5/css/ol.css}" rel="stylesheet"/>
-    <link th:href="@{/css/map.css}" rel="stylesheet"/>
+    <script src="openlayersv6.5/build/ol.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bd09.js" charset="utf-8"></script>
+    <th:block th:include="include :: GN_JS"/>
+    <th:block th:include="include :: GIS_JS"/>
+    <th:block th:include="include :: GN_CSS"/>
+    <th:block th:include="include :: GIS_CSS"/>
     <style>
         .ztree li a span.button {
             background-size: 16px 16px !important;
@@ -177,9 +167,10 @@
         }
 
         #fqgxhf {
-            width: auto;
+            width: 745px;
             height: auto;
         }
+        .layui-table-body layui-table-main::-webkit-scrollbar {display:none}
 
         #fqgxhf table {
             border-radius: 4px;
@@ -245,6 +236,39 @@
             right: 2%;
             color: #bebbbb;
         }
+        .data_Div li{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .large_input {
+            width: 30%;
+        }
+        .layui-table td {
+            border-color: #eee;
+        }
+        .layui-table {
+            color: #0C0C0C;
+        }
+        .layui-table-tips-c {
+            padding: 0;
+        }
+        .layui-table-body {
+            overflow-x: hidden;
+        }
+        .layui-table-body layui-table-main {
+            height: 400px;
+        }
+        .layui-form layui-border-box layui-table-view {
+            height: 400px;
+        }
+        .hoverShow {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 <body>
@@ -271,8 +295,7 @@
                     <!--                        <option value="2">雨水</option>-->
                     <!--                        <option value="3">再生水</option>>-->
                     <!--                    </select>-->
-                    <input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off"
-                           class="form-control">
+                    <input type="text" id="search_content" name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                     <button class="btn btn-primary" id="search_btn" onclick="search()">查询</button>
                 </p>
                 <form class="layui-form" action="" lay-filter="del">
@@ -403,17 +426,7 @@
             </div>
 
             <div class="sty" style="display: none" id="gxfq">
-                <!--                管线废弃-->
-                <!--                <p class="sear_sty">-->
-                <!--                    <select name="czjd_type"  class="form-control" lay-verify="required">-->
-                <!--                        <option value="0">污水管线</option>-->
-                <!--                        <option value="1">污水</option>-->
-                <!--                        <option value="2">雨水</option>-->
-                <!--                        <option value="3">再生水</option>>-->
-                <!--                    </select>-->
-                <!--                    <input type="text"  name="" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">-->
-                <!--                    <button class="btn btn-primary"  onclick="search()">查询</button>-->
-                <!--                </p>-->
+<!--                管线废弃-->
                 <form class="layui-form" action="">
                     <div class="form-group" style="display: flex;align-items: center">
                         <span style="font-weight: bold">污水管线信息</span>
@@ -539,57 +552,17 @@
                 </form>
             </div>
 
-            <div class="sty" id="fqgxhf" style="display: none;position: relative">
-                <!--                废弃管线恢复-->
-                <!--                <p class="sear_sty">-->
-                <!--                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>-->
-                <!--                    <select name="czjd_type" id="czjd_type1"  class="form-control" lay-verify="required">-->
-                <!--                        <option value="0">污水管线</option>-->
-                <!--                        <option value="1">给水管线</option>-->
-                <!--                        <option value="2">雨水管线</option>-->
-                <!--                        <option value="3">再生水管线</option>>-->
-                <!--                    </select>-->
-                <!--                    <button class="btn btn-primary"style="background: #4A98F7;border: none">查询</button>-->
-                <!--                    <p class="slectTip"-->
-                <!--                       style="font-size: 12px;-->
-                <!--                           margin-left: 254px;-->
-                <!--                           color: #ed7470;position: absolute;top: 13.5%;left: 7%">请选择业务类别-->
-                <!--                    </p>-->
-                <!--                </p>-->
+            <div class="sty" id="fqgxhf" style="display: none;">
+<!--                废弃管线恢复-->
                 <div class="tableDataBox" style="margin: 10px 10px 10px 10px">
-                    <div class="dataTitle">
-                        <button class="btn btn-primary">编号</button>
-                        <button class="btn btn-primary">所在道路</button>
-                        <button class="btn btn-primary">流向</button>
-                        <button class="btn btn-primary">业务类别</button>
+                    <div class="layui-input-inline dataTitle" style="display: flex;justify-content: center;align-items: center">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="根据编号、所在道路进行搜索" autocomplete="off" class="form-control large_input">
+                        <button class="btn btn-primary" style="margin-left: 15px;">查询</button>
                     </div>
-                    <p class="sear_sty">
-                        <input style="width: 165px" type="text" name="" placeholder="按编号、所在道路搜索" autocomplete="off"
-                               class="form-control">
-                        <button class="btn btn-primary">查询</button>
-                    </p>
-                    <!--                    <table border="">-->
-                    <!--                        <tr class="firstTr">-->
-                    <!--                            <td>-->
-                    <!--                                <input id="all" style="width: 60px" type="checkbox">-->
-                    <!--                            </td>-->
-                    <!--                            <td>管线编号</td>-->
-                    <!--                            <td>所在道路</td>-->
-                    <!--                            <td>废弃日期</td>-->
-                    <!--                            <td>操作</td>-->
-                    <!--                        </tr>-->
-                    <!--                        <tr>-->
-                    <!--                            <td>-->
-                    <!--                                <input name="sub" type="checkbox">-->
-                    <!--                            </td>-->
-                    <!--                            <td>12363</td>-->
-                    <!--                            <td>123</td>-->
-                    <!--                            <td>123</td>-->
-                    <!--                            <td>-->
-                    <!--                                <button class="ShowBox" style="text-decoration: none;color: #157bd8;border: none;background: #fff">恢复</button>-->
-                    <!--                            </td>-->
-                    <!--                        </tr>-->
-                    <!--                    </table>-->
+                    <div class="data_div">
+                        <table id="demo" lay-filter="test"></table>
+                    </div>
+
                 </div>
             </div>
 
@@ -605,19 +578,64 @@
 
 </body>
 </html>
+<!-- 右侧工具栏 -->
+<script type="text/html" id="fqgxRecovery">
+<!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs">恢复</button>
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">恢复</a>-->
+</script>
 <script>
+
+    $('#fqgxRecovery button').click = function () {
+        // alert('回复恢复')
+        e.preventDefault()
+    }
+    //表格样式
+    $('.tableDataBox tr').hover(function () {
+        console.log(this)
+        $(this).addClass('hoverShow').siblings().removeClass('hoverShow');
     //获取坐标
     function getCoordinateFlag(clicked_id) {
         LoadMap.getCoordinateFlag = clicked_id;
         LoadMap.currentMapType = "管线删除";
     }
 
-    // <!--废弃管线恢复中的业务类别选项-->
-    //     $('#czjd_type1').change(function () {
-    //         $(this).css('border','1px solid #ccc')
-    //         $('.slectTip').css('display','none')
-    //     })
+    })
 
+    // 废弃管线恢复表格
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 380
+            ,url: '/json/wTblCountDataDay.json' //数据接口
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                {field: 'id', title: '管线编号', width:135, sort: true, align: 'center',}
+                ,{field: 'name', title: '业务类别', width:143, align: 'center',}
+                ,{field: 'x', title: '横坐标', width:139, align: 'center',}
+                ,{field: 'y', title: '纵坐标', width:139, align: 'center',}
+                ,{fixed: 'right', title: '管理',toolbar: '#fqgxRecovery',width: 138, align: 'center'}  //追加表头
+             ]
+            ],
+        });
+        //点击行定位到具体范围
+        table.on('row(test)', (obj) => {   //监听行单击事件 lay-filter='test'
+            // console.log(obj)
+            var recoveryData = JSON.stringify(obj.data);
+            console.log(recoveryData)
+            LoadMap.singleclick()
+            // layer.alert(JSON.stringify(obj.data), {  //弹出当前行数据
+            //     title: '当前行数据：'
+            // });
+            let x = Number(obj.data.x);
+            let y = Number(obj.data.y);
+            var coordinate1 = ol.proj.transform([x,y],'EPSG:4326','BD:09')
+            LoadMap.map.getView().setCenter(coordinate1);
+        })
+    });
 
     //图层收缩事件
     $('.icon-bar').click(function () {

@@ -388,6 +388,9 @@ if (!LoadMap) var LoadMap = {
         $("#expNo1").attr("value", properties["exp_no"])
         $("#covType1").attr("value", properties["cov_type"])
         $("#type1").attr("value", properties["type"])
+        $("#guanxian1").attr("value", properties["pipeid"])
+        $("#guanxian2").attr("value", properties["s_point"])
+        $("#guanxian3").attr("value", properties["e_point"])
         if (LoadMap.getCoordinateFlag == "xqd") {
             $("#qdbh3").attr("value", properties["exp_no"])
             $("#qdxcor3").attr("value", properties["x"])
@@ -469,7 +472,7 @@ if (!LoadMap) var LoadMap = {
             $("#guandian18").attr("value", properties["x"])
             $("#guandian19").attr("value", properties["y"])
             $("#guandian20").attr("value", properties["elevation"])
-        } else if (LoadMap.getCoordinateFlag == "guanxian") {
+        }else if(LoadMap.getCoordinateFlag == "guanxian"){
             $("#guanxian1").attr("value", properties["pipeid"])
             $("#guanxian2").attr("value", properties["s_point"])
             $("#guanxian3").attr("value", properties["e_point"])
@@ -542,6 +545,22 @@ if (!LoadMap) var LoadMap = {
     },
 
     addWsLayer() {
+        let ws;
+        let wsx;
+        let wsw;
+        $.ajax({
+            url: "/hdsw/gxcontrol/select",
+            type: "post",
+            contentType: 'application/json',
+            dataType: 'json',
+            async:false,
+            success: function (data) {
+                ws= data[0].iocn
+
+                wsx=data[0].color
+                wsw=data[0].width
+            }
+        })
         let pointVectorSource = new ol.source.Vector({
             id: "wsjg1",
             format: new ol.format.GeoJSON(),
@@ -598,8 +617,8 @@ if (!LoadMap) var LoadMap = {
                 let styles = [
                     new ol.style.Style({
                         stroke: new ol.style.Stroke({
-                            color: "rgba(128,2,2,0.8)",
-                            width: 3,
+                            color: wsx,
+                            width: wsw,
                         })
                     })
                 ];

@@ -11,5 +11,7 @@ import org.apache.ibatis.annotations.Param;
 public interface WslinesMapper extends MyBatisBaseMapper<com.ruoyi.hdsw.model.Gxmodel, Integer> {
     Gxmodel selectByGxbh(String dxbh);
     Integer updateState(@Param("pipeid") String pipeid, @Param("delState") String delState, @Param("updState") String updState);
+    List<Gxmodel> spoint(@Param("spoint")String spoint);
+    List<Gxmodel>  epoint(@Param("epoint")String epoint);
 
 }

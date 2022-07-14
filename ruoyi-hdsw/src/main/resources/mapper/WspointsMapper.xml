@@ -300,7 +300,7 @@
         type = #{type,jdbcType=VARCHAR},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where exp_no = #{expNo,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ruoyi.hdsw.model.Gdmodel">
     update "wspoints"

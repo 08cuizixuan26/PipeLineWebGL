@@ -208,7 +208,7 @@
             <div class="sty" id="czjd" style="position: relative">
 <!--                移动点信息-->
                 <div class="formTab">
-                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
                     <select name="czjd_type" id="czjd_type" class="form-control " lay-verify="required">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="0">污水</option>
@@ -241,7 +241,7 @@
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">业务类型</label>
-                            <input type="text" name="type" required id="type1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" name="czjd_type" required id="type1"  lay-verify="required" placeholder="" autocomplete="off" class="form-control czjd_type">
                         </div>
                     </div>
                     <div class="form-group">
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save3()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="save3(),save4()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -277,7 +277,7 @@
             <div class="sty" style="display: none;position: relative" id="jxjd">
 <!--                修改属性信息-->
                 <div class="dropDownChangePage">
-                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
                     <select name="" id="gdgxChangePage" class="czjd_type1">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="1">给水管点</option>
@@ -301,7 +301,7 @@
 <!--                    修改属性的管点-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管点属性</span>
-<!--                        <button type="button" class="btn btn-primary" id="guandian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管点</button>-->
+                        <button type="button" class="btn btn-primary" id="guandian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管点</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -411,7 +411,7 @@
 <!--                    修改属性的管线-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管线属性</span>
-<!--                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>-->
+                        <button type="button" class="btn btn-primary" id="guanxian" style="width: 110px;height: 20px;padding: 0!important" onclick="getCoordinateFlag(this.id)">地图上选定管线</button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
@@ -546,19 +546,19 @@
                                 <label class="layui-form-label">管点图标:</label>
                                 <div class="gdiconbox" style="display: flex;">
                                     <div class="gdicon" style="margin-left: 5px;" id="asc">
-                                        <img src="../../images/0518/zssgd.png" style="width: 30px" alt="">
+                                        <img src="" id="zss" style="width: 30px" alt="">
                                         再生水管点
                                     </div>
-                                    <div class="gdicon" style="margin-left: 15px; display: none" id="asc1">
-                                        <img src="../../images/0518/gsgd.png" style="width: 30px" alt="">
+                                    <div clas s="gdicon" style="margin-left: 15px; display: none" id="asc1">
+                                        <img src="" id="gs" style="width: 30px" alt="">
                                         供水管点
                                     </div>
                                     <div class="gdicon" style="margin-left: 15px; display: none" id="asc2">
-                                        <img src="../../images/0518/ysgd.png" style="width: 30px" alt="">
+                                        <img src="" id="ys" style="width: 30px" alt="">
                                         雨水管点
                                     </div>
                                     <div class="gdicon" style="margin-left: 15px; display: none" id="asc3">
-                                        <img src="../../images/0518/wsgd.png" style="width: 30px" alt="">
+                                        <img src="" id="ws" style="width: 30px" alt="">
                                         污水管点
                                     </div>
                                 </div>
@@ -568,7 +568,7 @@
                         </div>
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="ywlbSelect()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </div>
@@ -587,10 +587,10 @@
                             <label class="layui-form-label">管线颜色</label>
                             <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                        <div class="layui-input-inline">
-                            <label class="layui-form-label">管线可见度</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                        </div>
+<!--                        <div class="layui-input-inline">-->
+<!--                            <label class="layui-form-label">管线可见度</label>-->
+<!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+<!--                        </div>-->
                     </div>
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary">确定</button>
@@ -757,11 +757,57 @@ $('#gdgxChangePage1').change(function () {
 
 </script>
 <script>
+
+
     //获取坐标
     function getCoordinateFlag(clicked_id) {
         LoadMap.getCoordinateFlag = clicked_id;
     }
+    $.ajax({
+        url: "/hdsw/gxcontrol/select",
+        type: "post",
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            let ws= $('#ws').attr('src',data[0].iocn);
+            let zss=$('#zss').attr('src',data[1].iocn);
+            let gs= $('#gs').attr('src',data[2].iocn);
+            let ys= $('#ys').attr('src',data[3].iocn);
+        }
+    })
+    function savelxSelected() {
+        var options = $("#czjd_type option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type").animate({opacity:'0.3'});
+            $("#czjd_type").animate({opacity:'1'});
+            $(".slectTip").animate({opacity:'0.3'});
+            $(".slectTip").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
+    }
+
     function save3() {
+        savelxSelected();
+        // var options = $("#czjd_type option:selected");
+        // console.log(options[0].innerHTML)
+        // if(options[0].innerHTML == ""){
+        //     $(".b").animate({opacity:'0.3'});
+        //     $(".b").animate({opacity:'1'});
+        //     $("#czjd_type").animate({opacity:'0.3'});
+        //     $("#czjd_type").animate({opacity:'1'});
+        //     $(".slectTip").animate({opacity:'0.3'});
+        //     $(".slectTip").animate({opacity:'1'});
+        //     layui.use('layer', () => {
+        //         let layer = layui.layer;
+        //         layer.msg("请选择业务类别")
+        //     })
+        // }
         var params = {
             expNo:$('#expNo1').val(),
             type:$('#type1').val(),
@@ -770,15 +816,43 @@ $('#gdgxChangePage1').change(function () {
             geom:"POINT ZM("+$('#x2').val()+" " +$('#y2').val()+ " 0 0)",
         };
         var url;
-        var options=$("#czjd_type option:selected");
-        if(options.text() == "供水"){
+        var options=$(".czjd_type").val();
+        if(options == "供水"){
             url="/hdsw/gspoint/update"
-        }else if(options.text() == "雨水"){
+        }else if(options == "雨水"){
             url="/hdsw/yspoint/update"
-        }else if(options.text() == "污水"){
+        }else if(options == "污水"){
             url="/hdsw/wspoint/update"
-        }else if(options.text() == "再生水"){
+        }else if(options == "再生水"){
             url="/hdsw/zsspoint/update"
+        }
+        $.ajax({
+            url: url,
+            type: "post",
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(params),
+        })
+    }
+
+    function save4() {
+        var params = {
+                pipeid:$('#guanxian1').val(),
+                sPoint:$('#guanxian2').val(),
+                ePoint:$('#guanxian3').val(),
+                guandian:$('#expNo1').val(),
+                geom:"MULTILINESTRING ZM(("+$('#x2').val()+" " +$('#y2').val()+ " 0 0"+"))",
+        };
+        var url;
+        var options=$(".czjd_type").val();
+        if(options== "供水"){
+            url="/hdsw/gsline/update"
+        }else if(options == "雨水"){
+            url="/hdsw/ysline/update"
+        }else if(options == "污水"){
+            url="/hdsw/wsline/update"
+        }else if(options == "再生水"){
+            url="/hdsw/zssline/update"
         }
         $.ajax({
             url: url,
@@ -804,6 +878,21 @@ $('#gdgxChangePage1').change(function () {
     }
 
     function save2() {
+
+        var options = $(".czjd_type1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $(".czjd_type1").animate({opacity:'0.3'});
+            $(".czjd_type1").animate({opacity:'1'});
+            $(".slectTip1").animate({opacity:'0.3'});
+            $(".slectTip1").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             expNo:$('#guandian1').val(),
             sureH:$('#guandian2').val(),
@@ -858,7 +947,38 @@ $('#gdgxChangePage1').change(function () {
         })
     }
 
+    function ywlbSelect() {
+        var options = $("#gdgxChangePage1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#gdgxChangePage1").animate({opacity:'0.3'});
+            $("#gdgxChangePage1").animate({opacity:'1'});
+            $(".slectTip2").animate({opacity:'0.3'});
+            $(".slectTip2").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
+    }
+
     function save1() {
+        var options = $("#czjd_type1 option:selected");
+        console.log(options[0].innerHTML)
+        if(options[0].innerHTML == ""){
+            $(".b").animate({opacity:'0.3'});
+            $(".b").animate({opacity:'1'});
+            $("#czjd_type1").animate({opacity:'0.3'});
+            $("#czjd_type1").animate({opacity:'1'});
+            $(".slectTip1").animate({opacity:'0.3'});
+            $(".slectTip1").animate({opacity:'1'});
+            layui.use('layer', () => {
+                let layer = layui.layer;
+                layer.msg("请选择业务类别")
+            })
+        }
         var params = {
             pipeid:$('#guanxian1').val(),
             sPoint:$('#guanxian2').val(),

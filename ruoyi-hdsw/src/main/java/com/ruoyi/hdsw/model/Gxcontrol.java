@@ -1,17 +1,17 @@
 package com.ruoyi.hdsw.model;
 
 public class Gxcontrol {
-    private Integer gid;
+    private String gid;
     private Double width;
     private String color;
     private String visibility;
     private String iocn;
 
-    public Integer getGid() {
+    public String getGid() {
         return gid;
     }
 
-    public void setGid(Integer gid) {
+    public void setGid(String gid) {
         this.gid = gid;
     }
 
