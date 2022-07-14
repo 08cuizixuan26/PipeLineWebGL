@@ -33,8 +33,9 @@ public class GslineServiceImpl implements GslineService{
     }
 
     @Override
-    public Object delete(Integer[] ids) {
-        return gslineMapper.batchDelete(Arrays.asList(ids));
+    public Object delete(String[] pipeid) {
+        return this.updateState(pipeid[0], "15", null);
+//        return wslinesMapper.batchDelete(Arrays.asList(ids));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class GslineServiceImpl implements GslineService{
         Gdmodel zd = gspointMapper.selectByGdbh(gxmodel1.getePoint());
 
         //删除原有线段
-        gslineMapper.updateState(gxmodel1.getGid(),"1",null);
+        gslineMapper.updateState(gxmodel1.getPipeid(),"1",null);
         //添加新的两条线段
         String geom1="MULTILINESTRING ZM(("+qd.getX()+" "+qd.getY()+" 0 0,"+zjd.getX()+" "+zjd.getY()+ " 0 0"+"))";
         gxmodel1.setsPoint(qd.getExpNo());
@@ -68,8 +69,8 @@ public class GslineServiceImpl implements GslineService{
     }
 
     @Override
-    public Object updateState(Integer gid,String delState, String updState) {
-        return gslineMapper.updateState(gid,delState,updState);
+    public Object updateState(String pipeid,String delState, String updState) {
+        return gslineMapper.updateState(pipeid,delState,updState);
     }
 
     @Override

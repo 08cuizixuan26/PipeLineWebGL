@@ -12,8 +12,8 @@ import java.util.List;
 @Mapper
 public interface WslinesMapper extends MyBatisBaseMapper<com.ruoyi.hdsw.model.Gxmodel, Integer> {
     Gxmodel selectByGxbh(String dxbh);
-    Integer updateState(@Param("gid") Integer gid, @Param("delState") String delState, @Param("updState") String updState);
+    Integer updateState(@Param("pipeid") String pipeid, @Param("delState") String delState, @Param("updState") String updState);
     List<Gxmodel> spoint(@Param("spoint")String spoint);
-    List<Gxmodel>  epoint(@Param("epoint")String epoint);
+    List<Gxmodel> epoint(@Param("epoint")String epoint);
 
 }

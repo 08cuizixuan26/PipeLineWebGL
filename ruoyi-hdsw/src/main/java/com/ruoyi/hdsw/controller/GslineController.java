@@ -93,9 +93,9 @@ public class GslineController {
      * 删除
      **/
     @PostMapping("/delete")
-    public AjaxResult delete(@RequestParam(value = "ids[]") Integer[] ids) {
+    public AjaxResult delete(@RequestParam(value = "pipeid[]") String[] pipeid) {
         try {
-            return AjaxResult.success(gslineService.delete(ids));
+            return AjaxResult.success(gslineService.delete(pipeid));
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());

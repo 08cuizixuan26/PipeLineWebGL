@@ -188,6 +188,26 @@
             right: 2%;
             color: #bebbbb;
         }
+        .changeIcon {
+            position: fixed;
+            left: 19%;
+            top: 16%;
+            display: block;
+            width: 300px;
+            height: auto;
+            background: #fff;
+            box-shadow: 1px 1px 27px #a7a3a5;
+            border-radius: 3px;
+        }
+        .layui-icon-close:hover {
+            color: #4A98F7;
+        }
+        .hovericonbg {
+            background: #f5f5f5;
+        }
+        .selecticonbg {
+            background: #ccc;
+        }
     </style>
 </head>
 <body>
@@ -564,9 +584,28 @@
                                 </div>
 
                                 <button type="button" id="gdtype" class="btn btn-primary" style="height: 34px;margin-left: 15px;">修改</button>
+
                             </div>
                         </div>
                     </div>
+
+                    <div class="changeIcon" style="display: none">
+                        <div class="icon-Title" style="display: flex;padding: 10px 13px;justify-content: space-between;align-items: center;">
+                            <h4>选择你要修改的图标</h4>
+                            <i class="layui-icon layui-icon-close" onclick="closeTip()" style="font-size: 20px"></i>
+                        </div>
+                        <hr>
+                        <div class="icon_box" style="display: flex;flex-wrap: wrap;margin: 14px 18px">
+                            <img src="../../images/0518/wsgd.png" alt="" style="width: 30px">
+                            <img src="../../images/0518/zssgd.png" alt="" style="width: 30px">
+                            <img src="../../images/0518/ysgd.png" alt="" style="width: 30px">
+                            <img src="../../images/0518/gsgd.png" alt="" style="width: 30px">
+                        </div>
+                        <div class="iconSure">
+                            <button type="button" onclick="changeiconbtn()" class="btn btn-primary" style="margin: 20px 41%">确定</button>
+                        </div>
+                    </div>
+
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="ywlbSelect()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
@@ -664,6 +703,28 @@
 </body>
 
 <script>
+
+<!--    管点图标切换-->
+    $('.icon_box img').click(function () {
+        $(this).addClass('selecticonbg').siblings().removeClass('selecticonbg');
+        var arr = [];
+        arr.push(this)
+    })
+    function changeiconbtn() {
+        var s = document.getElementsByClassName('selecticonbg')
+        console.log(s[0])
+    }
+    $('.icon_box img').hover(function () {
+        $(this).addClass('hovericonbg').siblings().removeClass('hovericonbg');
+    })
+
+    function closeTip() {
+        $('.changeIcon').hide()
+    }
+
+    $('#gdtype').click(function () {
+        $('.changeIcon').show();
+    })
 
 <!--    建设日期-->
     layui.use('laydate', function(){
@@ -812,18 +873,6 @@ $('#gdgxChangePage1').change(function () {
     $('.slectTip2').css('display','none')
 })
 
-
-
-    // //解析加线单选事件
-    // $('input[name="jxjx"]').click(function(){
-    //     if($(this).val() == 1){
-    //         $('#jxf_').show();
-    //         $('#ymsrf_').hide();
-    //     }else{
-    //         $('#ymsrf_').show();
-    //         $('#jxf_').hide();
-    //     }
-    // })
 
 </script>
 <script>

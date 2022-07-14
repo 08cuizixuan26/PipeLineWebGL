@@ -312,7 +312,7 @@
         upd_state = #{updState,jdbcType=VARCHAR},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where pipeid = #{pipeid}
   </update>
   <select id="getMaxNum" resultType="int">
       select max(cast(substring(gsline.pipeid,4) as integer)) from gsline
