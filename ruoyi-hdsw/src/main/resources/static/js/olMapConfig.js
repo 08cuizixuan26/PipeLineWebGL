@@ -216,36 +216,43 @@ var sourceConfig={
         return source;
     },
 }
-let ws;
-let zss;
-let gs;
-let ys;
-let zssx;
-let gsx;
-let ysx;
-let zssw;
-let gsw;
-let ysw;
-$.ajax({
-    url: "/hdsw/gxcontrol/select",
-    type: "post",
-    contentType: 'application/json',
-    dataType: 'json',
-    async:false,
-    success: function (data) {
-        ws= data[0].iocn
-        zss=data[1].iocn
-        gs=data[2].iocn
-        ys= data[3].iocn
+var olMapConfig12={
+    ws:null,
+    zss:null,
+    gs:null,
+    ys:null,
+    zssx:null,
+    gsx:null,
+    ysx:null,
+    zssw:null,
+    gsw:null,
+    ysw:null,
+    tuceng:function(){
+        $.ajax({
+            url: "/hdsw/gxcontrol/select",
+            type: "post",
+            contentType: 'application/json',
+            dataType: 'json',
+            async:false,
+            success: function (data) {
+                olMapConfig12.ws= data[0].iocn
+                olMapConfig12.zss=data[1].iocn
+                olMapConfig12.gs=data[2].iocn
+                olMapConfig12.ys= data[3].iocn
 
-        zssx=data[1].color
-        gsx=data[2].color
-        ysx= data[3].color
-        zssw=data[1].width
-        gsw=data[2].width
-        ysw= data[3].width
-    }
-})
+                olMapConfig12.zssx=data[1].color
+                olMapConfig12.gsx=data[2].color
+                olMapConfig12.ysx= data[3].color
+                olMapConfig12.zssw=data[1].width
+                olMapConfig12.gsw=data[2].width
+                olMapConfig12.ysw= data[3].width
+            }
+        })
+
+    },
+
+}
+olMapConfig12.tuceng();
 var olMapConfig = {
     layers: [
         //0
@@ -265,8 +272,8 @@ var olMapConfig = {
             }),
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: zssx,
-                    width: zssw,
+                    color: olMapConfig12.zssx,
+                    width: olMapConfig12.zssw,
                 })
             }),
         }),
@@ -276,8 +283,8 @@ var olMapConfig = {
             source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: gsx,
-                    width: gsw,
+                    color: olMapConfig12.gsx,
+                    width: olMapConfig12.gsw,
                 })
             })
         }),
@@ -297,8 +304,8 @@ var olMapConfig = {
             }),*/
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: ysx,
-                    width: ysw,
+                    color: olMapConfig12.ysx,
+                    width: olMapConfig12.ysw,
                 })
             }),
         }),
@@ -321,7 +328,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: gs,
+                    src: olMapConfig12.gs,
                     scale: 0.2
                 })
             }),
@@ -345,7 +352,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: ws,
+                    src: olMapConfig12.ws,
                     scale: 0.2
                 })
             }),
@@ -369,7 +376,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: zss,
+                    src: olMapConfig12.zss,
                     scale: 0.2
                 })
             }),
@@ -393,7 +400,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: ys,
+                    src: olMapConfig12.ys,
                     scale: 0.2
                 })
             }),
@@ -539,28 +546,28 @@ var olMapConfig = {
                 {
                     "id": "gsjg",
                     "name": "供水管点",
-                    "icon": gs,
+                    "icon": olMapConfig12.gs,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "wsjg",
                     "name": "污水管点",
-                    "icon": ws,
+                    "icon": olMapConfig12.ws,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "zssjg",
                     "name": "再生水管点",
-                    "icon": zss,
+                    "icon": olMapConfig12.zss,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "ysjg",
                     "name": "雨水管点",
-                    "icon": ys,
+                    "icon": olMapConfig12.ys,
                     "checked": "false",
                     "open": true
                 },
