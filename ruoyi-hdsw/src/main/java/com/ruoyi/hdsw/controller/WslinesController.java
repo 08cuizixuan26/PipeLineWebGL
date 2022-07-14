@@ -1,20 +1,18 @@
 package com.ruoyi.hdsw.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.hdsw.mapper.WslinesMapper;
 import com.ruoyi.hdsw.model.Gxmodel;
-import com.ruoyi.hdsw.model.Wslines;
 import com.ruoyi.hdsw.service.WslinesService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @RestController
 @RequestMapping("/hdsw/wsline")
 public class WslinesController {
     @Autowired
     private WslinesService wslinesService;
+
     /**
      * 插入
      **/
@@ -47,14 +45,19 @@ public class WslinesController {
      * 删除
      **/
     @PostMapping("/delete")
-    public AjaxResult delete(@RequestParam(value = "ids[]") Integer[] ids) {
+    public AjaxResult delete(@RequestParam(value = "pipeid[]") String[] pipeid) {
         try {
-            return AjaxResult.success(wslinesService.delete(ids));
+            if (ObjectUtils.isNotEmpty(pipeid)) {
+                return AjaxResult.success(wslinesService.delete(pipeid));
+            } else {
+                return AjaxResult.error("所传参数为空");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());
         }
     }
+
     /**
      * 获取最大编号
      **/
@@ -67,13 +70,14 @@ public class WslinesController {
             return AjaxResult.error(e.getMessage());
         }
     }
+
     /**
      * 查询未更新
      **/
     @GetMapping("/selectByState")
     public AjaxResult selectByState(String delState, String updState) {
         try {
-            return AjaxResult.success(wslinesService.selectByState(delState,updState));
+            return AjaxResult.success(wslinesService.selectByState(delState, updState));
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());

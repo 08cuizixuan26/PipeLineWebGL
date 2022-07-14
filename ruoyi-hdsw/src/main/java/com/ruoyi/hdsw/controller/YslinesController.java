@@ -51,9 +51,9 @@ public class YslinesController {
      * 删除
      **/
     @PostMapping("/delete")
-    public AjaxResult delete(@RequestParam(value = "ids[]") Integer[] ids) {
+    public AjaxResult delete(@RequestParam(value = "pipeid[]") String[] pipeid) {
         try {
-            return AjaxResult.success(yslinesService.delete(ids));
+            return AjaxResult.success(yslinesService.delete(pipeid));
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());

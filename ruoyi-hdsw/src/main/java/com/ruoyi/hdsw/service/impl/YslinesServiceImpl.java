@@ -6,12 +6,9 @@ import com.ruoyi.hdsw.mapper.YslinesMapper;
 import com.ruoyi.hdsw.mapper.YspointsMapper;
 import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Gxmodel;
-import com.ruoyi.hdsw.model.Yslines;
 import com.ruoyi.hdsw.service.YslinesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 @DataSource(value = DataSourceType.SLAVE)
@@ -20,6 +17,7 @@ public class YslinesServiceImpl implements YslinesService {
     private YslinesMapper yslinesMapper;
     @Autowired
     private YspointsMapper yspointsMapper;
+
     @Override
     public Object insert(Gxmodel record) {
         return yslinesMapper.insertSelective(record);
@@ -31,8 +29,9 @@ public class YslinesServiceImpl implements YslinesService {
     }
 
     @Override
-    public Object delete(Integer[] ids) {
-        return yslinesMapper.batchDelete(Arrays.asList(ids));
+    public Object delete(String[] pipeid) {
+        return this.updateState(pipeid[0], "15", null);
+//        return yslinesMapper.batchDelete(Arrays.asList(pipeid));
     }
 
     @Override
@@ -48,15 +47,15 @@ public class YslinesServiceImpl implements YslinesService {
         Gdmodel zd = yspointsMapper.selectByGdbh(gxmodel1.getePoint());
 
         //删除原有线段
-        yslinesMapper.updateState(gxmodel1.getGid(),"1",null);
+        yslinesMapper.updateState(gxmodel1.getPipeid(), "1", null);
         //添加新的两条线段
-        String geom1="MULTILINESTRING ZM(("+qd.getX()+" "+qd.getY()+" 0 0,"+zjd.getX()+" "+zjd.getY()+ " 0 0"+"))";
+        String geom1 = "MULTILINESTRING ZM((" + qd.getX() + " " + qd.getY() + " 0 0," + zjd.getX() + " " + zjd.getY() + " 0 0" + "))";
         gxmodel1.setsPoint(qd.getExpNo());
         gxmodel1.setePoint(zjd.getExpNo());
         gxmodel1.setGeom(geom1);
         yslinesMapper.insertSelective(gxmodel1);
 
-        String geom2="MULTILINESTRING ZM(("+zjd.getX()+" "+zjd.getY()+" 0 0,"+zd.getX()+" "+zd.getY()+ " 0 0"+"))";
+        String geom2 = "MULTILINESTRING ZM((" + zjd.getX() + " " + zjd.getY() + " 0 0," + zd.getX() + " " + zd.getY() + " 0 0" + "))";
         gxmodel1.setsPoint(zjd.getExpNo());
         gxmodel1.setePoint(zd.getExpNo());
         gxmodel1.setGeom(geom2);
@@ -66,9 +65,10 @@ public class YslinesServiceImpl implements YslinesService {
     }
 
     @Override
-    public Object updateState(Integer gid,String delState, String updState) {
-        return yslinesMapper.updateState(gid,delState,updState);
+    public Object updateState(String pipeid, String delState, String updState) {
+        return yslinesMapper.updateState(pipeid, delState, updState);
     }
+
     @Override
     public Object getMaxNum() {
         return yslinesMapper.getMaxNum();
@@ -76,6 +76,6 @@ public class YslinesServiceImpl implements YslinesService {
 
     @Override
     public Object selectByState(String delState, String updState) {
-        return yslinesMapper.selectByState(delState,updState);
+        return yslinesMapper.selectByState(delState, updState);
     }
 }

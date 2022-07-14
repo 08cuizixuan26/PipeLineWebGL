@@ -5,10 +5,10 @@ import com.ruoyi.hdsw.model.Gxmodel;
 public interface GslineService {
     Object insert(Gxmodel record);
     Object update(Gxmodel record);
-    Object delete(Integer[] ids);
+    Object delete(String[] ids);
     Object selectByGxbh(String gxbh);
     Object interruptLine(String gxbh,String gdbh);
-    Object updateState(Integer gid,String delState,String updState);
+    Object updateState(String pipeid,String delState,String updState);
     Object getMaxNum();
     Object selectByState(String delState,String updState);
 }
