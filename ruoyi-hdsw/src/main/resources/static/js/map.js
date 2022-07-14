@@ -384,6 +384,7 @@ if (!LoadMap) var LoadMap = {
     },
 
     //管线更新页面回显
+    //管线数据
     showGxgxfeature: function (properties) {
         $("#expNo1").attr("value", properties["exp_no"])
         $("#covType1").attr("value", properties["cov_type"])
@@ -495,6 +496,7 @@ if (!LoadMap) var LoadMap = {
     },
 
     singleclick() {
+        //点击显示
         LoadMap.mapClick= LoadMap.map.on("singleclick", (e) => {
             if(LoadMap.currentMapType=="管线更新"){
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
@@ -511,6 +513,7 @@ if (!LoadMap) var LoadMap = {
                 LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
                     console.log(feature.getProperties());
                     LoadMap.showGxgxfeature(feature.getProperties());
+                    //数据1
                     if(LoadMap.getCoordinateFlag == 'crd4'){
                         $("#xcor4").attr("value", coor[0]-LoadMap.xOffset)
                         $("#ycor4").attr("value", coor[1]-LoadMap.yOffset)
