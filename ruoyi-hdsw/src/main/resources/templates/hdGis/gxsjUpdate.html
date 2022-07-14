@@ -514,8 +514,8 @@
             <div class="sty" style="display: none;position: relative" id="modifyParameters">
 <!--                修改参数信息-->
                 <div class="dropDownChangePage1">
-                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
-                    <select name="" id="gdgxChangePage1" class="">
+                    <b style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
+                    <select name="" id="gdgxChangePage1">
                         <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                         <option value="1">再生水管点</option>
                         <option value="2">再生水管线</option>
@@ -546,19 +546,19 @@
                                 <label class="layui-form-label">管点图标:</label>
                                 <div class="gdiconbox" style="display: flex;">
                                     <div class="gdicon" style="margin-left: 5px;" id="asc">
-                                        <img src="../../images/0518/zssgd.png" style="width: 30px" alt="">
+                                        <img src="" id="zss" style="width: 30px" alt="">
                                         再生水管点
                                     </div>
-                                    <div class="gdicon" style="margin-left: 15px; display: none" id="asc1">
-                                        <img src="../../images/0518/gsgd.png" style="width: 30px" alt="">
+                                    <div clas s="gdicon" style="margin-left: 15px; display: none" id="asc1">
+                                        <img src="" id="gs" style="width: 30px" alt="">
                                         供水管点
                                     </div>
                                     <div class="gdicon" style="margin-left: 15px; display: none" id="asc2">
-                                        <img src="../../images/0518/ysgd.png" style="width: 30px" alt="">
+                                        <img src="" id="ys" style="width: 30px" alt="">
                                         雨水管点
                                     </div>
                                     <div class="gdicon" style="margin-left: 15px; display: none" id="asc3">
-                                        <img src="../../images/0518/wsgd.png" style="width: 30px" alt="">
+                                        <img src="" id="ws" style="width: 30px" alt="">
                                         污水管点
                                     </div>
                                 </div>
@@ -743,6 +743,18 @@ $('#gdgxChangePage1').change(function () {
 })
 
 
+
+    // //解析加线单选事件
+    // $('input[name="jxjx"]').click(function(){
+    //     if($(this).val() == 1){
+    //         $('#jxf_').show();
+    //         $('#ymsrf_').hide();
+    //     }else{
+    //         $('#ymsrf_').show();
+    //         $('#jxf_').hide();
+    //     }
+    // })
+
 </script>
 <script>
 
@@ -751,7 +763,18 @@ $('#gdgxChangePage1').change(function () {
     function getCoordinateFlag(clicked_id) {
         LoadMap.getCoordinateFlag = clicked_id;
     }
-
+    $.ajax({
+        url: "/hdsw/gxcontrol/select",
+        type: "post",
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            let ws= $('#ws').attr('src',data[0].iocn);
+            let zss=$('#zss').attr('src',data[1].iocn);
+            let gs= $('#gs').attr('src',data[2].iocn);
+            let ys= $('#ys').attr('src',data[3].iocn);
+        }
+    })
     function savelxSelected() {
         var options = $("#czjd_type option:selected");
         console.log(options[0].innerHTML)

@@ -216,7 +216,36 @@ var sourceConfig={
         return source;
     },
 }
+let ws;
+let zss;
+let gs;
+let ys;
+let zssx;
+let gsx;
+let ysx;
+let zssw;
+let gsw;
+let ysw;
+$.ajax({
+    url: "/hdsw/gxcontrol/select",
+    type: "post",
+    contentType: 'application/json',
+    dataType: 'json',
+    async:false,
+    success: function (data) {
+        ws= data[0].iocn
+        zss=data[1].iocn
+        gs=data[2].iocn
+        ys= data[3].iocn
 
+        zssx=data[1].color
+        gsx=data[2].color
+        ysx= data[3].color
+        zssw=data[1].width
+        gsw=data[2].width
+        ysw= data[3].width
+    }
+})
 var olMapConfig = {
     layers: [
         //0
@@ -236,8 +265,8 @@ var olMapConfig = {
             }),
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: "rgba(0,0,255,0.8)",
-                    width: 5,
+                    color: zssx,
+                    width: zssw,
                 })
             }),
         }),
@@ -247,8 +276,8 @@ var olMapConfig = {
             source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: "rgba(0,255,255,0.8)",
-                    width: 5,
+                    color: gsx,
+                    width: gsw,
                 })
             })
         }),
@@ -268,8 +297,8 @@ var olMapConfig = {
             }),*/
             style: new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color: "rgba(139,90,43,0.8)",
-                    width: 5,
+                    color: ysx,
+                    width: ysw,
                 })
             }),
         }),
@@ -292,7 +321,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: '/images/0518/gsgd.png',
+                    src: gs,
                     scale: 0.2
                 })
             }),
@@ -316,7 +345,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: '/images/0518/wsgd.png',
+                    src: ws,
                     scale: 0.2
                 })
             }),
@@ -340,7 +369,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: '/images/0518/zssgd.png',
+                    src: zss,
                     scale: 0.2
                 })
             }),
@@ -364,7 +393,7 @@ var olMapConfig = {
             style: new ol.style.Style({
                 //形状
                 image: new ol.style.Icon({
-                    src: '/images/0518/ysgd.png',
+                    src: ys,
                     scale: 0.2
                 })
             }),
@@ -510,28 +539,28 @@ var olMapConfig = {
                 {
                     "id": "gsjg",
                     "name": "供水管点",
-                    "icon": "/images/zTreeTwo/gsgd.png",
+                    "icon": gs,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "wsjg",
                     "name": "污水管点",
-                    "icon": "/images/zTreeTwo/wsgd.png",
+                    "icon": ws,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "zssjg",
                     "name": "再生水管点",
-                    "icon": "/images/zTreeTwo/zssgd.png",
+                    "icon": zss,
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "ysjg",
                     "name": "雨水管点",
-                    "icon": "/images/zTreeTwo/ysgd.png",
+                    "icon": ys,
                     "checked": "false",
                     "open": true
                 },
