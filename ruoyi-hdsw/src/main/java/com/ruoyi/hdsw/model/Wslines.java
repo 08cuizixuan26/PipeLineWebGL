@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author 
- * wxm
+ * @author wxm
  */
 public class Wslines implements Serializable {
     private Integer gid;
@@ -35,6 +34,15 @@ public class Wslines implements Serializable {
     private String road;
 
     private Object geom;
+
+    private String state;
+    private String stateTxt;
+
+    private String delState;
+    private String delStateTxt;
+
+    private String updState;
+    private String updStateTxt;
 
     private static final long serialVersionUID = 1L;
 
@@ -150,6 +158,75 @@ public class Wslines implements Serializable {
         this.geom = geom;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getDelState() {
+        return delState;
+    }
+
+    public void setDelState(String delState) {
+        this.delState = delState;
+        if ("00".equals(delState)) {
+            this.setDelStateTxt("正常");
+        } else if ("10".equals(delState)) {
+            this.setDelStateTxt("删除");
+        } else if ("12".equals(delState)) {
+            this.setDelStateTxt("废弃");
+        } else if ("13".equals(delState)) {
+            this.setDelStateTxt("已增加未同步");
+        } else if ("14".equals(delState)) {
+            this.setDelStateTxt("已增加已同步");
+        } else if ("15".equals(delState)) {
+            this.setDelStateTxt("已删除未同步");
+        } else if ("16".equals(delState)) {
+            this.setDelStateTxt("已删除已同步");
+        } else if ("17".equals(delState)) {
+            this.setDelStateTxt("已废弃未同步");
+        } else if ("18".equals(delState)) {
+            this.setDelStateTxt("已废弃已同步");
+        } else {
+            this.setDelStateTxt("正常");
+        }
+    }
+
+    public String getUpdState() {
+        return updState;
+    }
+
+    public void setUpdState(String updState) {
+        this.updState = updState;
+    }
+
+    public String getStateTxt() {
+        return stateTxt;
+    }
+
+    public void setStateTxt(String stateTxt) {
+        this.stateTxt = stateTxt;
+    }
+
+    public String getDelStateTxt() {
+        return delStateTxt;
+    }
+
+    public void setDelStateTxt(String delStateTxt) {
+        this.delStateTxt = delStateTxt;
+    }
+
+    public String getUpdStateTxt() {
+        return updStateTxt;
+    }
+
+    public void setUpdStateTxt(String updStateTxt) {
+        this.updStateTxt = updStateTxt;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -163,19 +240,22 @@ public class Wslines implements Serializable {
         }
         Wslines other = (Wslines) that;
         return (this.getGid() == null ? other.getGid() == null : this.getGid().equals(other.getGid()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPipeid() == null ? other.getPipeid() == null : this.getPipeid().equals(other.getPipeid()))
-            && (this.getePoint() == null ? other.getePoint() == null : this.getePoint().equals(other.getePoint()))
-            && (this.getsPoint() == null ? other.getsPoint() == null : this.getsPoint().equals(other.getsPoint()))
-            && (this.getsDeep() == null ? other.getsDeep() == null : this.getsDeep().equals(other.getsDeep()))
-            && (this.geteDeep() == null ? other.geteDeep() == null : this.geteDeep().equals(other.geteDeep()))
-            && (this.getMaterial() == null ? other.getMaterial() == null : this.getMaterial().equals(other.getMaterial()))
-            && (this.getdType() == null ? other.getdType() == null : this.getdType().equals(other.getdType()))
-            && (this.getdS() == null ? other.getdS() == null : this.getdS().equals(other.getdS()))
-            && (this.getFlowdirect() == null ? other.getFlowdirect() == null : this.getFlowdirect().equals(other.getFlowdirect()))
-            && (this.getShapeLe3() == null ? other.getShapeLe3() == null : this.getShapeLe3().equals(other.getShapeLe3()))
-            && (this.getRoad() == null ? other.getRoad() == null : this.getRoad().equals(other.getRoad()))
-            && (this.getGeom() == null ? other.getGeom() == null : this.getGeom().equals(other.getGeom()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getPipeid() == null ? other.getPipeid() == null : this.getPipeid().equals(other.getPipeid()))
+                && (this.getePoint() == null ? other.getePoint() == null : this.getePoint().equals(other.getePoint()))
+                && (this.getsPoint() == null ? other.getsPoint() == null : this.getsPoint().equals(other.getsPoint()))
+                && (this.getsDeep() == null ? other.getsDeep() == null : this.getsDeep().equals(other.getsDeep()))
+                && (this.geteDeep() == null ? other.geteDeep() == null : this.geteDeep().equals(other.geteDeep()))
+                && (this.getMaterial() == null ? other.getMaterial() == null : this.getMaterial().equals(other.getMaterial()))
+                && (this.getdType() == null ? other.getdType() == null : this.getdType().equals(other.getdType()))
+                && (this.getdS() == null ? other.getdS() == null : this.getdS().equals(other.getdS()))
+                && (this.getFlowdirect() == null ? other.getFlowdirect() == null : this.getFlowdirect().equals(other.getFlowdirect()))
+                && (this.getShapeLe3() == null ? other.getShapeLe3() == null : this.getShapeLe3().equals(other.getShapeLe3()))
+                && (this.getRoad() == null ? other.getRoad() == null : this.getRoad().equals(other.getRoad()))
+                && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+                && (this.getDelState() == null ? other.getDelState() == null : this.getDelState().equals(other.getDelState()))
+                && (this.getUpdState() == null ? other.getUpdState() == null : this.getUpdState().equals(other.getUpdState()))
+                && (this.getGeom() == null ? other.getGeom() == null : this.getGeom().equals(other.getGeom()));
     }
 
     @Override
@@ -196,6 +276,9 @@ public class Wslines implements Serializable {
         result = prime * result + ((getShapeLe3() == null) ? 0 : getShapeLe3().hashCode());
         result = prime * result + ((getRoad() == null) ? 0 : getRoad().hashCode());
         result = prime * result + ((getGeom() == null) ? 0 : getGeom().hashCode());
+        result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
+        result = prime * result + ((getDelState() == null) ? 0 : getDelState().hashCode());
+        result = prime * result + ((getUpdState() == null) ? 0 : getUpdState().hashCode());
         return result;
     }
 
@@ -219,6 +302,9 @@ public class Wslines implements Serializable {
         sb.append(", shapeLe3=").append(shapeLe3);
         sb.append(", road=").append(road);
         sb.append(", geom=").append(geom);
+        sb.append(", state=").append(state);
+        sb.append(", delState=").append(delState);
+        sb.append(", updState=").append(updState);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
