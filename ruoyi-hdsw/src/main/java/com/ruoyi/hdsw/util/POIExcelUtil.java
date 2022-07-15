@@ -313,7 +313,9 @@ public class POIExcelUtil {
                     //获取当前单元格中的内容
                     String content=sheet.getCell(col, i).getContents().toString().trim();
 
-                    if(enNormalName.equals("x") || enNormalName.equals("y")) {
+                    if(enNormalName.equals("x") || enNormalName.equals("y")
+                            ||enNormalName.equals("shapeLeng") || enNormalName.equals("sDeep")
+                            || enNormalName.equals("eDeep")) {
                         BigDecimal bd = new BigDecimal(content);
                         setFieldValueByName(enNormalName, bd, entity);
                     }else {

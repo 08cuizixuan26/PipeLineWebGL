@@ -47,15 +47,33 @@ if (!LoadMap) var LoadMap = {
     //凸多边形点集合
     linePoints: undefined,
 
+    //三维更新接口_图层id
+    gsGuid:"f5561c20-45f6-4cd8-911c-68126ce27808",
+    wsGuid:"c10bdcff-6983-49ed-a2eb-365495882650",
+    ysGuid:"a7f67368-7203-481b-adfd-6f9a6b4e3af2",
+
     //获取待更新的数据
-    getUpdateData: function () {
+    getUpdateData: function (type) {
         var points = [];
-        var url = "/hdsw/gsline/selectByState"
+        var url = "";
+        var url1 = "";
+        if(type == "给水"){
+            url="/hdsw/gsline/selectByState"
+            url1="/hdsw/gspoint/selectByState"
+        }else if(type == "雨水"){
+            url="/hdsw/ysline/selectByState"
+            url1="/hdsw/yspoint/selectByState"
+        }else if(type == "污水"){
+            url="/hdsw/wsline/selectByState"
+            url1="/hdsw/wspoint/selectByState"
+        }
+
         $.ajax({
             url: url,
             type: "get",
             contentType: 'application/json',
             dataType: 'json',
+            async:false,  //同步方式发起请求
             data: {updState: "1"},
             success: function (data) {
                 if (data.code == 0) {
@@ -66,13 +84,61 @@ if (!LoadMap) var LoadMap = {
                         var point1 = {x: geom.coordinates[0][1][0], y: geom.coordinates[0][1][1]};
                         points.push(point1);
                     })
-                    var newPoints = convexhull.makeHull(points)
-                    LoadMap.linePoints = newPoints;
                 }
             }
         })
-
+        $.ajax({
+            url: url1,
+            type: "get",
+            contentType: 'application/json',
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "1"},
+            success: function (data) {
+                if (data.code == 0) {
+                    data.data.forEach(function (element, index) {
+                        var geom = JSON.parse(element.geom);
+                        var point = {x: geom.coordinates[0], y: geom.coordinates[1]};
+                        points.push(point);
+                    })
+                }
+            }
+        })
+        var newPoints = convexhull.makeHull(points)
+        LoadMap.linePoints = newPoints;
     },
+
+    //调用三维接口
+    generate3D:function (type) {
+        let guid = "";
+        if(type == "给水"){
+            guid = LoadMap.gsGuid;
+        }else if(type == "雨水"){
+            guid = LoadMap.ysGuid;
+        }else if(type == "污水"){
+            guid = LoadMap.wsGuid;
+        }
+        LoadMap.getUpdateData(type);
+        let data = "";
+        LoadMap.linePoints.forEach(function (obj, index) {
+            data += `<location>${obj.x},${obj.y}</location>`;
+        });
+        data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
+        $.ajax({
+            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            type: "post",
+            data:data,
+            dataType:"json",
+            //async:false,  //同步方式发起请求
+            success: function (data) {
+
+            },
+            error:function () {
+
+            }
+        });
+    },
+
     //绘制多边形
     drawLine: function () {
         var targetArr = [];
@@ -800,7 +866,7 @@ if (!LoadMap) var LoadMap = {
             return "正常";
         }
     },
-    loadNewLayer(layerId) {
+    loadNewLayer:function(layerId,visibleState) {
     var layer;
     switch (layerId) {
         case "gsgx":
@@ -869,6 +935,7 @@ if (!LoadMap) var LoadMap = {
             break;
     }
     LoadMap.map.addLayer(layer);
+    layer.setVisible(visibleState)
     LoadMap.map.render();
 }
 
