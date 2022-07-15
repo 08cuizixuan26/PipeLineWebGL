@@ -16,4 +16,5 @@ public interface YslinesMapper extends MyBatisBaseMapper<com.ruoyi.hdsw.model.Gx
     Integer updateState(@Param("pipeid") String pipeid, @Param("delState") String delState, @Param("updState") String updState);
     List<Gxmodel> spoint(@Param("spoint")String spoint);
     List<Gxmodel>  epoint(@Param("epoint")String epoint);
+    List<Gxmodel> selectDiscardLines(@Param("pipeid") String pipeid, @Param("road") String road);
 }

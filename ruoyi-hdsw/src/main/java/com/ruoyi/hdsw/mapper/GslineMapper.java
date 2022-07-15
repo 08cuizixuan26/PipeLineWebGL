@@ -16,4 +16,5 @@ public interface GslineMapper extends MyBatisBaseMapper<Gxmodel, Integer> {
     Integer updateState(@Param("pipeid") String pipeid, @Param("delState") String delState, @Param("updState") String updState);
     List<Gxmodel> spoint(@Param("spoint")String spoint);
     List<Gxmodel>  epoint(@Param("epoint")String epoint);
+    List<Gxmodel> selectDiscardLines(@Param("pipeid") String pipeid, @Param("road") String road);
 }
