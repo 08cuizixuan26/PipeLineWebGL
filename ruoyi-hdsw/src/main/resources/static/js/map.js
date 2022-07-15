@@ -48,9 +48,19 @@ if (!LoadMap) var LoadMap = {
     linePoints: undefined,
 
     //获取待更新的数据
-    getUpdateData: function () {
+    getUpdateData: function (type) {
         var points = [];
-        var url = "/hdsw/gsline/selectByState"
+        var url = ""
+        if(type == "给水"){
+            url="/hdsw/gsline/selectByState"
+        }else if(type == "雨水"){
+            url="/hdsw/ysline/selectByState"
+        }else if(type == "污水"){
+            url="/hdsw/wsline/selectByState"
+        }else if(type == "再生水"){
+            url="/hdsw/zssline/selectByState"
+        }
+
         $.ajax({
             url: url,
             type: "get",
@@ -73,6 +83,30 @@ if (!LoadMap) var LoadMap = {
         })
 
     },
+
+    //调用三维接口
+    generate3D:function (type,guid) {
+        let data = "";
+        LoadMap.getUpdateData(type);
+        LoadMap.linePoints.forEach(function (obj, index) {
+            data += `<location>${obj.x},${obj.y}</location>`;
+        });
+        data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
+        $.ajax({
+            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            type: "post",
+            data:data,
+            dataType:"json",
+            //async:false,  //同步方式发起请求
+            success: function (data) {
+
+            },
+            error:function () {
+
+            }
+        });
+    },
+
     //绘制多边形
     drawLine: function () {
         var targetArr = [];
