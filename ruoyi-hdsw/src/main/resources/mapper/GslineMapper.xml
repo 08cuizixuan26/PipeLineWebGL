@@ -42,6 +42,20 @@
     from "gsline"
     where gid = #{gid,jdbcType=INTEGER}
   </select>
+  <select id="selectDiscardLines" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List"/>
+    from "gsline"
+    <where>
+      <if test="pipeid != null and pipeid != ''">
+        and pipeid = #{pipeid}
+      </if>
+      <if test="road != null and road != ''">
+        and road = #{road}
+      </if>
+        and (del_state = '12' or del_state = '17' or del_state = '18')
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from "gsline"
     where gid = #{gid,jdbcType=INTEGER}

@@ -509,7 +509,6 @@ if (!LoadMap) var LoadMap = {
                     $("#ycor2").attr("value", coor[1] - LoadMap.yOffset)
                 }
                 LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-                    console.log(feature.getProperties());
                     LoadMap.showGxgxfeature(feature.getProperties());
                     if (LoadMap.getCoordinateFlag == 'crd4') {
                         $("#xcor4").attr("value", coor[0] - LoadMap.xOffset)
@@ -518,12 +517,21 @@ if (!LoadMap) var LoadMap = {
                 })
             } else if (LoadMap.currentMapType == "管线删除") {
                 LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-                    console.log(feature.getProperties());
                     layui.use('form', function () {
                         let form = layui.form;
                         let data = feature.getProperties();
                         data.del_state = LoadMap.del_state(data.del_state);
                         form.val("del", data);     //给表单赋值
+                    })
+                })
+            } else if (LoadMap.currentMapType == "管线废弃") {
+                LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+                    console.log(feature.getProperties());
+                    layui.use('form', function () {
+                        let form = layui.form;
+                        let data = feature.getProperties();
+                        data.del_state = LoadMap.del_state(data.del_state);
+                        form.val("abandoned", data);     //给表单赋值
                     })
                 })
             } else {

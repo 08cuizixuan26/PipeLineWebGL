@@ -7,11 +7,9 @@ import com.ruoyi.hdsw.mapper.WspointsMapper;
 import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Gxmodel;
 import com.ruoyi.hdsw.service.WslinesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,9 +31,42 @@ public class WslinesServiceImpl implements WslinesService {
     }
 
     @Override
-    public Object delete(String[] ids) {
-        return this.updateState(ids[0], "15", null);
-//        return wslinesMapper.batchDelete(Arrays.asList(ids));
+    public Object delete(String[] pipeid) {
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "15", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public Object disCard(String[] pipeid) {
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "17", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public Object recover(String[] pipeid) {
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "00", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -91,5 +122,10 @@ public class WslinesServiceImpl implements WslinesService {
     @Override
     public List<Gxmodel> epoint(String epoint) {
         return wslinesMapper.epoint(epoint);
+    }
+
+    @Override
+    public List<Gxmodel> selectDiscardLines(String pipeid, String road) {
+        return wslinesMapper.selectDiscardLines(pipeid, road);
     }
 }
