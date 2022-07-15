@@ -15,5 +15,5 @@ public interface GxcontrolMapper extends Serializable {
 
     int delete(@Param("gid") String gid);
 
-    int update(Gxcontrol gxcontrol);
+    int update(@Param("width")String width,@Param("gid") String gid,@Param("color") String color,@Param("iocn") String iocn);
 }

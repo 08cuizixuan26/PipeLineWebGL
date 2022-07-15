@@ -188,6 +188,26 @@
             right: 2%;
             color: #bebbbb;
         }
+        .changeIcon {
+            position: fixed;
+            left: 19%;
+            top: 16%;
+            display: block;
+            width: 300px;
+            height: auto;
+            background: #fff;
+            box-shadow: 1px 1px 27px #a7a3a5;
+            border-radius: 3px;
+        }
+        .layui-icon-close:hover {
+            color: #4A98F7;
+        }
+        .hovericonbg {
+            background: #f5f5f5;
+        }
+        .selecticonbg {
+            background: #ccc;
+        }
     </style>
 </head>
 <body>
@@ -564,11 +584,30 @@
                                 </div>
 
                                 <button type="button" id="gdtype" class="btn btn-primary" style="height: 34px;margin-left: 15px;">修改</button>
+
                             </div>
                         </div>
                     </div>
+
+                    <div class="changeIcon" style="display: none">
+                        <div class="icon-Title" style="display: flex;padding: 10px 13px;justify-content: space-between;align-items: center;">
+                            <h4>选择你要修改的图标</h4>
+                            <i class="layui-icon layui-icon-close" onclick="closeTip()" style="font-size: 20px"></i>
+                        </div>
+                        <hr>
+                        <div class="icon_box" style="display: flex;flex-wrap: wrap;margin: 14px 18px">
+                            <img src="/images/0518/wsgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/zssgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/ysgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/gsgd.png" name="wsda" alt="" style="width: 30px">
+                        </div>
+                        <div class="iconSure">
+                            <button type="button" onclick="changeiconbtn()" class="btn btn-primary" style="margin: 20px 41%">确定</button>
+                        </div>
+                    </div>
+
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="ywlbSelect()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="ywlbSelect(),guanxianxiugai()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </div>
@@ -578,22 +617,76 @@
                         <span class="ysdmessage_point">管线参数</span>
                         <button type="button" class="btn btn-primary" style="width: 110px;height: 20px;padding: 0!important">地图上选定管线</button>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="zssgx">
+                        <div class="layui-input-inline"  style="display: none;">
+                            <input type="text" id="zssid" name="gid" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管线宽度</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" id="zssw" name="width" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管线颜色</label>
-                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                            <input type="text" id="zssx" name="color" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-<!--                        <div class="layui-input-inline">-->
-<!--                            <label class="layui-form-label">管线可见度</label>-->
-<!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
-<!--                        </div>-->
+                        <!--                        <div class="layui-input-inline">-->
+                        <!--                            <label class="layui-form-label">管线可见度</label>-->
+                        <!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group" id="gsgx">
+                        <div class="layui-input-inline"  style="display: none;">
+                            <input type="text" id="gsid" name="gid" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线宽度</label>
+                            <input type="text" id="gsw" name="width" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线颜色</label>
+                            <input type="text" id="gsx" name="color" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <!--                        <div class="layui-input-inline">-->
+                        <!--                            <label class="layui-form-label">管线可见度</label>-->
+                        <!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group" id="ysgx">
+                        <div class="layui-input-inline"  style="display: none;">
+                            <input type="text" id="ysid" name="gid" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线宽度</label>
+                            <input type="text" id="ysw" name="width" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线颜色</label>
+                            <input type="text" id="ysx" name="color" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <!--                        <div class="layui-input-inline">-->
+                        <!--                            <label class="layui-form-label">管线可见度</label>-->
+                        <!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="form-group" id="wsgx">
+                        <div class="layui-input-inline"  style="display: none;">
+                            <input type="text" id="wsid" name="gid" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线宽度</label>
+                            <input type="text" id="wsw" name="width" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">管线颜色</label>
+                            <input type="text" id="wsx" name="color" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                        </div>
+                        <!--                        <div class="layui-input-inline">-->
+                        <!--                            <label class="layui-form-label">管线可见度</label>-->
+                        <!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
+                        <!--                        </div>-->
                     </div>
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="guanxianxiugai()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </div>
@@ -610,6 +703,42 @@
 </body>
 
 <script>
+
+<!--    管点图标切换-->
+    $('.icon_box img').click(function () {
+        $(this).addClass('selecticonbg').siblings().removeClass('selecticonbg');
+        var arr = [];
+        arr.push(this)
+    })
+    function changeiconbtn() {
+    debugger
+        var s = document.getElementsByClassName('selecticonbg')
+        let s2 =s[0].src.indexOf('8085');
+        let img = s[0].src.substring(s2+4);
+        let name=$("#gdgxChangePage1").val();
+        if (name=="1"){
+            let zss=$('#zss').attr('src',img);
+        }else if(name=="3"){
+            let gs= $('#gs').attr('src',img);
+
+        }else if (name=="5"){
+            let ys= $('#ys').attr('src',img);
+        }else if (name=="7") {
+            let ws = $('#ws').attr('src', img);
+        }
+
+    }
+    $('.icon_box img').hover(function () {
+        $(this).addClass('hovericonbg').siblings().removeClass('hovericonbg');
+    })
+
+    function closeTip() {
+        $('.changeIcon').hide()
+    }
+
+    $('#gdtype').click(function () {
+        $('.changeIcon').show();
+    })
 
 <!--    建设日期-->
     layui.use('laydate', function(){
@@ -669,6 +798,10 @@
             $('#point').hide();
         } else if($(this).val() == 2) {
             $('#point').show();
+            $('#zssgx').show();
+            $('#gsgx').hide();
+            $('#ysgx').hide();
+            $('#wsgx').hide();
             $('#line').hide();
         } else if($(this).val() == 3) {
             $('#line').show();
@@ -680,6 +813,10 @@
             $('#point').hide();
         } else if($(this).val() == 4) {
             $('#point').show();
+            $('#zssgx').hide();
+            $('#gsgx').show();
+            $('#ysgx').hide();
+            $('#wsgx').hide();
             $('#line').hide();
         } else if($(this).val() == 5) {
             $('#line').show();
@@ -691,6 +828,10 @@
         } else if($(this).val() == 6) {
             $('#point').show();
             $('#line').hide();
+            $('#zssgx').hide();
+            $('#gsgx').hide();
+            $('#ysgx').show();
+            $('#wsgx').hide();
         } else if($(this).val() == 7) {
             $('#line').show();
             $('#asc').hide();
@@ -701,6 +842,10 @@
         } else if($(this).val() == 8) {
             $('#point').show();
             $('#line').hide();
+            $('#zssgx').hide();
+            $('#gsgx').hide();
+            $('#ysgx').hide();
+            $('#wsgx').show();
         }
     })
     //图层收缩事件
@@ -743,18 +888,6 @@ $('#gdgxChangePage1').change(function () {
 })
 
 
-
-    // //解析加线单选事件
-    // $('input[name="jxjx"]').click(function(){
-    //     if($(this).val() == 1){
-    //         $('#jxf_').show();
-    //         $('#ymsrf_').hide();
-    //     }else{
-    //         $('#ymsrf_').show();
-    //         $('#jxf_').hide();
-    //     }
-    // })
-
 </script>
 <script>
 
@@ -769,12 +902,108 @@ $('#gdgxChangePage1').change(function () {
         contentType: 'application/json',
         dataType: 'json',
         success: function (data) {
+
+            let wsid= $('#wsid').val(data[0].gid);
+            let zssid= $('#zssid').val(data[1].gid);
+            let gsid= $('#gsid').val(data[2].gid);
+            let ysid= $('#ysid').val(data[3].gid);
             let ws= $('#ws').attr('src',data[0].iocn);
             let zss=$('#zss').attr('src',data[1].iocn);
             let gs= $('#gs').attr('src',data[2].iocn);
             let ys= $('#ys').attr('src',data[3].iocn);
+            let wsx= $('#wsx').val(data[0].color);
+            let zssx= $('#zssx').val(data[1].color);
+            let gsx= $('#gsx').val(data[2].color);
+            let ysx= $('#ysx').val(data[3].color);
+            let wsw= $('#wsw').val(data[0].width);
+            let zssw= $('#zssw').val(data[1].width);
+            let gsw= $('#gsw').val(data[2].width);
+            let ysw= $('#ysw').val(data[3].width);
         }
     })
+    function guanxianxiugai(){
+
+        let name=$("#gdgxChangePage1").val();
+        let width="";
+        let color="";
+        let gid="";
+        let iocn="";
+        let layer;
+        if (name=="8"){
+             gid= $('#wsid').val();
+            color= $('#wsx').val();
+            width= $('#wsw').val();
+            layer = LoadMap.map.getLayerById("wsgx");
+        }else if(name=="2"){
+            gid= $('#zssid').val();
+            color= $('#zssx').val();
+            width= $('#zssw').val();
+            layer = LoadMap.map.getLayerById("zssgx");
+        }else if (name=="6"){
+            gid= $('#ysid').val();
+            color= $('#ysx').val();
+            width= $('#ysw').val();
+            layer = LoadMap.map.getLayerById("ysgx");
+        }else if (name=="4"){
+            gid= $('#gsid').val();
+            color= $('#gsx').val();
+            width= $('#gsw').val();
+            layer = LoadMap.map.getLayerById("gsgx");
+        }else if (name=="1"){
+            gid= $('#zssid').val();
+            var s = document.getElementById('zss')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("zssjg");
+        }else if(name=="3"){
+            gid= $('#gsid').val();
+            var s = document.getElementById('gs')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("gsjg");
+
+        }else if (name=="5"){
+            gid= $('#ysid').val();
+            var s = document.getElementById('ys')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("ysjg");
+        }else if (name=="7") {
+            gid= $('#wsid').val();
+            var s = document.getElementById('ws')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("wsjg");
+        }
+        $.ajax({
+            url: '/hdsw/gxcontrol/update',
+            type: "post",
+            dataType: 'json',
+            data: {
+                "gid":gid,
+                "width":width,
+                "color":color,
+                "iocn":iocn,
+            },
+            success: function (data) {
+                if(data.code==0){
+                    location.reload();
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改成功");
+                    })
+                }else{
+                    layui.use('layer', () => {
+                        let layer = layui.layer;
+                        layer.msg("修改失败")
+                    })
+                }
+                LoadMap.getCoordinateFlag=undefined;
+                LoadMap.map.render();
+
+            }
+        })
+    }
     function savelxSelected() {
         var options = $("#czjd_type option:selected");
         console.log(options[0].innerHTML)

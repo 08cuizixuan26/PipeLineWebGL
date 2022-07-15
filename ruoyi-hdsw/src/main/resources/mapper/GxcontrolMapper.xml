@@ -3,7 +3,7 @@
 <mapper namespace="com.ruoyi.hdsw.mapper.GxcontrolMapper">
   <resultMap id="BaseResultMap" type="com.ruoyi.hdsw.model.Gxcontrol">
     <id column="gid" jdbcType="VARCHAR" property="gid" />
-    <result column="width" jdbcType="DOUBLE" property="width" />
+    <result column="width" jdbcType="VARCHAR" property="width" />
     <result column="color" jdbcType="VARCHAR" property="color" />
     <result column="visibility" jdbcType="VARCHAR" property="visibility" />
     <result column="iocn" jdbcType="VARCHAR" property="iocn" />
@@ -26,23 +26,20 @@ ORDER BY case when v.gid='ws' then 0 when v.gid='zss' then 1 when v.gid ='gs' th
     insert into "gxcontrol"
     (gid,width,color,visibility,iocn)
     values (#{gid,jdbcType=VARCHAR},
-      #{width,jdbcType=DOUBLE}, #{color,jdbcType=VARCHAR},
+      #{width,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
       #{visibility,jdbcType=VARCHAR},#{iocn,jdbcType=VARCHAR})
   </insert>
-  <update id="update" parameterType="com.ruoyi.hdsw.model.Gxcontrol">
+  <update id="update" >
     update "gxcontrol"
     <set>
 
-      <if test="width != null">
-        width = #{width,jdbcType=DOUBLE},
+      <if test="width != null and width!=''">
+        width = #{width,jdbcType=VARCHAR},
       </if>
-      <if test="color != null and name!=''">
-        name = #{color,jdbcType=VARCHAR},
+      <if test="color != null and color!=''">
+        color = #{color,jdbcType=VARCHAR},
       </if>
-      <if test="visibility != null">
-        visibility = #{visibility,jdbcType=VARCHAR},
-      </if>
-      <if test="iocn != null">
+      <if test="iocn != null and iocn!=''">
         iocn = #{iocn,jdbcType=VARCHAR},
       </if>
     </set>

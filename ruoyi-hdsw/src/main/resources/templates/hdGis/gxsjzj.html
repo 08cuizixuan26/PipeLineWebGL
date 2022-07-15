@@ -363,19 +363,19 @@
 
                <div id="jxf">
                    <div class="form-group">
-                       <button type="button" class="btn btn-primary btn-sm">下载模板</button>
+                       <button type="button" class="btn btn-primary btn-sm" onclick="download(0)">下载模板</button>
                    </div>
                    <div class="form-group">
-                       <input class="btn btn-primary" type="file">
+                       <input class="btn btn-primary" id="file1" type="file">
                    </div>
-                   <div class="form-group">
+<!--                   <div class="form-group">
                    <div class="">
                        <label class="layui-form-label">数据文件</label>
                        <input type="text" name="title" required  style="width: 200px" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                    </div>
-                   </div>
+                   </div>-->
                    <div class="form-group" style="text-align: center">
-                       <button class="btn btn-primary" type="submit" value="Submit">确定</button>
+                       <button class="btn btn-primary" type="submit" value="Submit" onclick="readPoint()">确定</button>
                        <button class="btn btn-primary" type="reset" value="Reset">取消</button>
                    </div>
                </div>
@@ -557,16 +557,19 @@
 
                <div id="jxf_">
                    <div class="form-group">
-                       <input class="btn btn-primary" type="file">
+                       <button type="button" class="btn btn-primary btn-sm" onclick="download(1)">下载模板</button>
                    </div>
                    <div class="form-group">
+                       <input class="btn btn-primary" id="file2" type="file">
+                   </div>
+<!--                   <div class="form-group">
                        <div class="">
                            <label class="layui-form-label">数据文件</label>
                            <input type="text" name="title" required  style="width: 200px" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
+                   </div>-->
                    <div class="form-group" style="text-align: center">
-                       <button class="btn btn-primary" type="submit" value="Submit">确定</button>
+                       <button class="btn btn-primary" type="submit" value="Submit" onclick="readLine()">确定</button>
                        <button class="btn btn-primary" type="reset" value="Reset">取消</button>
                    </div>
                </div>
@@ -2249,5 +2252,60 @@
                 LoadMap.map.render();
             }
         })
+    }
+    //下载模板
+    function download(type) {
+        location.href="/hdsw/excel/download?type="+type;
+    }
+
+    function readPoint() {
+        var dataForm=new FormData();
+        dataForm.append("file",$("#file1")[0].files[0])
+        $.ajax({
+            url: "/hdsw/excel/readPoint",
+            type: "post",
+            cache:false,
+            processData:false,
+            contentType:false,
+            data:dataForm,
+            dataType:"json",
+            async:false,  //同步方式发起请求
+            success: function (data) {
+                if(data.success){
+                    layer.alert(data.msg, {icon: 6});
+                }else {
+                    layer.alert(data.msg, {icon: 2});
+                }
+            },
+            error:function () {
+                alert("数据导入失败，请确认文件格式是否正确！")
+            }
+        });
+    }
+
+    function readLine() {
+        var dataForm=new FormData();
+        dataForm.append("file",$("#file2")[0].files[0])
+        dataForm.append("type","")
+        $.ajax({
+            url: "/hdsw/excel/readLine",
+            type: "post",
+            cache:false,
+            processData:false,
+            contentType:false,
+            data:dataForm,
+            dataType:"json",
+            async:false,  //同步方式发起请求
+            success: function (data) {
+                if(data.code == 0){
+                    layer.alert(data.msg, {icon: 6});
+                }else {
+                    layer.alert(data.msg, {icon: 2});
+                }
+            },
+            error:function () {
+                alert("数据导入失败，请确认文件格式是否正确！")
+            }
+        });
     }
 </script>

@@ -12,7 +12,10 @@ ruoyi:
   profile: D:/ruoyi/uploadPath
   # 获取ip地址开关
   addressEnabled: false
-
+  #excel模板路径
+  lineModel: /file/line.xls
+  #excel模板路径
+  pointModel: /file/point.xls
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为80

@@ -29,8 +29,8 @@ public class GxcontrolServiceImpl implements GxcontrolService {
     }
 
     @Override
-    public int update(Gxcontrol gxcontrol) {
-        return gxcontrolMapper.update(gxcontrol);
+    public int update(String width,String gid,String color,String iocn) {
+        return gxcontrolMapper.update(width,gid,color,iocn);
     }
 
     @Override
