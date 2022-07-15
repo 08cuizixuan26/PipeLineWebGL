@@ -760,7 +760,7 @@ if (!LoadLargeMap) var LoadLargeMap = {
         }, 300);
     },
     //定位
-    flyToFeature : function(coordinate){
+    flyToFeature : function(coordinate1){
         if(!coordinate1[0]) return;
         this.view.animate({zoom: 18}, {center: coordinate1},{duration:500});
         this.highLightVectorFeature(new ol.Feature({
@@ -5465,7 +5465,17 @@ if (!LoadLargeMap) var LoadLargeMap = {
             // 设置层级
             zIndex: 199
         });
-    }
+    },
+    // 定位到范围
+     positionExtent(sys) {
+    //定位范围
+     LoadLargeMap.view.fit(sys, {
+        duration: 2000,//动画的持续时间,
+        callback: function () {
+            alert("positionExtent compete !")
+        },
+    });
+}
     //****************
 };
 //初始化地图

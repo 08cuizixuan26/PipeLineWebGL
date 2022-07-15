@@ -28,7 +28,7 @@
     <sql id="Base_Column_List">
         gid
         , shape_leng, pipeid, s_point, e_point, s_deep, e_deep, material, d_type, d_s,
-    flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", geom, del_state,
+    flowdirect, s_height, e_height, b_time, "state", "type", road, "owner", st_astext(geom) geom, del_state,
     upd_state,style
     </sql>
     <select id="selectByGxbh" parameterType="String" resultMap="BaseResultMap">
@@ -49,7 +49,7 @@
         from "wslines"
         <where>
             <if test="pipeid != null and pipeid != ''">
-                and pipeid = #{pipeid}
+                and (pipeid LIKE CONCAT(CONCAT('%',#{pipeid}),'%') or road LIKE CONCAT(CONCAT('%',#{pipeid}),'%'))
             </if>
             <if test="road != null and road != ''">
                 and road = #{road}

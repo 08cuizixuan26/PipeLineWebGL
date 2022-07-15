@@ -577,9 +577,9 @@
                 <div class="tableDataBox" style="margin: 10px 10px 10px 10px">
                     <div class="layui-input-inline dataTitle"
                          style="display: flex;justify-content: center;align-items: center">
-                        <input type="text" name="title" required lay-verify="required" placeholder="根据编号、所在道路进行搜索"
+                        <input type="text" name="title" id="pipeid12" required lay-verify="required" placeholder="根据编号、所在道路进行搜索"
                                autocomplete="off" class="form-control large_input">
-                        <button class="btn btn-primary" style="margin-left: 15px;">查询</button>
+                        <button class="btn btn-primary" style="margin-left: 15px;" onclick="tableInit()">查询</button>
                     </div>
                     <div class="data_div">
                         <table id="demo" lay-filter="test"></table>
@@ -664,41 +664,118 @@
         LoadMap.getCoordinateFlag = clicked_id;
         LoadMap.currentMapType = gxType;
     }
+$.ajax({
+        url: "/hdsw/wsline/selectDiscardLines",
+            method: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+        }
+    })
+    tableInit();
+    function tableInit () {
+        let url = "/hdsw/wsline/selectDiscardLines";
+        let tableId = "demo";
+        let pipeid12=$("#pipeid12").val();
+        let cols = [
+            [ //表头
+                {field: 'pipeid', title: '管线编号', width: 135, sort: true, align: 'center',}
+                , {field: 'type', title: '业务类别', width: 143, align: 'center',}
+                , {field: 'road', title: '所在道路', width: 139, align: 'center',}
+                , {field: 'flowdirect', title: '纵坐标', width: 139, align: 'center',}
+                , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
+            ]
+        ]
+        ajax_Method({
+            url: url,
+            data:{
+                pipeid:pipeid12
+            },
+            successCallback(res) {
+                table_Method({
+                    tableId: tableId,
+                    id: tableId,
+                    data: res.rows,
+                    limit: 10,
+                    cols: cols,
+                    limits:[15,30,45,60,75,90],
+                    successCallback(){
 
-    // 废弃管线恢复表格
-    layui.use('table', function () {
-        var table = layui.table;
-        //第一个实例
-        table.render({
-            elem: '#demo'
-            , height: 380
-            , url: '/json/wTblCountDataDay.json' //数据接口
-            , page: true //开启分页
-            , cols: [
-                [ //表头
-                    {field: 'id', title: '管线编号', width: 135, sort: true, align: 'center',}
-                    , {field: 'name', title: '业务类别', width: 143, align: 'center',}
-                    , {field: 'x', title: '横坐标', width: 139, align: 'center',}
-                    , {field: 'y', title: '纵坐标', width: 139, align: 'center',}
-                    , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
-                ]
-            ],
-        });
-        //点击行定位到具体范围
-        table.on('row(test)', (obj) => {   //监听行单击事件 lay-filter='test'
-            // console.log(obj)
-            var recoveryData = JSON.stringify(obj.data);
-            console.log(recoveryData)
-            LoadMap.singleclick()
-            // layer.alert(JSON.stringify(obj.data), {  //弹出当前行数据
-            //     title: '当前行数据：'
-            // });
-            let x = Number(obj.data.x);
-            let y = Number(obj.data.y);
-            var coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
-            LoadMap.map.getView().setCenter(coordinate1);
+                    }
+                })
+                let gom = "", lat = "", lng = "";
+                table_ClickRow({
+                    tableId: "test",
+                    successCallback(obj) {
+                        debugger
+                        gom = obj.geom;
+                        x = Number(gom.split(',')[0]);
+                        y = Number(gom.split(',')[1]);
+                        x1 = Number(gom.split(',')[2]);
+                        y1 = Number(gom.split(',')[3]);
+                        let coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
+                        LoadMap.map.getView().setCenter(coordinate1);
+                        // var polygon = [x,y,x1,y1];
+                        // LoadLargeMap.positionExtent(polygon);
+                    }
+                })
+                table_tool({
+                    tableId: tableId,
+                    successCallback(obj) {
+                        if(obj.data.alarmStatus == "1")
+                            return ;
+                        switch (obj.event) {
+                            case 'detail':
+                                let url = "/aqyj/wTblAlarmInfo/view/particulars?ID="+obj.data.iD+"&type=0";
+                                Common_layer(url, '查看', '45%', '70%')
+                                break;
+
+                            default:
+                        }
+                        return false;
+                    }
+                })
+            }
         })
-    });
+    }
+    // 废弃管线恢复表格
+    // layui.use('table', function () {
+    //     var table = layui.table;
+    //     //第一个实例
+    //     table.render({
+    //         elem: '#demo'
+    //         , height: 380
+    //         , url: '/hdsw/wsline/selectDiscardLines' //数据接口
+    //         // , page: true //开启分页
+    //         ,method: 'post'
+    //         ,dataType: 'json'
+    //         ,contentType: 'application/json'
+    //         , cols: [
+    //             [ //表头
+    //                 {field: 'pipeid', title: '管线编号', width: 135, sort: true, align: 'center',}
+    //                 , {field: 'type', title: '业务类别', width: 143, align: 'center',}
+    //                 , {field: 'road', title: '所在道路', width: 139, align: 'center',}
+    //                 , {field: 'flowdirect', title: '纵坐标', width: 139, align: 'center',}
+    //                 , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
+    //             ]
+    //         ],
+    //     });
+    //     //点击行定位到具体范围
+    //     // table.on('row(test)', (obj) => {   //监听行单击事件 lay-filter='test'
+    //     //     // console.log(obj)
+    //     //     var recoveryData = JSON.stringify(obj.data);
+    //     //     console.log(recoveryData)
+    //     //     LoadMap.singleclick()
+    //     //     // layer.alert(JSON.stringify(obj.data), {  //弹出当前行数据
+    //     //     //     title: '当前行数据：'
+    //     //     // });
+    //     //     let x = Number(obj.data.x);
+    //     //     let y = Number(obj.data.y);
+    //     //     var coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
+    //     //     LoadMap.map.getView().setCenter(coordinate1);
+    //     // })
+    // });
 
     //图层收缩事件
     $('.icon-bar').click(function () {

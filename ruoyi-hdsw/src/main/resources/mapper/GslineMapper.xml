@@ -48,7 +48,7 @@
     from "gsline"
     <where>
       <if test="pipeid != null and pipeid != ''">
-        and pipeid = #{pipeid}
+        and (pipeid LIKE CONCAT(CONCAT('%',#{pipeid}),'%') or road LIKE CONCAT(CONCAT('%',#{pipeid}),'%'))
       </if>
       <if test="road != null and road != ''">
         and road = #{road}
