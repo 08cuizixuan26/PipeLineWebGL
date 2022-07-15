@@ -46,12 +46,13 @@ public class ExcelController {
 
         try {
             String path = "";
+            String urlPath = ClassUtils.getDefaultClassLoader().getResource("static/file").getPath().replaceAll("%20","");//解决路径中含有空格的情况
+            urlPath = java.net.URLDecoder.decode(urlPath,"utf-8"); //解决路径包含中文的情况
             if(type.equals("0")){
-                File file = new File(property.getPointModel());
-                path = ClassUtils.getDefaultClassLoader().getResource("static/file").getPath() + "/point.xls";
+                path = urlPath + "/point.xls";
                 //path = property.getPointModel();
             }else if(type.equals("1")){
-                path = ClassUtils.getDefaultClassLoader().getResource("static/file").getPath() + "/line.xls";
+                path = urlPath + "/line.xls";
                 //path = property.getLineModel();
             }
 
