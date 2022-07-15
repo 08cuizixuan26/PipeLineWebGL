@@ -800,7 +800,7 @@ if (!LoadMap) var LoadMap = {
             return "正常";
         }
     },
-    loadNewLayer(layerId) {
+    loadNewLayer:function(layerId,visibleState) {
     var layer;
     switch (layerId) {
         case "gsgx":
@@ -869,6 +869,7 @@ if (!LoadMap) var LoadMap = {
             break;
     }
     LoadMap.map.addLayer(layer);
+    layer.setVisible(visibleState)
     LoadMap.map.render();
 }
 
