@@ -1820,10 +1820,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
                         layerUI.msg("添加成功")
@@ -1839,7 +1841,7 @@
             }
         })
     }
-    function loadNewLayer(layerId) {
+    function loadNewLayer(layerId,visibleState) {
         var layer;
         switch (layerId) {
             case "gsgx":
@@ -1902,6 +1904,7 @@
                 break;
         }
         LoadMap.map.addLayer(layer);
+        layer.setVisible(visibleState)
         LoadMap.map.render();
     }
     //解析加点点保存
@@ -1968,10 +1971,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2047,10 +2052,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2150,13 +2157,16 @@
                             gdbh:$('#gdbh4').val().toString()
                         },
                         success: function (res) {
+                            var visibleState;
                             if(res.code==0){
+                                visibleState = gdlayer.values_.visible;
                                 LoadMap.map.removeLayer(gdlayer);
                                 var layerId = gdlayer.values_.id;
-                                loadNewLayer(layerId);
+                                loadNewLayer(layerId,visibleState);
+                                visibleState = gxlayer.values_.visible;
                                 LoadMap.map.removeLayer(gxlayer);
                                 layerId = gxlayer.values_.id;
-                                loadNewLayer(layerId);
+                                loadNewLayer(layerId,visibleState);
                                 layui.use('layer', () => {
                                     let layer = layui.layer;
                                     layer.msg("添加成功")
@@ -2234,10 +2244,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2257,7 +2269,6 @@
     function download(type) {
         location.href="/hdsw/excel/download?type="+type;
     }
-
     function readPoint() {
         var dataForm=new FormData();
         dataForm.append("file",$("#file1")[0].files[0])
@@ -2271,10 +2282,25 @@
             dataType:"json",
             async:false,  //同步方式发起请求
             success: function (data) {
-                if(data.success){
-                    layer.alert(data.msg, {icon: 6});
+                if(data.code == 0){
+                    var visibleState;
+                    if(data.data == "给水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("gsjg");
+                        loadNewLayer("gsjg",visibleState);
+                    }else if(data.data == "污水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("wsjg",visibleState);
+                        loadNewLayer("wsjg");
+                    }else if(data.data == "雨水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("ysjg");
+                        loadNewLayer("ysjg",visibleState);
+                    }
+                    layer.alert("导入成功", {icon: 6});
+
                 }else {
-                    layer.alert(data.msg, {icon: 2});
+                    layer.alert("导入失败", {icon: 2});
                 }
             },
             error:function () {
@@ -2286,7 +2312,6 @@
     function readLine() {
         var dataForm=new FormData();
         dataForm.append("file",$("#file2")[0].files[0])
-        dataForm.append("type","")
         $.ajax({
             url: "/hdsw/excel/readLine",
             type: "post",
@@ -2298,9 +2323,23 @@
             async:false,  //同步方式发起请求
             success: function (data) {
                 if(data.code == 0){
-                    layer.alert(data.msg, {icon: 6});
+                    var visibleState;
+                    if(data.data == "给水"){
+                        visibleState = LoadMap.map.getLayerById("gsgx").values_.visible
+                        LoadMap.map.removeLayer("gsgx");
+                        loadNewLayer("gsgx",visibleState);
+                    }else if(data.data == "污水"){
+                        visibleState = LoadMap.map.getLayerById("wsgx").values_.visible
+                        LoadMap.map.removeLayer("wsgx");
+                        loadNewLayer("wsgx",visibleState);
+                    }else if(data.data == "雨水"){
+                        visibleState = LoadMap.map.getLayerById("ysgx").values_.visible
+                        LoadMap.map.removeLayer("ysgx");
+                        loadNewLayer("ysgx",visibleState);
+                    }
+                    layer.alert("导入成功", {icon: 6});
                 }else {
-                    layer.alert(data.msg, {icon: 2});
+                    layer.alert("导入失败", {icon: 2});
                 }
             },
             error:function () {

@@ -106,10 +106,10 @@ public class ExcelController {
                 "wchaMeat","wchaType","foDeep","wchaDn","bTime","offcNo","rotation","x","y","owner","road","geom",
                 "delState","updState","type"};
         List<Gdmodel> gdmodels = POIExcelUtil.excelToList(in, 0, Gdmodel.class, map, uniqueFields);
+        String type="";
         for(Gdmodel gdmodel : gdmodels){
-            String type = gdmodel.getType().toString().trim();
-            String gs = "给水";
-            if(gs.equals(type)){
+            type = gdmodel.getType().toString().trim();
+            if(type.equals("给水")){
                 int max = (int) gspointService.getMaxNum() + 1;
                 gdmodel.setExpNo("GSP" + max);
                 gspointService.insert(gdmodel);
@@ -123,7 +123,7 @@ public class ExcelController {
                 yspointsService.insert(gdmodel);
             }
         }
-        return AjaxResult.success();
+        return AjaxResult.success("操作成功",type);
     }
     @RequestMapping(value = "/readLine", method = RequestMethod.POST)
     public Object readLine(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException, ExcelException, ParseException {
@@ -154,22 +154,24 @@ public class ExcelController {
         String[] uniqueFields = {"shapeLeng","pipeid","sPoint","ePoint","sDeep","eDeep","material",
                 "dType","dS","flowdirect","sHeight","eHeight","bTime","state","type","road","owner","geom","style","delState","updState"};
         List<Gxmodel> gxmodels = POIExcelUtil.excelToList(in, 0, Gxmodel.class, map, uniqueFields);
+        String type="";
         for(Gxmodel gxmodel : gxmodels){
-            if(gxmodel.getType().equals("给水")){
+            type=gxmodel.getType().toString();
+            if(type.equals("给水")){
                 int max = (int) gslineService.getMaxNum() + 1;
                 gxmodel.setPipeid("GSL" + max);
                 gslineService.insert(gxmodel);
-            }else if(gxmodel.getType().equals("污水")){
+            }else if(type.equals("污水")){
                 int max = (int) gslineService.getMaxNum() + 1;
                 gxmodel.setPipeid("WSL" + max);
                 wslinesService.insert(gxmodel);
-            }else if(gxmodel.getType().equals("雨水")){
+            }else if(type.equals("雨水")){
                 int max = (int) gslineService.getMaxNum() + 1;
                 gxmodel.setPipeid("YSL" + max);
                 yslinesService.insert(gxmodel);
             }
         }
-        return AjaxResult.success();
+        return AjaxResult.success("操作成功",type);
     }
 
 }
