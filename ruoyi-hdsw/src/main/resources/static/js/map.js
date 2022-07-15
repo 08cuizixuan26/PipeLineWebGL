@@ -766,7 +766,79 @@ if (!LoadMap) var LoadMap = {
         } else {
             return "正常";
         }
+    },
+    loadNewLayer(layerId) {
+    var layer;
+    switch (layerId) {
+        case "gsgx":
+            layer = new ol.layer.Vector({
+                id: "gsgx",
+                source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: olMapConfig12.gsx,
+                        width: olMapConfig12.gsw,
+                    })
+                })
+            });
+            break;
+        case "gsjg":
+            layer = new ol.layer.Vector({
+                id: "gsjg",
+                source: sourceConfig.getSource("HD:gspoint","HD","HD","gspoint","0","0"),
+                style: new ol.style.Style({
+                    //形状
+                    image: new ol.style.Icon({
+                        src: olMapConfig12.gs,
+                        scale: 0.2
+                    })
+                }),
+            });
+            break;
+        case "ysgx":
+            layer = new ol.layer.Vector({
+                id: "ysgx",
+                source: sourceConfig.getSource("HD:yslines","HD","HD","yslines","0","0"),
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: olMapConfig12.ysx,
+                        width: olMapConfig12.ysw,
+                    })
+                }),
+            });
+            break;
+        case "ysjg":
+            layer = new ol.layer.Vector({
+                id: "ysjg",
+                source: sourceConfig.getSource("HD:yspoints","HD","HD","yspoints","0","0"),
+                style: new ol.style.Style({
+                    //形状
+                    image: new ol.style.Icon({
+                        src: olMapConfig12.ys,
+                        scale: 0.2
+                    })
+                }),
+            });
+            break;
+        case "wsgx":
+            LoadMap.addWsLayer();
+            break;
+        case "wsjg":
+            layer = olMapConfig.layers[5];
+            break;
+        case "zssgx":
+            layer = olMapConfig.layers[1];
+            break;
+        case "zssjg":
+            layer = olMapConfig.layers[6];
+            break;
+        default:
+            break;
     }
+    LoadMap.map.addLayer(layer);
+    LoadMap.map.render();
+}
+
 }
 
 //初始化地图

@@ -7,6 +7,6 @@ import java.util.List;
 public interface GxcontrolService {
     int insert(Gxcontrol gxcontrol);
     List<Gxcontrol> select();
-    int update(Gxcontrol gxcontrol );
+    int update(String width,String gid,String color,String iocn);
     int delete(String id);
 }

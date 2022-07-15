@@ -1,5 +1,6 @@
 package com.ruoyi.hdsw.controller;
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.uuid.IdUtils;
 import com.ruoyi.hdsw.model.Gxcontrol;
 import com.ruoyi.hdsw.model.Gxtype;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,8 +69,10 @@ public class Gxcontrolcontroller {
      */
     @RequestMapping("/update")
     @ResponseBody
-    public Object update(Gxcontrol gxcontrol) {
-        return gxcontrolService.update(gxcontrol);
+    public AjaxResult update(String width,String gid,String color,String iocn) {
+
+        return AjaxResult.success(gxcontrolService.update(width,gid,color,iocn));
+
     }
 
 }
