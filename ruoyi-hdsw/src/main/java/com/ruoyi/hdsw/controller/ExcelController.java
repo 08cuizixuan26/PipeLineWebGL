@@ -48,20 +48,20 @@ public class ExcelController {
             String path = "";
             String urlPath = ClassUtils.getDefaultClassLoader().getResource("static/file").getPath().replaceAll("%20","");//解决路径中含有空格的情况
             urlPath = java.net.URLDecoder.decode(urlPath,"utf-8"); //解决路径包含中文的情况
+            String fileName = "point.xls";
             if(type.equals("0")){
                 path = urlPath + "/point.xls";
-                //path = property.getPointModel();
+                fileName = "point.xls";
             }else if(type.equals("1")){
                 path = urlPath + "/line.xls";
-                //path = property.getLineModel();
+                fileName = "line.xls";
             }
 
             HSSFWorkbook hssfWorkbook = ExcelUtils.createHSSFWorkbook(path);
             if (hssfWorkbook != null) {
                 //获取第一个sheet
                 HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
-                String fileName1 = "point" + ".xls";
-                ExcelUtils.setResponseHeader(response, fileName1);
+                ExcelUtils.setResponseHeader(response, fileName);
                 OutputStream os = response.getOutputStream();
                 hssfWorkbook.write(os);
                 os.flush();

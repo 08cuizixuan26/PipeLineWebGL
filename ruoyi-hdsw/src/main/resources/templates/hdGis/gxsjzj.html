@@ -363,7 +363,7 @@
 
                <div id="jxf">
                    <div class="form-group">
-                       <button type="button" class="btn btn-primary btn-sm" onclick="download()">下载模板</button>
+                       <button type="button" class="btn btn-primary btn-sm" onclick="download(0)">下载模板</button>
                    </div>
                    <div class="form-group">
                        <input class="btn btn-primary" id="file1" type="file">
@@ -556,6 +556,9 @@
 
 
                <div id="jxf_">
+                   <div class="form-group">
+                       <button type="button" class="btn btn-primary btn-sm" onclick="download(1)">下载模板</button>
+                   </div>
                    <div class="form-group">
                        <input class="btn btn-primary" id="file2" type="file">
                    </div>
@@ -2251,8 +2254,8 @@
         })
     }
     //下载模板
-    function download() {
-        location.href="/hdsw/excel/download?type=0";
+    function download(type) {
+        location.href="/hdsw/excel/download?type="+type;
     }
 
     function readPoint() {
