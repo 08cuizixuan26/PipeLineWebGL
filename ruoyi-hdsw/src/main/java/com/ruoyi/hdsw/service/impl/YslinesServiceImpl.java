@@ -26,10 +26,12 @@ public class YslinesServiceImpl implements YslinesService {
     public Object insert(Gxmodel record) {
         return yslinesMapper.insertSelective(record);
     }
+
     @Override
-    public List<Gxmodel>  spoint(String spoint) {
+    public List<Gxmodel> spoint(String spoint) {
         return yslinesMapper.spoint(spoint);
     }
+
     @Override
     public List<Gxmodel> epoint(String epoint) {
         return yslinesMapper.epoint(epoint);
@@ -42,8 +44,41 @@ public class YslinesServiceImpl implements YslinesService {
 
     @Override
     public Object delete(String[] pipeid) {
-        return this.updateState(pipeid[0], "15", null);
-//        return yslinesMapper.batchDelete(Arrays.asList(pipeid));
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "15", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public Object disCard(String[] pipeid) {
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "17", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public Object recover(String[] pipeid) {
+        try {
+            for (String s : pipeid) {
+                this.updateState(s, "00", null);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -89,5 +124,10 @@ public class YslinesServiceImpl implements YslinesService {
     @Override
     public Object selectByState(String delState, String updState) {
         return yslinesMapper.selectByState(delState, updState);
+    }
+
+    @Override
+    public List<Gxmodel> selectDiscardLines(String pipeid, String road) {
+        return yslinesMapper.selectDiscardLines(pipeid, road);
     }
 }
