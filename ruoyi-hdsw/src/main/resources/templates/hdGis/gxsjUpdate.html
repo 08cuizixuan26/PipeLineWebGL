@@ -596,10 +596,10 @@
                         </div>
                         <hr>
                         <div class="icon_box" style="display: flex;flex-wrap: wrap;margin: 14px 18px">
-                            <img src="../../images/0518/wsgd.png" alt="" style="width: 30px">
-                            <img src="../../images/0518/zssgd.png" alt="" style="width: 30px">
-                            <img src="../../images/0518/ysgd.png" alt="" style="width: 30px">
-                            <img src="../../images/0518/gsgd.png" alt="" style="width: 30px">
+                            <img src="/images/0518/wsgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/zssgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/ysgd.png" name="wsda" alt="" style="width: 30px">
+                            <img src="/images/0518/gsgd.png" name="wsda" alt="" style="width: 30px">
                         </div>
                         <div class="iconSure">
                             <button type="button" onclick="changeiconbtn()" class="btn btn-primary" style="margin: 20px 41%">确定</button>
@@ -607,7 +607,7 @@
                     </div>
 
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="ywlbSelect()">确定</button>
+                        <button type="button" class="btn btn-primary" onclick="ywlbSelect(),guanxianxiugai()">确定</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </div>
@@ -711,8 +711,22 @@
         arr.push(this)
     })
     function changeiconbtn() {
+    debugger
         var s = document.getElementsByClassName('selecticonbg')
-        console.log(s[0])
+        let s2 =s[0].src.indexOf('8085');
+        let img = s[0].src.substring(s2+4);
+        let name=$("#gdgxChangePage1").val();
+        if (name=="1"){
+            let zss=$('#zss').attr('src',img);
+        }else if(name=="3"){
+            let gs= $('#gs').attr('src',img);
+
+        }else if (name=="5"){
+            let ys= $('#ys').attr('src',img);
+        }else if (name=="7") {
+            let ws = $('#ws').attr('src', img);
+        }
+
     }
     $('.icon_box img').hover(function () {
         $(this).addClass('hovericonbg').siblings().removeClass('hovericonbg');
@@ -913,6 +927,7 @@ $('#gdgxChangePage1').change(function () {
         let width="";
         let color="";
         let gid="";
+        let iocn="";
         let layer;
         if (name=="8"){
              gid= $('#wsid').val();
@@ -934,6 +949,31 @@ $('#gdgxChangePage1').change(function () {
             color= $('#gsx').val();
             width= $('#gsw').val();
             layer = LoadMap.map.getLayerById("gsgx");
+        }else if (name=="1"){
+            gid= $('#zssid').val();
+            var s = document.getElementById('zss')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("zssjg");
+        }else if(name=="3"){
+            gid= $('#gsid').val();
+            var s = document.getElementById('gs')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("gsjg");
+
+        }else if (name=="5"){
+            gid= $('#ysid').val();
+            var s = document.getElementById('ys')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("ysjg");
+        }else if (name=="7") {
+            gid= $('#wsid').val();
+            var s = document.getElementById('ws')
+            let s2 =s.src.indexOf('8085');
+            iocn = s.src.substring(s2+4);
+            layer = LoadMap.map.getLayerById("wsjg");
         }
         $.ajax({
             url: '/hdsw/gxcontrol/update',
@@ -943,13 +983,11 @@ $('#gdgxChangePage1').change(function () {
                 "gid":gid,
                 "width":width,
                 "color":color,
+                "iocn":iocn,
             },
             success: function (data) {
                 if(data.code==0){
-                    olMapConfig12.tuceng();
-                    LoadMap.map.removeLayer(layer);
-                    var layerId = layer.values_.id;
-                    LoadMap.loadNewLayer(layerId);
+                    location.reload();
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("修改成功");

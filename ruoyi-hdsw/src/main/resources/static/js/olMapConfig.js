@@ -509,6 +509,7 @@ var olMapConfig = {
                     "name": "供水管线",
                     "icon": "/images/zTreeTwo/gsgx.png",
                     "checked": "false",
+                    color:"#000",
                     "open": true
                 },
                 {
