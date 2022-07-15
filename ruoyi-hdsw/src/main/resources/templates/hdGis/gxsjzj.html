@@ -147,6 +147,18 @@
             right: 2%;
             color: #bebbbb;
         }
+        #treeDemo_2_ico{
+            display: none;
+        }
+        #treeDemo_3_ico{
+            display: none;
+        }
+        #treeDemo_4_ico{
+            display: none;
+        }
+        #treeDemo_5_ico{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -1113,12 +1125,53 @@
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
+
+    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+        <div class="layerControlTitle">图例</div>
+        <!--<div><span>图层控制</span></div>-->
+        <ul id="treeDemo2" class=" ztree">
+            <li class="sekuai_" style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color1" id="gsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">供水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color2" id="wsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">污水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color3" id="zssx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">再生水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color4" id="ysx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">雨水管线</span>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 </body>
 </html>
 <script src="//unpkg.com/layui@2.7.2/dist/layui.js"></script>
 <script>
+    //管线图形颜色
+    $.ajax({
+        url: "/hdsw/gxcontrol/select",
+        type: "post",
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            let wsx= $('#wsx').val(data[0].color);
+            document.getElementById('wsx').style.background=wsx[0].value;
+            let zssx= $('#zssx').val(data[1].color);
+            document.getElementById('zssx').style.background=zssx[0].value;
+            let gsx= $('#gsx').val(data[2].color);
+            document.getElementById('gsx').style.background=gsx[0].value;
+            let ysx= $('#ysx').val(data[3].color);
+            document.getElementById('ysx').style.background=ysx[0].value;
+        }
+    })
 
     layui.use(['dropdown', 'util', 'layer', 'table'], function () {
         var dropdown = layui.dropdown

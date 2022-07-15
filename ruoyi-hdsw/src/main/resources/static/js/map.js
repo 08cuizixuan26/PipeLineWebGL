@@ -728,6 +728,31 @@ if (!LoadMap) var LoadMap = {
         return vectorSources;
     },
 
+    getLineSources2: function () {
+        var vectorSources = [];
+        var layers = [];
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+        var nodes = treeObj.getCheckedNodes();
+        var layers = LoadMap.map.getLayers();
+        var layerArray = [];
+        nodes.forEach(function (node) {
+            var checkId = node.id;
+            if (checkId == 'gsgx' || checkId == 'wsgx' || checkId == 'ysgx' || checkId == 'zssgx') {
+                var checked = node.checked;
+                node.checkedOld = node.checked;
+                layers.forEach(function (layer) {
+                    if (layer.get("id") == checkId) {
+                        if (checked == true && layer instanceof ol.layer.Vector) {
+                            layerArray.push(layer.get("id"));
+                            vectorSources.push(layer.values_.source);
+                        }
+                    }
+                })
+            }
+        });
+        return vectorSources;
+    },
+
     //根据范围和数据源获取
     getSelectFeatures(vectorSources, extent) {
         var features;
@@ -840,6 +865,9 @@ if (!LoadMap) var LoadMap = {
 }
 
 }
+function layerTreeDiv() {
+
+}
 
 //初始化地图
 LoadMap.mapInit = function (_callback, config) {
@@ -864,11 +892,33 @@ LoadMap.mapInit = function (_callback, config) {
             onCheck: LoadMap.setLayerVisible
         }
     };
+    var layerTreeSetting2 = {
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+            }
+        },
+        view: {
+            selectedMulti: false
+        },
+        callback: {
+            onCheck: LoadMap.setLayerVisible
+        }
+    };
     let initTreeData = [];
     olMapConfig.layersTreeData.forEach(function (node) {
         initTreeData.push(node);
     });
     $.fn.zTree.init($("#treeDemo"), layerTreeSetting, initTreeData);
+    // let initTreeData2 = [];
+    // olMapConfig.layersTreeData.forEach(function (node) {
+    //     initTreeData.push(node);
+    // });
+    // $.fn.zTree.init($("#treeDemo2"), layerTreeSetting2, initTreeData);
 
     $("#mapLayers").click(function () {
         let treeDiv = $(".layerTreeDiv")[0];
