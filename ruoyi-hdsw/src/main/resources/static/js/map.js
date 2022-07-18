@@ -304,6 +304,25 @@ if (!LoadMap) var LoadMap = {
             $("#guanxian16").attr("value", properties["state"])
             $("#guanxian17").attr("value", properties["type"])
             $("#guanxian18").attr("value", properties["shape_leng"])
+        }else if(LoadMap.getCoordinateFlag == "guanxianfeiqi"){
+            $("#guanxianfeiqi1").attr("value", properties["pipeid"])
+            $("#guanxianfeiqi2").attr("value", properties["s_point"])
+            $("#guanxianfeiqi3").attr("value", properties["e_point"])
+            $("#guanxianfeiqi4").attr("value", properties["s_deep"])
+            $("#guanxianfeiqi5").attr("value", properties["e_deep"])
+            $("#guanxianfeiqi6").attr("value", properties["s_height"])
+            $("#guanxianfeiqi7").attr("value", properties["e_height"])
+            $("#guanxianfeiqi8").attr("value", properties["material"])
+            $("#guanxianfeiqi9").attr("value", properties["d_type"])
+            $("#guanxianfeiqi10").attr("value", properties["style"])
+            $("#guanxianfeiqi11").attr("value", properties["d_s"])
+            $("#guanxianfeiqi12").attr("value", properties["b_time"])
+            $("#guanxianfeiqi13").attr("value", properties["owner"])
+            $("#guanxianfeiqi14").attr("value", properties["flowdirect"])
+            $("#guanxianfeiqi15").attr("value", properties["road"])
+            $("#guanxianfeiqi16").attr("value", properties["state"])
+            $("#guanxianfeiqi17").attr("value", properties["type"])
+            $("#guanxianfeiqi18").attr("value", properties["shape_leng"])
         }
 
         if (type == 0) {
@@ -557,6 +576,25 @@ if (!LoadMap) var LoadMap = {
             $("#guanxian16").attr("value", properties["state"])
             $("#guanxian17").attr("value", properties["type"])
             $("#guanxian18").attr("value", properties["shape_leng"])
+        }else if(LoadMap.getCoordinateFlag == "guanxianfeiqi"){
+            $("#guanxianfeiqi1").attr("value", properties["pipeid"])
+            $("#guanxianfeiqi2").attr("value", properties["s_point"])
+            $("#guanxianfeiqi3").attr("value", properties["e_point"])
+            $("#guanxianfeiqi4").attr("value", properties["s_deep"])
+            $("#guanxianfeiqi5").attr("value", properties["e_deep"])
+            $("#guanxianfeiqi6").attr("value", properties["s_height"])
+            $("#guanxianfeiqi7").attr("value", properties["e_height"])
+            $("#guanxianfeiqi8").attr("value", properties["material"])
+            $("#guanxianfeiqi9").attr("value", properties["d_type"])
+            $("#guanxianfeiqi10").attr("value", properties["style"])
+            $("#guanxianfeiqi11").attr("value", properties["d_s"])
+            $("#guanxianfeiqi12").attr("value", properties["b_time"])
+            $("#guanxianfeiqi13").attr("value", properties["owner"])
+            $("#guanxianfeiqi14").attr("value", properties["flowdirect"])
+            $("#guanxianfeiqi15").attr("value", properties["road"])
+            $("#guanxianfeiqi16").attr("value", properties["state"])
+            $("#guanxianfeiqi17").attr("value", properties["type"])
+            $("#guanxianfeiqi18").attr("value", properties["shape_leng"])
         }
     },
 
