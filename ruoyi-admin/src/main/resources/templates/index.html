@@ -83,6 +83,10 @@
             /*border: 5px solid #4A98F7;*/
             /*border-radius: 10px;*/
         }
+        .menuItem > i {
+            font-size: 20px;
+            color: #ffd700;
+        }
     </style>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" th:classappend="${isMobile} ? 'canvas-menu'"
@@ -167,7 +171,7 @@
                 </li>
                 <li>
                     <a class="menuItem" th:href="@{/hdsw}">
-                        <i class="fa fa-home"></i>
+                        <i class="fa fa-home" id="pageicon"></i>
                         <span class="nav-label" style="font: bold 20px  'Microsoft YaHei';color: #ffd700">首页</span>
                     </a>
                 </li>
@@ -406,6 +410,9 @@
 <!--    左侧菜单栏选中变色-->
     $('#side-menu li').click(function () {
         $(this).style('background', '#b5b5b5')
+    })
+    $('#pageicon').hover(function () {
+        $(this).style('color', '#4A98F7')
     })
 
     window.history.forward(1);
