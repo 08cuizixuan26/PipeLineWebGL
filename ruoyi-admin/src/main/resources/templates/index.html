@@ -74,9 +74,14 @@
         .selected a {
             color: #4A98F7;
         }
-        .side-menu li {
-            background: #fff;
+        .nav>li>a {
+            color: #fff;
+        }
+        .skin-blue .navbar-default .nav>li.selected>a, .skin-blue .navbar-default .nav>li.selected>a:focus {
+            background-color: #FFF;
             color: #4A98F7;
+            /*border: 5px solid #4A98F7;*/
+            /*border-radius: 10px;*/
         }
     </style>
 </head>
@@ -399,11 +404,8 @@
 <script th:inline="javascript">
 
 <!--    左侧菜单栏选中变色-->
-    $('.menuItem').click(function(){
-        console.log(12345678910),
-            $(this).addClass('menuItemsChilren').siblings().removeClass('menuItemsChilren')
-        // $(this).css({'background-color':'#fff', 'color': '#4A98F7'}).siblings().css({'background-color': '#4A98F7','color': '#fff'})
-        // $(this).siblings().css({'background-color': '#4A98F7','color': '#fff'})
+    $('#side-menu li').click(function () {
+        $(this).style('background', '#b5b5b5')
     })
 
     window.history.forward(1);
