@@ -639,14 +639,9 @@
 <script>
 
     $('#fqgxRecovery button').click = function () {
-        // alert('回复恢复')
-        e.preventDefault()
+        confirm('确定要恢复吗？')
+        e.preventDefault();
     }
-    //表格样式
-    $('.tableDataBox tr').hover(function () {
-        console.log(this)
-        $(this).addClass('hoverShow').siblings().removeClass('hoverShow');
-    })
     //管线图形颜色
     $.ajax({
         url: "/hdsw/gxcontrol/select",
@@ -686,11 +681,11 @@ $.ajax({
         let pipeid12=$("#pipeid12").val();
         let cols = [
             [ //表头
-                {field: 'pipeid', title: '管线编号', width: 135, sort: true, align: 'center',}
-                , {field: 'type', title: '业务类别', width: 143, align: 'center',}
-                , {field: 'road', title: '所在道路', width: 139, align: 'center',}
-                , {field: 'flowdirect', title: '纵坐标', width: 139, align: 'center',}
-                , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
+                {field: 'pipeid', title: '管线编号', width: 135, unresize: true, sort: true, align: 'center',}
+                , {field: 'type', title: '业务类别', width: 143, unresize: true, align: 'center',}
+                , {field: 'road', title: '所在道路', width: 139, unresize: true, align: 'center',}
+                , {field: 'flowdirect', title: '流向', width: 139, unresize: true, align: 'center',}
+                , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', unresize: true, width: 138, align: 'center'}  //追加表头
             ]
         ]
         ajax_Method({
@@ -714,6 +709,7 @@ $.ajax({
                 table_ClickRow({
                     tableId: "test",
                     successCallback(obj) {
+                        console.log(obj.pipeid)
                         gom = obj.geom;
                         x = Number(gom.split(',')[0]);
                         y = Number(gom.split(',')[1]);
