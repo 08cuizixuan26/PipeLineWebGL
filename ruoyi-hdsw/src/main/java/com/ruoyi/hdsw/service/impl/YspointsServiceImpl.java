@@ -49,4 +49,8 @@ public class YspointsServiceImpl implements YspointsService {
     public Object selectByState(String delState, String updState) {
         return yspointsMapper.selectByState(delState,updState);
     }
+    @Override
+    public Object batchUpdateState(String updState) {
+        return yspointsMapper.batchUpdateState(updState);
+    }
 }

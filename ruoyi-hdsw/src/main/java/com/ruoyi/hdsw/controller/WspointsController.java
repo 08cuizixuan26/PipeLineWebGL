@@ -5,6 +5,7 @@ import com.ruoyi.hdsw.mapper.WspointsMapper;
 import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Wspoints;
 import com.ruoyi.hdsw.service.WspointsService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,6 +75,22 @@ public class WspointsController {
     public AjaxResult selectByState(String delState, String updState) {
         try {
             return AjaxResult.success(wspointsService.selectByState(delState,updState));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
+    }
+    /**
+     * 更新update状态
+     **/
+    @PostMapping("/batchUpdate")
+    public AjaxResult batchUpdate(@RequestParam(value = "updState") String updState) {
+        try {
+            if (ObjectUtils.isNotEmpty(updState)) {
+                return AjaxResult.success(wspointsService.batchUpdateState(updState));
+            } else {
+                return AjaxResult.error("所传参数为空");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());

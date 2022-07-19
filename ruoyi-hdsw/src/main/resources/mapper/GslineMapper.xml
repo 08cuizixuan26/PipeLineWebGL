@@ -348,4 +348,12 @@
   <select id="epoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
     select pipeid,ST_Astext(geom) geom from "yslines" where e_point=#{epoint}
   </select>
+  <update id="batchUpdateState" parameterType="int">
+    update gsline
+    <set>
+      <if test="updState != null">
+        upd_state = #{updState,jdbcType=VARCHAR},
+      </if>
+    </set>
+  </update>
 </mapper>

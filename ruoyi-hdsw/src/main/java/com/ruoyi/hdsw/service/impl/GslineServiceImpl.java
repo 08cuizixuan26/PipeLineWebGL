@@ -131,4 +131,9 @@ public class GslineServiceImpl implements GslineService {
     public List<Gxmodel> selectDiscardLines(String pipeid, String road) {
         return gslineMapper.selectDiscardLines(pipeid, road);
     }
+
+    @Override
+    public Object batchUpdateState(String updState) {
+        return gslineMapper.batchUpdateState(updState);
+    }
 }

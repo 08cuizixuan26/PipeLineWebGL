@@ -57,17 +57,29 @@ if (!LoadMap) var LoadMap = {
         var points = [];
         var url = "";
         var url1 = "";
+        var url2 = "";
+        var url3 = "";
+        let guid = "";
         if(type == "给水"){
             url="/hdsw/gsline/selectByState"
             url1="/hdsw/gspoint/selectByState"
+            url2="/hdsw/gsline/batchUpdate"
+            url3="/hdsw/gspoint/batchUpdate"
+            guid = LoadMap.gsGuid;
         }else if(type == "雨水"){
             url="/hdsw/ysline/selectByState"
             url1="/hdsw/yspoint/selectByState"
+            url2="/hdsw/ysline/batchUpdate"
+            url3="/hdsw/yspoint/batchUpdate"
+            guid = LoadMap.ysGuid;
         }else if(type == "污水"){
             url="/hdsw/wsline/selectByState"
             url1="/hdsw/wspoint/selectByState"
+            url2="/hdsw/wsline/batchUpdate"
+            url3="/hdsw/wspoint/batchUpdate"
+            guid = LoadMap.wsGuid;
         }
-
+        //获取待更新线表坐标
         $.ajax({
             url: url,
             type: "get",
@@ -87,6 +99,7 @@ if (!LoadMap) var LoadMap = {
                 }
             }
         })
+        //获取待更新点表坐标
         $.ajax({
             url: url1,
             type: "get",
@@ -104,13 +117,54 @@ if (!LoadMap) var LoadMap = {
                 }
             }
         })
+
+        //更新
+        $.ajax({
+            url: url2,
+            type: "post",
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "0"},
+            success: function (data) {
+            }
+        })
+        $.ajax({
+            url: url3,
+            type: "post",
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "0"},
+            success: function (data) {
+            }
+        })
+        //生成凸多边形
         var newPoints = convexhull.makeHull(points)
         LoadMap.linePoints = newPoints;
+/*        //调取生成三维接口
+        let data = "";
+        LoadMap.linePoints.forEach(function (obj, index) {
+            data += `<location>${obj.x},${obj.y}</location>`;
+        });
+        data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
+        $.ajax({
+            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            type: "post",
+            data:data,
+            dataType:"json",
+            //async:false,  //同步方式发起请求
+            success: function (data) {
+
+            },
+            error:function () {
+
+            }
+        });*/
     },
 
     //调用三维接口
     generate3D:function (type) {
         let guid = "";
+        let url = "";
         if(type == "给水"){
             guid = LoadMap.gsGuid;
         }else if(type == "雨水"){
