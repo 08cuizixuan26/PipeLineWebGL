@@ -356,4 +356,12 @@
         from "yslines"
         where e_point = #{epoint}
     </select>
+    <update id="batchUpdateState" parameterType="int">
+        update wslines
+        <set>
+            <if test="updState != null">
+                upd_state = #{updState,jdbcType=VARCHAR},
+            </if>
+        </set>
+    </update>
 </mapper>

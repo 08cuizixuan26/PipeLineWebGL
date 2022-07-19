@@ -364,4 +364,12 @@
       <if test="updState != null and updState != '' "> AND upd_state  =#{updState} </if>
     </where>
   </select>
+  <update id="batchUpdateState" parameterType="int">
+    update yspoints
+    <set>
+      <if test="updState != null">
+        upd_state = #{updState,jdbcType=VARCHAR},
+      </if>
+    </set>
+  </update>
 </mapper>

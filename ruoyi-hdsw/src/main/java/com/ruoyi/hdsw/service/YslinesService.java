@@ -26,4 +26,5 @@ public interface YslinesService {
      * @return List<Gxmodel>
      */
     List<Gxmodel> selectDiscardLines(String pipeid, String road);
+    Object batchUpdateState(String updState);
 }

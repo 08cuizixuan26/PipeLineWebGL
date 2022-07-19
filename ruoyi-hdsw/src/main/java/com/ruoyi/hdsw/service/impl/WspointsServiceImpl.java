@@ -49,4 +49,8 @@ public class WspointsServiceImpl implements WspointsService {
     public Object selectByState(String delState, String updState) {
         return wspointsMapper.selectByState(delState,updState);
     }
+    @Override
+    public Object batchUpdateState(String updState) {
+        return wspointsMapper.batchUpdateState(updState);
+    }
 }

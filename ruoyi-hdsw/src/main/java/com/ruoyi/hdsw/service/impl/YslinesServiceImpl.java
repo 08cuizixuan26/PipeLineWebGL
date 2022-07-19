@@ -130,4 +130,8 @@ public class YslinesServiceImpl implements YslinesService {
     public List<Gxmodel> selectDiscardLines(String pipeid, String road) {
         return yslinesMapper.selectDiscardLines(pipeid, road);
     }
+    @Override
+    public Object batchUpdateState(String updState) {
+        return yslinesMapper.batchUpdateState(updState);
+    }
 }

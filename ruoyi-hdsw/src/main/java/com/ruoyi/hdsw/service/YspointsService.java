@@ -11,4 +11,5 @@ public interface YspointsService {
     Object updateState(Integer gid,String delState,String updState);
     Object getMaxNum();
     Object selectByState(String delState,String updState);
+    Object batchUpdateState(String updState);
 }

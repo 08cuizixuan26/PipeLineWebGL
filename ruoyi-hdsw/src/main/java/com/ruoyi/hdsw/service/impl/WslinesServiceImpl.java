@@ -128,4 +128,8 @@ public class WslinesServiceImpl implements WslinesService {
     public List<Gxmodel> selectDiscardLines(String pipeid, String road) {
         return wslinesMapper.selectDiscardLines(pipeid, road);
     }
+    @Override
+    public Object batchUpdateState(String updState) {
+        return wslinesMapper.batchUpdateState( updState);
+    }
 }

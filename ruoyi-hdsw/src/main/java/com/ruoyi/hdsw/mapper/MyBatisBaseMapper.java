@@ -28,4 +28,6 @@ public interface MyBatisBaseMapper<Model, PK extends Serializable> {
     int getMaxNum();
 
     List<Model> selectByState(@Param("delState") String delState, @Param("updState") String updState);
+
+    int batchUpdateState(@Param("updState") String updState);
 }
