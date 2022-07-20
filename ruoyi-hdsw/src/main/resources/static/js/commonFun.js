@@ -54,10 +54,20 @@ table_Method = ({tableId, data, where = {}, cols, height, cellMinWidth, limit,li
         });
     })
 }
+//表格行单击
 table_ClickRow = ({tableId, successCallback}) => {
     layui.use('table', () => {
         let table = layui.table;
         table.on("row(" + tableId + ")", (obj) => {
+            successCallback(obj.data);
+        })
+    })
+}
+//表格行双击事件
+table_ClickRowDouble = ({tableId, successCallback}) => {
+    layui.use('table', () => {
+        let table = layui.table;
+        table.on("rowDouble(" + tableId + ")", (obj) => {
             successCallback(obj.data);
         })
     })
@@ -68,7 +78,7 @@ table_tool = ({tableId, successCallback}) => {
     layui.use('table', () => {
         let table = layui.table;
         table.on("tool(" + tableId + ")", (obj) => {
-            successCallback(obj);
+            successCallback(obj.data);
         })
     })
 }

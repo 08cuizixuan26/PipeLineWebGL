@@ -303,6 +303,20 @@
         .layui-table-view .layui-table th {
             border: none;
         }
+        .recoverygx {
+            position: fixed;
+            left: 19%;
+            top: 16%;
+            display: block;
+            width: 300px;
+            height: auto;
+            background: #fff;
+            box-shadow: 1px 1px 27px #a7a3a5;
+            border-radius: 3px;
+        }
+        .layui-icon-close:hover {
+            color: #4A98F7;
+        }
     </style>
 </head>
 <body>
@@ -588,7 +602,20 @@
                         <button class="btn btn-primary" style="margin-left: 15px;" onclick="tableInit()">查询</button>
                     </div>
                     <div class="data_div">
-                        <table id="demo" lay-filter="test"></table>
+                        <table id="demo" lay-filter="demo"></table>
+                    </div>
+                    <div class="recoverygx" style="">
+                        <div class="icon-Title" style="margin: 15px">
+                            <i class="layui-icon layui-icon-close" onclick="closeTip()" style="font-size: 20px;margin-left: 92%"></i>
+                        </div>
+                        <hr style="margin: 0">
+                        <div class="message" style="padding: 25px 23px;">
+                            <h4>确定恢复此条管线数据吗？</h4>
+                        </div>
+                        <div class="iconSure" style="display: flex;justify-content: space-around">
+                            <button type="button" onclick="" class="btn btn-primary" style="margin: 15px 0 20px 0">确定</button>
+                            <button type="button" onclick="closeTip()" class="btn btn-primary" style="margin: 15px 0 20px 0">取消</button>
+                        </div>
                     </div>
 
                 </div>
@@ -633,15 +660,15 @@
 <!-- 右侧工具栏 -->
 <script type="text/html" id="fqgxRecovery">
     <!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
-    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs">恢复</button>
+    <a type="button" lay-event='yinhuanxainqing' class="layui-btn layui-btn-normal layui-btn-xs">恢复</a>
     <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">恢复</a>-->
 </script>
 <script>
-
-    $('#fqgxRecovery button').click = function () {
-        confirm('确定要恢复吗？')
-        e.preventDefault();
+<!--    点图标隐藏confirm框-->
+    function closeTip() {
+        $('.recoverygx').hide()
     }
+
     //管线图形颜色
     $.ajax({
         url: "/hdsw/gxcontrol/select",
@@ -705,11 +732,11 @@ $.ajax({
 
                     }
                 })
-                let gom = "", lat = "", lng = "";
-                table_ClickRow({
-                    tableId: "test",
+                let gom = "";
+                table_ClickRowDouble({
+                    tableId: tableId,
                     successCallback(obj) {
-                        console.log(obj.pipeid)
+                        console.log('行双击定位等')
                         gom = obj.geom;
                         x = Number(gom.split(',')[0]);
                         y = Number(gom.split(',')[1]);
@@ -729,59 +756,29 @@ $.ajax({
                 table_tool({
                     tableId: tableId,
                     successCallback(obj) {
-                        if(obj.data.alarmStatus == "1")
-                            return ;
-                        switch (obj.event) {
-                            case 'detail':
-                                let url = "/aqyj/wTblAlarmInfo/view/particulars?ID="+obj.data.iD+"&type=0";
-                                Common_layer(url, '查看', '45%', '70%')
-                                break;
-
-                            default:
-                        }
-                        return false;
+                        console.log(obj)
+                            $('.recoverygx').show();
+                        // switch (obj) {
+                        //     case 'yinhuanxainqing':
+                        //         console.log('恢复事件22')
+                        //         // layer.open({
+                        //         //     type: 2,
+                        //         //     area: ['80%', '80%'],
+                        //         //     title: ['处置详情'],
+                        //         //     content: '111'
+                        //         // });
+                        //         // let url = "/aqyj/wTblAlarmInfo/view/particulars?ID="+obj.data.iD+"&type=0";
+                        //         // Common_layer(url, '查看', '45%', '70%')
+                        //         break;
+                        //
+                        //     default:
+                        // }
+                        // return false;
                     }
                 })
             }
         })
     }
-    // 废弃管线恢复表格
-    // layui.use('table', function () {
-    //     var table = layui.table;
-    //     //第一个实例
-    //     table.render({
-    //         elem: '#demo'
-    //         , height: 380
-    //         , url: '/hdsw/wsline/selectDiscardLines' //数据接口
-    //         // , page: true //开启分页
-    //         ,method: 'post'
-    //         ,dataType: 'json'
-    //         ,contentType: 'application/json'
-    //         , cols: [
-    //             [ //表头
-    //                 {field: 'pipeid', title: '管线编号', width: 135, sort: true, align: 'center',}
-    //                 , {field: 'type', title: '业务类别', width: 143, align: 'center',}
-    //                 , {field: 'road', title: '所在道路', width: 139, align: 'center',}
-    //                 , {field: 'flowdirect', title: '纵坐标', width: 139, align: 'center',}
-    //                 , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
-    //             ]
-    //         ],
-    //     });
-    //     //点击行定位到具体范围
-    //     // table.on('row(test)', (obj) => {   //监听行单击事件 lay-filter='test'
-    //     //     // console.log(obj)
-    //     //     var recoveryData = JSON.stringify(obj.data);
-    //     //     console.log(recoveryData)
-    //     //     LoadMap.singleclick()
-    //     //     // layer.alert(JSON.stringify(obj.data), {  //弹出当前行数据
-    //     //     //     title: '当前行数据：'
-    //     //     // });
-    //     //     let x = Number(obj.data.x);
-    //     //     let y = Number(obj.data.y);
-    //     //     var coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
-    //     //     LoadMap.map.getView().setCenter(coordinate1);
-    //     // })
-    // });
 
     //图层收缩事件
     $('.icon-bar').click(function () {
