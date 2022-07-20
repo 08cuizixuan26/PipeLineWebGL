@@ -276,6 +276,36 @@ if (!LoadMap) var LoadMap = {
         this.highlightL.getSource().addFeature(simplaFeature);
         this.highlightF = feature;
     },
+    //高亮矢量图层
+    highLightVectorFeature : function(feature){
+        LoadMap.highlightL.getSource().clear();
+        if (feature) {
+            LoadMap.highlightL.getSource().addFeature(feature);
+        }
+        LoadMap.highlightF = feature;
+    },
+    //闪烁
+    flashHighLight:function (flash){
+        var animation;
+        var flag=true;
+        if(flash) {
+            animation=setInterval(()=>{
+                flag=!flag;
+                this.highlightL.setVisible(flag);
+            },300);
+        }
+        else{
+            clearInterval(animation);
+        }
+    },
+    //定位
+    flyToFeature : function(coordinate1,pointList){
+        if(!coordinate1[0]) return;
+        this.view.animate({zoom: 18}, {center: coordinate1},{duration:500});
+        LoadMap.highLightVectorFeature(new ol.Feature({
+            geometry:new ol.geom.LineString(pointList)
+        }))
+    },
 
     //0-管点，1-管线，2-排水户
     showHdqfeature: function (properties, type) {
@@ -655,6 +685,7 @@ if (!LoadMap) var LoadMap = {
     singleclick() {
         //点击显示
         LoadMap.mapClick = LoadMap.map.on("singleclick", (e) => {
+            LoadMap.highlightL.getSource().clear();
             if (LoadMap.currentMapType == "管线更新") {
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if (LoadMap.getCoordinateFlag == 1) {
@@ -1085,7 +1116,8 @@ LoadMap.mapInit = function (_callback, config) {
     for (let i = 0; i < olMapConfig.layers.length; i++) {
         gx_layers.push(olMapConfig.layers[i]);
     }
-
+    //加载高亮图层
+    gx_layers.push(LoadMap.highlightL);
     //实例化Map对象加载地图
     LoadMap.map = new ol.Map({
         //地图容器div的ID
@@ -1112,8 +1144,8 @@ LoadMap.mapInit = function (_callback, config) {
         console.log(layers);
     }, 0)
     // olMapStyle.showGuangxiArea();
-
     LoadMap.addWsLayer();
+    LoadMap.flashHighLight(true);
     // LoadMap.test();
     LoadMap.singleclick();
 };

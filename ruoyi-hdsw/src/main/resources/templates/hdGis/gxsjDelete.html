@@ -716,7 +716,12 @@ $.ajax({
                         x1 = Number(gom.split(',')[2]);
                         y1 = Number(gom.split(',')[3]);
                         let coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
-                        LoadMap.map.getView().setCenter(coordinate1);
+                        let coordinate2 = ol.proj.transform([x1,y1], 'EPSG:4326', 'BD:09')
+                        var pointList = [];
+                        pointList.push(coordinate1)
+                        pointList.push(coordinate2)
+                        LoadMap.flyToFeature(coordinate1,pointList);
+                        //LoadMap.map.getView().setCenter(coordinate1);
                         // var polygon = [x,y,x1,y1];
                         // LoadLargeMap.positionExtent(polygon);
                     }

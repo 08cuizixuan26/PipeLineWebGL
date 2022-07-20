@@ -6,8 +6,8 @@ var olMapStyle = {
         }),
         //边线颜色
         stroke: new ol.style.Stroke({
-            color: '#00FFFF',
-            width: 3
+            color: '#f00',
+            width: 4
         }),
         //形状
         image: new ol.style.RegularShape({
@@ -18,8 +18,8 @@ var olMapStyle = {
             }),
             //边线颜色
             stroke: new ol.style.Stroke({
-                color: '#00FFFF',
-                width: 3
+                color: '#f00',
+                width: 4
             }),
         })
     }),
