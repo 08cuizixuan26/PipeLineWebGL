@@ -147,6 +147,18 @@
             right: 2%;
             color: #bebbbb;
         }
+        #treeDemo_2_ico{
+            display: none;
+        }
+        #treeDemo_3_ico{
+            display: none;
+        }
+        #treeDemo_4_ico{
+            display: none;
+        }
+        #treeDemo_5_ico{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -182,6 +194,7 @@
           <li>解析加线</li>
           <li>插入点</li>
           <li>连接点</li>
+          <li>数据更新</li>
       </ul>
        <div class="nav_content">
            <div class="sty" id="czjd" style="position: relative">
@@ -1116,12 +1129,53 @@
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
+
+    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+        <div class="layerControlTitle">图例</div>
+        <!--<div><span>图层控制</span></div>-->
+        <ul id="treeDemo2" class=" ztree">
+            <li class="sekuai_" style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color1" id="gsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">供水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color2" id="wsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">污水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color3" id="zssx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">再生水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color4" id="ysx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">雨水管线</span>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 </body>
 </html>
 <script src="//unpkg.com/layui@2.7.2/dist/layui.js"></script>
 <script>
+    //管线图形颜色
+    $.ajax({
+        url: "/hdsw/gxcontrol/select",
+        type: "post",
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            let wsx= $('#wsx').val(data[0].color);
+            document.getElementById('wsx').style.background=wsx[0].value;
+            let zssx= $('#zssx').val(data[1].color);
+            document.getElementById('zssx').style.background=zssx[0].value;
+            let gsx= $('#gsx').val(data[2].color);
+            document.getElementById('gsx').style.background=gsx[0].value;
+            let ysx= $('#ysx').val(data[3].color);
+            document.getElementById('ysx').style.background=ysx[0].value;
+        }
+    })
 
     layui.use(['dropdown', 'util', 'layer', 'table'], function () {
         var dropdown = layui.dropdown
@@ -1171,6 +1225,10 @@
             setBh("gsline","GSL","gxbh5")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
+        }else if($(this).index() == 5){
+            LoadMap.getUpdateData("污水")
+            LoadMap.drawLine();
+            //LoadMap.generate3D()
         }
     })
 
@@ -1820,10 +1878,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    LoadMap.loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layerUI = layui.layer;
                         layerUI.msg("添加成功")
@@ -1839,71 +1899,7 @@
             }
         })
     }
-    function loadNewLayer(layerId) {
-        var layer;
-        switch (layerId) {
-            case "gsgx":
-                layer = new ol.layer.Vector({
-                    id: "gsgx",
-                    source: sourceConfig.getSource("HD:gsline","HD","HD","gsline","0","0"),
-                    style: new ol.style.Style({
-                        stroke: new ol.style.Stroke({
-                            color: "rgba(0,255,255,0.8)",
-                            width: 5,
-                        })
-                    })
-                });
-                break;
-            case "gsjg":
-                layer = new ol.layer.Vector({
-                    id: "gsjg",
-                    source: sourceConfig.getSource("HD:gspoint","HD","HD","gspoint","0","0"),
-                    style: new ol.style.Style({
-                        //形状
-                        image: new ol.style.Icon({
-                            src: '/images/0518/gsgd.png',
-                            scale: 0.2
-                        })
-                    }),
-                });
-                break;
-            case "ysgx":
-                layer = new ol.layer.Vector({
-                    id: "ysgx",
-                    source: sourceConfig.getSource("HD:yslines","HD","HD","yslines","0","0"),
-                    style: new ol.style.Style({
-                        stroke: new ol.style.Stroke({
-                            color: "rgba(139,90,43,0.8)",
-                            width: 5,
-                        })
-                    }),
-                });
-                break;
-            case "ysjg":
-                layer = new ol.layer.Vector({
-                    id: "ysjg",
-                    source: sourceConfig.getSource("HD:yspoints","HD","HD","yspoints","0","0"),
-                    style: new ol.style.Style({
-                        //形状
-                        image: new ol.style.Icon({
-                            src: '/images/0518/ysgd.png',
-                            scale: 0.2
-                        })
-                    }),
-                });
-                break;
-            case "wsgx":
-                layer = olMapConfig.layers[1];
-                break;
-            case "wsjg":
-                layer = olMapConfig.layers[5];
-                break;
-            default:
-                break;
-        }
-        LoadMap.map.addLayer(layer);
-        LoadMap.map.render();
-    }
+
     //解析加点点保存
     function save2() {
         var options = $("#czjd_type2 option:selected");
@@ -1968,10 +1964,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    LoadMap.loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2047,10 +2045,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    LoadMap.loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2150,13 +2150,16 @@
                             gdbh:$('#gdbh4').val().toString()
                         },
                         success: function (res) {
+                            var visibleState;
                             if(res.code==0){
+                                visibleState = gdlayer.values_.visible;
                                 LoadMap.map.removeLayer(gdlayer);
                                 var layerId = gdlayer.values_.id;
-                                loadNewLayer(layerId);
+                                LoadMap.loadNewLayer(layerId,visibleState);
+                                visibleState = gxlayer.values_.visible;
                                 LoadMap.map.removeLayer(gxlayer);
                                 layerId = gxlayer.values_.id;
-                                loadNewLayer(layerId);
+                                LoadMap.loadNewLayer(layerId,visibleState);
                                 layui.use('layer', () => {
                                     let layer = layui.layer;
                                     layer.msg("添加成功")
@@ -2234,10 +2237,12 @@
             dataType: 'json',
             data: JSON.stringify(params),
             success: function (data) {
+                var visibleState;
                 if(data.code==0){
+                    visibleState = layer.values_.visible;
                     LoadMap.map.removeLayer(layer);
                     var layerId = layer.values_.id;
-                    loadNewLayer(layerId);
+                    LoadMap.loadNewLayer(layerId,visibleState);
                     layui.use('layer', () => {
                         let layer = layui.layer;
                         layer.msg("添加成功")
@@ -2257,7 +2262,6 @@
     function download(type) {
         location.href="/hdsw/excel/download?type="+type;
     }
-
     function readPoint() {
         var dataForm=new FormData();
         dataForm.append("file",$("#file1")[0].files[0])
@@ -2271,10 +2275,25 @@
             dataType:"json",
             async:false,  //同步方式发起请求
             success: function (data) {
-                if(data.success){
-                    layer.alert(data.msg, {icon: 6});
+                if(data.code == 0){
+                    var visibleState;
+                    if(data.data == "给水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("gsjg");
+                        LoadMap.loadNewLayer("gsjg",visibleState);
+                    }else if(data.data == "污水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("wsjg",visibleState);
+                        LoadMap.loadNewLayer("wsjg");
+                    }else if(data.data == "雨水"){
+                        visibleState = LoadMap.map.getLayerById("gsjg").values_.visible
+                        LoadMap.map.removeLayer("ysjg");
+                        LoadMap.loadNewLayer("ysjg",visibleState);
+                    }
+                    layer.alert("导入成功", {icon: 6});
+
                 }else {
-                    layer.alert(data.msg, {icon: 2});
+                    layer.alert("导入失败", {icon: 2});
                 }
             },
             error:function () {
@@ -2286,7 +2305,6 @@
     function readLine() {
         var dataForm=new FormData();
         dataForm.append("file",$("#file2")[0].files[0])
-        dataForm.append("type","")
         $.ajax({
             url: "/hdsw/excel/readLine",
             type: "post",
@@ -2298,9 +2316,23 @@
             async:false,  //同步方式发起请求
             success: function (data) {
                 if(data.code == 0){
-                    layer.alert(data.msg, {icon: 6});
+                    var visibleState;
+                    if(data.data == "给水"){
+                        visibleState = LoadMap.map.getLayerById("gsgx").values_.visible
+                        LoadMap.map.removeLayer("gsgx");
+                        LoadMap.loadNewLayer("gsgx",visibleState);
+                    }else if(data.data == "污水"){
+                        visibleState = LoadMap.map.getLayerById("wsgx").values_.visible
+                        LoadMap.map.removeLayer("wsgx");
+                        LoadMap.loadNewLayer("wsgx",visibleState);
+                    }else if(data.data == "雨水"){
+                        visibleState = LoadMap.map.getLayerById("ysgx").values_.visible
+                        LoadMap.map.removeLayer("ysgx");
+                        LoadMap.loadNewLayer("ysgx",visibleState);
+                    }
+                    layer.alert("导入成功", {icon: 6});
                 }else {
-                    layer.alert(data.msg, {icon: 2});
+                    layer.alert("导入失败", {icon: 2});
                 }
             },
             error:function () {

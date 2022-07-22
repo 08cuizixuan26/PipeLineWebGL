@@ -48,7 +48,7 @@
     from "yslines"
     <where>
       <if test="pipeid != null and pipeid != ''">
-        and pipeid = #{pipeid}
+        and (pipeid LIKE CONCAT(CONCAT('%',#{pipeid}),'%') or road LIKE CONCAT(CONCAT('%',#{pipeid}),'%'))
       </if>
       <if test="road != null and road != ''">
         and road = #{road}
@@ -348,5 +348,12 @@
   <select id="epoint" resultType="com.ruoyi.hdsw.model.Gxmodel">
     select pipeid,ST_Astext(geom) geom from "yslines" where e_point=#{epoint}
   </select>
-
+  <update id="batchUpdateState" parameterType="int">
+    update yslines
+    <set>
+      <if test="updState != null">
+        upd_state = #{updState,jdbcType=VARCHAR},
+      </if>
+    </set>
+  </update>
 </mapper>

@@ -49,4 +49,8 @@ public class GspointServiceImpl implements GspointService {
     public Object selectByState(String delState, String updState) {
         return gspointMapper.selectByState(delState,updState);
     }
+    @Override
+    public Object batchUpdateState( String updState) {
+        return gspointMapper.batchUpdateState( updState);
+    }
 }

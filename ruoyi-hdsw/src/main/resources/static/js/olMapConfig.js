@@ -6,8 +6,8 @@ var olMapStyle = {
         }),
         //边线颜色
         stroke: new ol.style.Stroke({
-            color: '#00FFFF',
-            width: 3
+            color: '#f00',
+            width: 4
         }),
         //形状
         image: new ol.style.RegularShape({
@@ -18,8 +18,8 @@ var olMapStyle = {
             }),
             //边线颜色
             stroke: new ol.style.Stroke({
-                color: '#00FFFF',
-                width: 3
+                color: '#f00',
+                width: 4
             }),
         })
     }),
@@ -507,7 +507,7 @@ var olMapConfig = {
                 {
                     "id": "gsgx",
                     "name": "供水管线",
-                    "icon": "/images/zTreeTwo/gsgx.png",
+                    // "icon": "/images/zTreeTwo/gsgx.png",
                     "checked": "false",
                     color:"#000",
                     "open": true
@@ -515,7 +515,7 @@ var olMapConfig = {
                 {
                     "id": "wsgx",
                     "name": "污水管线",
-                    "icon": "/images/zTreeTwo/wsgx.png",
+                    // "icon": "/images/zTreeTwo/wsgx.png",
                     "nocheck": "false",
                     "checked": "true",
                     "open": true
@@ -523,14 +523,14 @@ var olMapConfig = {
                 {
                     "id": "zssgx",
                     "name": "再生水管线",
-                    "icon": "/images/zTreeTwo/zssgx.png",
+                    // "icon": "/images/zTreeTwo/zssgx.png",
                     "checked": "false",
                     "open": true
                 },
                 {
                     "id": "ysgx",
                     "name": "雨水管线",
-                    "icon": "/images/zTreeTwo/ysgx.png",
+                    // "icon": "/images/zTreeTwo/ysgx.png",
                     "checked": "false",
                     "open": true
                 },

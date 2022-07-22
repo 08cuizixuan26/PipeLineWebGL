@@ -254,11 +254,11 @@
             width: 30%;
         }
 
-        .layui-table td {
+        .data_div .layui-table td {
             border-color: #eee;
         }
 
-        .layui-table {
+        .data_div .layui-table {
             color: #0C0C0C;
         }
 
@@ -285,6 +285,38 @@
             text-align: center;
             padding: 7px 0;
         }
+        #treeDemo_2_ico{
+            display: none;
+        }
+        #treeDemo_3_ico{
+            display: none;
+        }
+        #treeDemo_4_ico{
+            display: none;
+        }
+        #treeDemo_5_ico{
+            display: none;
+        }
+        .layui-table td {
+            /* border-color: #eee; */
+        }
+        .layui-table-view .layui-table th {
+            border: none;
+        }
+        .recoverygx {
+            position: fixed;
+            left: 19%;
+            top: 16%;
+            display: block;
+            width: 300px;
+            height: auto;
+            background: #fff;
+            box-shadow: 1px 1px 27px #a7a3a5;
+            border-radius: 3px;
+        }
+        .layui-icon-close:hover {
+            color: #4A98F7;
+        }
     </style>
 </head>
 <body>
@@ -308,46 +340,46 @@
                     <div class="form-group" style="display: flex;align-items: center">
                         <span style="font-weight: bold">污水管线信息</span>
                         <button type="button" class="btn btn-primary"
-                                style="margin-left: 15px;height: 25px;padding: 0 10px"
-                                onclick="getCoordinateFlag(this.id,'管线删除')">
+                                style="margin-left: 15px;height: 25px;padding: 0 10px"  id="guanxian"
+                                onclick="getCoordinateFlag(this.id)">
                             地图上选定管线
                         </button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管线编号</label>
-                            <input type="text" name="pipeid" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian1" name="pipeid" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control"/>
                             <input type="text" name="gid" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control hide"/>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">起点点号</label>
-                            <input type="text" name="s_point" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian2" name="s_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">终点点号</label>
-                            <input type="text" name="e_point" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian3" name="e_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点埋深</label>
-                            <input type="text" name="s_deep" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian4" name="s_deep" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">终点埋深</label>
-                            <input type="text" name="e_deep" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian5" name="e_deep" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点高程</label>
-                            <input type="text" name="s_height" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian6" name="s_height" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
@@ -355,70 +387,70 @@
                     <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">终点高程</label>
-                            <input type="text" name="e_height" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian7" name="e_height" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">材质</label>
-                            <input type="text" name="material" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian8" name="material" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">埋设方式</label>
-                            <input type="text" name="d_type" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian9" name="d_type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">线型</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian10" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline company">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian11" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
                             <!--                                <input type="text" class="layui-input form-control jsrq1" id="guandian14">-->
-                            <input type="text" name="title" class="layui-input form-control">
+                            <input type="text" name="title" id="guanxian12" class="layui-input form-control gx_data">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">权属单位编号</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian13" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">流向</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian14" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">所在道路</label>
-                            <input type="text" name="road" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian15" name="road" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">状态</label>
-                            <input type="text" name="del_state" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian16" name="del_state" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">类别</label>
-                            <input type="text" name="type" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian17" name="type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">长度</label>
-                            <input type="text" name="shape_leng" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxian18" name="shape_leng" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
@@ -437,46 +469,46 @@
                     <div class="form-group" style="display: flex;align-items: center">
                         <span style="font-weight: bold">污水管线信息</span>
                         <button type="button" class="btn btn-primary"
-                                style="margin-left: 15px;height: 25px;padding: 0 10px"
-                                onclick="getCoordinateFlag(this.id,'管线废弃')">
+                                style="margin-left: 15px;height: 25px;padding: 0 10px"  id="guanxianfeiqi"
+                                onclick="getCoordinateFlag(this.id)">
                             地图上选定管线
                         </button>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管线编号</label>
-                            <input type="text" name="pipeid" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi1" name="pipeid" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control"/>
                             <input type="text" name="gid" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control hide"/>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">起点点号</label>
-                            <input type="text" name="s_point" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi2" name="s_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">终点点号</label>
-                            <input type="text" name="e_point" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi3" name="e_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点埋深</label>
-                            <input type="text" name="s_deep" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi4" name="s_deep" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">终点埋深</label>
-                            <input type="text" name="e_deep" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi5" name="e_deep" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点高程</label>
-                            <input type="text" name="s_height" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi6" name="s_height" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
@@ -484,77 +516,77 @@
                     <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">终点高程</label>
-                            <input type="text" name="e_height" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi7" name="e_height" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">材质</label>
-                            <input type="text" name="material" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi8" name="material" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">埋设方式</label>
-                            <input type="text" name="d_type" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi9" name="d_type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">线型</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi10" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline company">
                             <label class="layui-form-label">管径</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi11" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">mm</em>
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">建设日期</label>
                             <!--                                <input type="text" class="layui-input form-control jsrq1" id="guandian14">-->
-                            <input type="text" name="title" id="gxfq_date" class="layui-input form-control">
+                            <input type="text" name="title" id="guanxianfeiqi12" class="layui-input form-control gx_data">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">权属单位编号</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi13" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">流向</label>
-                            <input type="text" name="title" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi14" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">所在道路</label>
-                            <input type="text" name="road" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi15" name="road" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">状态</label>
-                            <input type="text" name="del_state" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi16" name="del_state" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">类别</label>
-                            <input type="text" name="type" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi17" name="type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">长度</label>
-                            <input type="text" name="shape_leng" required lay-verify="required" placeholder=""
+                            <input type="text" id="guanxianfeiqi18" name="shape_leng" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
                     </div>
 
                     <div class="form-group form-btn">
-                        <button type="button" class="btn btn-primary" onclick="save2()">废弃管线</button>
+                        <button type="button" class="btn btn-primary" onclick="save1()">废弃管线</button>
                         <button type="button" class="btn btn-primary">取消</button>
                     </div>
                 </form>
@@ -565,12 +597,25 @@
                 <div class="tableDataBox" style="margin: 10px 10px 10px 10px">
                     <div class="layui-input-inline dataTitle"
                          style="display: flex;justify-content: center;align-items: center">
-                        <input type="text" name="title" required lay-verify="required" placeholder="根据编号、所在道路进行搜索"
+                        <input type="text" name="title" id="pipeid12" required lay-verify="required" placeholder="根据编号、所在道路进行搜索"
                                autocomplete="off" class="form-control large_input">
-                        <button class="btn btn-primary" style="margin-left: 15px;">查询</button>
+                        <button class="btn btn-primary" style="margin-left: 15px;" onclick="tableInit()">查询</button>
                     </div>
                     <div class="data_div">
-                        <table id="demo" lay-filter="test"></table>
+                        <table id="demo" lay-filter="demo"></table>
+                    </div>
+                    <div class="recoverygx" style="display: none">
+                        <div class="icon-Title" style="margin: 15px">
+                            <i class="layui-icon layui-icon-close" onclick="closeTip()" style="font-size: 20px;margin-left: 92%"></i>
+                        </div>
+                        <hr style="margin: 0">
+                        <div class="message" style="padding: 25px 23px;">
+                            <h4>确定恢复此条管线数据吗？</h4>
+                        </div>
+                        <div class="iconSure" style="display: flex;justify-content: space-around">
+                            <button type="button" onclick="" class="btn btn-primary" style="margin: 15px 0 20px 0">确定</button>
+                            <button type="button" onclick="closeTip()" class="btn btn-primary" style="margin: 15px 0 20px 0">取消</button>
+                        </div>
                     </div>
 
                 </div>
@@ -584,6 +629,30 @@
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
+
+    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+        <div class="layerControlTitle">图例</div>
+        <!--<div><span>图层控制</span></div>-->
+        <ul id="treeDemo2" class=" ztree">
+            <li class="sekuai_" style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color1" id="gsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">供水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color2" id="wsx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">污水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color3" id="zssx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">再生水管线</span>
+            </li>
+            <li style="display: flex;align-items: center;margin: 4px 5px">
+                <span class="color4" id="ysx" style="display: inline-block;width: 17px;height: 5px;background: #4A98F7"></span>
+                <span style="margin-left: 2px">雨水管线</span>
+            </li>
+        </ul>
+    </div>
+
 </div>
 
 </body>
@@ -591,19 +660,31 @@
 <!-- 右侧工具栏 -->
 <script type="text/html" id="fqgxRecovery">
     <!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
-    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs">恢复</button>
+    <a type="button" lay-event='yinhuanxainqing' class="layui-btn layui-btn-normal layui-btn-xs">恢复</a>
     <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">恢复</a>-->
 </script>
 <script>
-
-    $('#fqgxRecovery button').click = function () {
-        // alert('回复恢复')
-        e.preventDefault()
+<!--    点图标隐藏confirm框-->
+    function closeTip() {
+        $('.recoverygx').hide()
     }
-    //表格样式
-    $('.tableDataBox tr').hover(function () {
-        console.log(this)
-        $(this).addClass('hoverShow').siblings().removeClass('hoverShow');
+
+    //管线图形颜色
+    $.ajax({
+        url: "/hdsw/gxcontrol/select",
+        type: "post",
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            let wsx= $('#wsx').val(data[0].color);
+            document.getElementById('wsx').style.background=wsx[0].value;
+            let zssx= $('#zssx').val(data[1].color);
+            document.getElementById('zssx').style.background=zssx[0].value;
+            let gsx= $('#gsx').val(data[2].color);
+            document.getElementById('gsx').style.background=gsx[0].value;
+            let ysx= $('#ysx').val(data[3].color);
+            document.getElementById('ysx').style.background=ysx[0].value;
+        }
     })
 
     //获取坐标
@@ -611,41 +692,93 @@
         LoadMap.getCoordinateFlag = clicked_id;
         LoadMap.currentMapType = gxType;
     }
+$.ajax({
+        url: "/hdsw/wsline/selectDiscardLines",
+            method: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+        }
+    })
+    tableInit();
+    function tableInit () {
+        let url = "/hdsw/wsline/selectDiscardLines";
+        let tableId = "demo";
+        let pipeid12=$("#pipeid12").val();
+        let cols = [
+            [ //表头
+                {field: 'pipeid', title: '管线编号', width: 135, unresize: true, sort: true, align: 'center',}
+                , {field: 'type', title: '业务类别', width: 143, unresize: true, align: 'center',}
+                , {field: 'road', title: '所在道路', width: 139, unresize: true, align: 'center',}
+                , {field: 'flowdirect', title: '流向', width: 139, unresize: true, align: 'center',}
+                , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', unresize: true, width: 138, align: 'center'}  //追加表头
+            ]
+        ]
+        ajax_Method({
+            url: url,
+            data:{
+                pipeid:pipeid12
+            },
+            successCallback(res) {
+                table_Method({
+                    tableId: tableId,
+                    id: tableId,
+                    data: res.rows,
+                    limit: 10,
+                    cols: cols,
+                    limits:[15,30,45,60,75,90],
+                    successCallback(){
 
-    // 废弃管线恢复表格
-    layui.use('table', function () {
-        var table = layui.table;
-        //第一个实例
-        table.render({
-            elem: '#demo'
-            , height: 380
-            , url: '/json/wTblCountDataDay.json' //数据接口
-            , page: true //开启分页
-            , cols: [
-                [ //表头
-                    {field: 'id', title: '管线编号', width: 135, sort: true, align: 'center',}
-                    , {field: 'name', title: '业务类别', width: 143, align: 'center',}
-                    , {field: 'x', title: '横坐标', width: 139, align: 'center',}
-                    , {field: 'y', title: '纵坐标', width: 139, align: 'center',}
-                    , {fixed: 'right', title: '管理', toolbar: '#fqgxRecovery', width: 138, align: 'center'}  //追加表头
-                ]
-            ],
-        });
-        //点击行定位到具体范围
-        table.on('row(test)', (obj) => {   //监听行单击事件 lay-filter='test'
-            // console.log(obj)
-            var recoveryData = JSON.stringify(obj.data);
-            console.log(recoveryData)
-            LoadMap.singleclick()
-            // layer.alert(JSON.stringify(obj.data), {  //弹出当前行数据
-            //     title: '当前行数据：'
-            // });
-            let x = Number(obj.data.x);
-            let y = Number(obj.data.y);
-            var coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
-            LoadMap.map.getView().setCenter(coordinate1);
+                    }
+                })
+                let gom = "";
+                table_ClickRowDouble({
+                    tableId: tableId,
+                    successCallback(obj) {
+                        console.log('行双击定位等')
+                        gom = obj.geom;
+                        x = Number(gom.split(',')[0]);
+                        y = Number(gom.split(',')[1]);
+                        x1 = Number(gom.split(',')[2]);
+                        y1 = Number(gom.split(',')[3]);
+                        let coordinate1 = ol.proj.transform([x, y], 'EPSG:4326', 'BD:09')
+                        let coordinate2 = ol.proj.transform([x1,y1], 'EPSG:4326', 'BD:09')
+                        var pointList = [];
+                        pointList.push(coordinate1)
+                        pointList.push(coordinate2)
+                        LoadMap.flyToFeature(coordinate1,pointList);
+                        //LoadMap.map.getView().setCenter(coordinate1);
+                        // var polygon = [x,y,x1,y1];
+                        // LoadLargeMap.positionExtent(polygon);
+                    }
+                })
+                table_tool({
+                    tableId: tableId,
+                    successCallback(obj) {
+                        console.log(obj)
+                            $('.recoverygx').show();
+                        // switch (obj) {
+                        //     case 'yinhuanxainqing':
+                        //         console.log('恢复事件22')
+                        //         // layer.open({
+                        //         //     type: 2,
+                        //         //     area: ['80%', '80%'],
+                        //         //     title: ['处置详情'],
+                        //         //     content: '111'
+                        //         // });
+                        //         // let url = "/aqyj/wTblAlarmInfo/view/particulars?ID="+obj.data.iD+"&type=0";
+                        //         // Common_layer(url, '查看', '45%', '70%')
+                        //         break;
+                        //
+                        //     default:
+                        // }
+                        // return false;
+                    }
+                })
+            }
         })
-    });
+    }
 
     //图层收缩事件
     $('.icon-bar').click(function () {
@@ -676,25 +809,17 @@
         }
     })
 
-    //管线删除——建设日期
+    //管线——建设日期
     layui.use('laydate', function () {
         var laydate = layui.laydate;
         //执行一个laydate实例
         laydate.render({
-            elem: '#gxsc_date'
+            elem: '.gx_data'
             , type: 'date'
         });
     });
 
-    //管线废弃——建设日期
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#gxfq_date'
-            , type: 'date'
-        });
-    });
+
 
     function save1() {
         layui.use('form', function () {

@@ -183,11 +183,67 @@ public class WslinesController extends BaseController {
      * @param road   所在道路
      * @return TableDataInfo
      */
-    @PostMapping("/selectDiscardLines")
-    public TableDataInfo selectDiscardLines(String pipeid, String road) {
+    @RequestMapping("/selectDiscardLines")
+    public TableDataInfo selectDiscardLines(String pipeid,String road ) {
         List<Gxmodel> wsLines = wslinesService.selectDiscardLines(pipeid, road);
+        for(Gxmodel gxmodel:wsLines){
+            String s = JSON.toJSONString(gxmodel.getGeom());
+            int null1 = s.lastIndexOf("(");
+            int null2 = s.indexOf(")");
+            String ssa = s.substring(null1 + 1, null2);
+            int i = ssa.indexOf(",");
+            String substring = ssa.substring(0, i);
+            String substring1 = ssa.substring(i + 1);
+            String [] s1 =substring.split(" ");
+            String [] s2 =substring1.split(" ");
+            gxmodel.setGeom(s1[0]+","+s1[1]+","+s2[0]+","+s2[1]);
+        }
         List<Gxmodel> gslines = gslineService.selectDiscardLines(pipeid, road);
+        for(Gxmodel gslines1:gslines){
+            String s = JSON.toJSONString(gslines1.getGeom());
+            int null1 = s.lastIndexOf("(");
+            int null2 = s.indexOf(")");
+            String ssa = s.substring(null1 + 1, null2);
+            int i = ssa.indexOf(",");
+            String substring = ssa.substring(0, i);
+            String substring1 = ssa.substring(i + 1);
+            String [] s1 =substring.split(" ");
+            String [] s2 =substring1.split(" ");
+            gslines1.setGeom(s1[0]+","+s1[1]+","+s2[0]+","+s2[1]);
+        }
+
         List<Gxmodel> yslines = yslinesService.selectDiscardLines(pipeid, road);
+        for(Gxmodel yslines1:yslines){
+            String s = JSON.toJSONString(yslines1.getGeom());
+            int null1 = s.lastIndexOf("(");
+            int null2 = s.indexOf(")");
+            String ssa = s.substring(null1 + 1, null2);
+            int i = ssa.indexOf(",");
+            String substring = ssa.substring(0, i);
+            String substring1 = ssa.substring(i + 1);
+            String [] s1 =substring.split(" ");
+            String [] s2 =substring1.split(" ");
+            yslines1.setGeom(s1[0]+","+s1[1]+","+s2[0]+","+s2[1]);
+
+        }
+
+        CollUtil.unionAll(wsLines, gslines, yslines);
         return getDataTable(CollUtil.unionAll(wsLines, gslines, yslines));
+    }
+    /**
+     * 更新update状态
+     **/
+    @PostMapping("/batchUpdate")
+    public AjaxResult batchUpdate(@RequestParam(value = "updState") String updState) {
+        try {
+            if (ObjectUtils.isNotEmpty(updState)) {
+                return AjaxResult.success(wslinesService.batchUpdateState(updState));
+            } else {
+                return AjaxResult.error("所传参数为空");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
     }
 }

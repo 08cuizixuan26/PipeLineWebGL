@@ -47,15 +47,45 @@ if (!LoadMap) var LoadMap = {
     //凸多边形点集合
     linePoints: undefined,
 
+    //三维更新接口_图层id
+    gsGuid:"f5561c20-45f6-4cd8-911c-68126ce27808",
+    wsGuid:"c10bdcff-6983-49ed-a2eb-365495882650",
+    ysGuid:"a7f67368-7203-481b-adfd-6f9a6b4e3af2",
+
     //获取待更新的数据
-    getUpdateData: function () {
+    getUpdateData: function (type) {
         var points = [];
-        var url = "/hdsw/gsline/selectByState"
+        var url = "";
+        var url1 = "";
+        var url2 = "";
+        var url3 = "";
+        let guid = "";
+        if(type == "给水"){
+            url="/hdsw/gsline/selectByState"
+            url1="/hdsw/gspoint/selectByState"
+            url2="/hdsw/gsline/batchUpdate"
+            url3="/hdsw/gspoint/batchUpdate"
+            guid = LoadMap.gsGuid;
+        }else if(type == "雨水"){
+            url="/hdsw/ysline/selectByState"
+            url1="/hdsw/yspoint/selectByState"
+            url2="/hdsw/ysline/batchUpdate"
+            url3="/hdsw/yspoint/batchUpdate"
+            guid = LoadMap.ysGuid;
+        }else if(type == "污水"){
+            url="/hdsw/wsline/selectByState"
+            url1="/hdsw/wspoint/selectByState"
+            url2="/hdsw/wsline/batchUpdate"
+            url3="/hdsw/wspoint/batchUpdate"
+            guid = LoadMap.wsGuid;
+        }
+        //获取待更新线表坐标
         $.ajax({
             url: url,
             type: "get",
             contentType: 'application/json',
             dataType: 'json',
+            async:false,  //同步方式发起请求
             data: {updState: "1"},
             success: function (data) {
                 if (data.code == 0) {
@@ -66,13 +96,103 @@ if (!LoadMap) var LoadMap = {
                         var point1 = {x: geom.coordinates[0][1][0], y: geom.coordinates[0][1][1]};
                         points.push(point1);
                     })
-                    var newPoints = convexhull.makeHull(points)
-                    LoadMap.linePoints = newPoints;
+                }
+            }
+        })
+        //获取待更新点表坐标
+        $.ajax({
+            url: url1,
+            type: "get",
+            contentType: 'application/json',
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "1"},
+            success: function (data) {
+                if (data.code == 0) {
+                    data.data.forEach(function (element, index) {
+                        var geom = JSON.parse(element.geom);
+                        var point = {x: geom.coordinates[0], y: geom.coordinates[1]};
+                        points.push(point);
+                    })
                 }
             }
         })
 
+        //更新
+        $.ajax({
+            url: url2,
+            type: "post",
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "0"},
+            success: function (data) {
+            }
+        })
+        $.ajax({
+            url: url3,
+            type: "post",
+            dataType: 'json',
+            async:false,  //同步方式发起请求
+            data: {updState: "0"},
+            success: function (data) {
+            }
+        })
+        //生成凸多边形
+        var newPoints = convexhull.makeHull(points)
+        LoadMap.linePoints = newPoints;
+/*        //调取生成三维接口
+        let data = "";
+        LoadMap.linePoints.forEach(function (obj, index) {
+            data += `<location>${obj.x},${obj.y}</location>`;
+        });
+        data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
+        $.ajax({
+            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            type: "post",
+            data:data,
+            dataType:"json",
+            //async:false,  //同步方式发起请求
+            success: function (data) {
+
+            },
+            error:function () {
+
+            }
+        });*/
     },
+
+    //调用三维接口
+    generate3D:function (type) {
+        let guid = "";
+        let url = "";
+        if(type == "给水"){
+            guid = LoadMap.gsGuid;
+        }else if(type == "雨水"){
+            guid = LoadMap.ysGuid;
+        }else if(type == "污水"){
+            guid = LoadMap.wsGuid;
+        }
+        LoadMap.getUpdateData(type);
+        let data = "";
+        LoadMap.linePoints.forEach(function (obj, index) {
+            data += `<location>${obj.x},${obj.y}</location>`;
+        });
+        data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
+        $.ajax({
+            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            type: "post",
+            data:data,
+            dataType:"json",
+            //async:false,  //同步方式发起请求
+            success: function (data) {
+
+            },
+            error:function () {
+
+            }
+        });
+    },
+
     //绘制多边形
     drawLine: function () {
         var targetArr = [];
@@ -156,6 +276,36 @@ if (!LoadMap) var LoadMap = {
         this.highlightL.getSource().addFeature(simplaFeature);
         this.highlightF = feature;
     },
+    //高亮矢量图层
+    highLightVectorFeature : function(feature){
+        LoadMap.highlightL.getSource().clear();
+        if (feature) {
+            LoadMap.highlightL.getSource().addFeature(feature);
+        }
+        LoadMap.highlightF = feature;
+    },
+    //闪烁
+    flashHighLight:function (flash){
+        var animation;
+        var flag=true;
+        if(flash) {
+            animation=setInterval(()=>{
+                flag=!flag;
+                this.highlightL.setVisible(flag);
+            },300);
+        }
+        else{
+            clearInterval(animation);
+        }
+    },
+    //定位
+    flyToFeature : function(coordinate1,pointList){
+        if(!coordinate1[0]) return;
+        this.view.animate({zoom: 18}, {center: coordinate1},{duration:500});
+        LoadMap.highLightVectorFeature(new ol.Feature({
+            geometry:new ol.geom.LineString(pointList)
+        }))
+    },
 
     //0-管点，1-管线，2-排水户
     showHdqfeature: function (properties, type) {
@@ -238,6 +388,25 @@ if (!LoadMap) var LoadMap = {
             $("#guanxian16").attr("value", properties["state"])
             $("#guanxian17").attr("value", properties["type"])
             $("#guanxian18").attr("value", properties["shape_leng"])
+        }else if(LoadMap.getCoordinateFlag == "guanxianfeiqi"){
+            $("#guanxianfeiqi1").attr("value", properties["pipeid"])
+            $("#guanxianfeiqi2").attr("value", properties["s_point"])
+            $("#guanxianfeiqi3").attr("value", properties["e_point"])
+            $("#guanxianfeiqi4").attr("value", properties["s_deep"])
+            $("#guanxianfeiqi5").attr("value", properties["e_deep"])
+            $("#guanxianfeiqi6").attr("value", properties["s_height"])
+            $("#guanxianfeiqi7").attr("value", properties["e_height"])
+            $("#guanxianfeiqi8").attr("value", properties["material"])
+            $("#guanxianfeiqi9").attr("value", properties["d_type"])
+            $("#guanxianfeiqi10").attr("value", properties["style"])
+            $("#guanxianfeiqi11").attr("value", properties["d_s"])
+            $("#guanxianfeiqi12").attr("value", properties["b_time"])
+            $("#guanxianfeiqi13").attr("value", properties["owner"])
+            $("#guanxianfeiqi14").attr("value", properties["flowdirect"])
+            $("#guanxianfeiqi15").attr("value", properties["road"])
+            $("#guanxianfeiqi16").attr("value", properties["state"])
+            $("#guanxianfeiqi17").attr("value", properties["type"])
+            $("#guanxianfeiqi18").attr("value", properties["shape_leng"])
         }
 
         if (type == 0) {
@@ -491,11 +660,32 @@ if (!LoadMap) var LoadMap = {
             $("#guanxian16").attr("value", properties["state"])
             $("#guanxian17").attr("value", properties["type"])
             $("#guanxian18").attr("value", properties["shape_leng"])
+        }else if(LoadMap.getCoordinateFlag == "guanxianfeiqi"){
+            $("#guanxianfeiqi1").attr("value", properties["pipeid"])
+            $("#guanxianfeiqi2").attr("value", properties["s_point"])
+            $("#guanxianfeiqi3").attr("value", properties["e_point"])
+            $("#guanxianfeiqi4").attr("value", properties["s_deep"])
+            $("#guanxianfeiqi5").attr("value", properties["e_deep"])
+            $("#guanxianfeiqi6").attr("value", properties["s_height"])
+            $("#guanxianfeiqi7").attr("value", properties["e_height"])
+            $("#guanxianfeiqi8").attr("value", properties["material"])
+            $("#guanxianfeiqi9").attr("value", properties["d_type"])
+            $("#guanxianfeiqi10").attr("value", properties["style"])
+            $("#guanxianfeiqi11").attr("value", properties["d_s"])
+            $("#guanxianfeiqi12").attr("value", properties["b_time"])
+            $("#guanxianfeiqi13").attr("value", properties["owner"])
+            $("#guanxianfeiqi14").attr("value", properties["flowdirect"])
+            $("#guanxianfeiqi15").attr("value", properties["road"])
+            $("#guanxianfeiqi16").attr("value", properties["state"])
+            $("#guanxianfeiqi17").attr("value", properties["type"])
+            $("#guanxianfeiqi18").attr("value", properties["shape_leng"])
         }
     },
 
     singleclick() {
+        //点击显示
         LoadMap.mapClick = LoadMap.map.on("singleclick", (e) => {
+            LoadMap.highlightL.getSource().clear();
             if (LoadMap.currentMapType == "管线更新") {
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
                 if (LoadMap.getCoordinateFlag == 1) {
@@ -514,25 +704,6 @@ if (!LoadMap) var LoadMap = {
                         $("#xcor4").attr("value", coor[0] - LoadMap.xOffset)
                         $("#ycor4").attr("value", coor[1] - LoadMap.yOffset)
                     }
-                })
-            } else if (LoadMap.currentMapType == "管线删除") {
-                LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-                    layui.use('form', function () {
-                        let form = layui.form;
-                        let data = feature.getProperties();
-                        data.del_state = LoadMap.del_state(data.del_state);
-                        form.val("del", data);     //给表单赋值
-                    })
-                })
-            } else if (LoadMap.currentMapType == "管线废弃") {
-                LoadMap.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-                    console.log(feature.getProperties());
-                    layui.use('form', function () {
-                        let form = layui.form;
-                        let data = feature.getProperties();
-                        data.del_state = LoadMap.del_state(data.del_state);
-                        form.val("abandoned", data);     //给表单赋值
-                    })
                 })
             } else {
                 this.closeFeatureInfo();
@@ -736,6 +907,31 @@ if (!LoadMap) var LoadMap = {
         return vectorSources;
     },
 
+    getLineSources2: function () {
+        var vectorSources = [];
+        var layers = [];
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+        var nodes = treeObj.getCheckedNodes();
+        var layers = LoadMap.map.getLayers();
+        var layerArray = [];
+        nodes.forEach(function (node) {
+            var checkId = node.id;
+            if (checkId == 'gsgx' || checkId == 'wsgx' || checkId == 'ysgx' || checkId == 'zssgx') {
+                var checked = node.checked;
+                node.checkedOld = node.checked;
+                layers.forEach(function (layer) {
+                    if (layer.get("id") == checkId) {
+                        if (checked == true && layer instanceof ol.layer.Vector) {
+                            layerArray.push(layer.get("id"));
+                            vectorSources.push(layer.values_.source);
+                        }
+                    }
+                })
+            }
+        });
+        return vectorSources;
+    },
+
     //根据范围和数据源获取
     getSelectFeatures(vectorSources, extent) {
         var features;
@@ -775,7 +971,7 @@ if (!LoadMap) var LoadMap = {
             return "正常";
         }
     },
-    loadNewLayer(layerId) {
+    loadNewLayer:function(layerId,visibleState) {
     var layer;
     switch (layerId) {
         case "gsgx":
@@ -844,8 +1040,12 @@ if (!LoadMap) var LoadMap = {
             break;
     }
     LoadMap.map.addLayer(layer);
+    layer.setVisible(visibleState)
     LoadMap.map.render();
 }
+
+}
+function layerTreeDiv() {
 
 }
 
@@ -872,11 +1072,33 @@ LoadMap.mapInit = function (_callback, config) {
             onCheck: LoadMap.setLayerVisible
         }
     };
+    var layerTreeSetting2 = {
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+            }
+        },
+        view: {
+            selectedMulti: false
+        },
+        callback: {
+            onCheck: LoadMap.setLayerVisible
+        }
+    };
     let initTreeData = [];
     olMapConfig.layersTreeData.forEach(function (node) {
         initTreeData.push(node);
     });
     $.fn.zTree.init($("#treeDemo"), layerTreeSetting, initTreeData);
+    // let initTreeData2 = [];
+    // olMapConfig.layersTreeData.forEach(function (node) {
+    //     initTreeData.push(node);
+    // });
+    // $.fn.zTree.init($("#treeDemo2"), layerTreeSetting2, initTreeData);
 
     $("#mapLayers").click(function () {
         let treeDiv = $(".layerTreeDiv")[0];
@@ -894,7 +1116,8 @@ LoadMap.mapInit = function (_callback, config) {
     for (let i = 0; i < olMapConfig.layers.length; i++) {
         gx_layers.push(olMapConfig.layers[i]);
     }
-
+    //加载高亮图层
+    gx_layers.push(LoadMap.highlightL);
     //实例化Map对象加载地图
     LoadMap.map = new ol.Map({
         //地图容器div的ID
@@ -921,8 +1144,8 @@ LoadMap.mapInit = function (_callback, config) {
         console.log(layers);
     }, 0)
     // olMapStyle.showGuangxiArea();
-
     LoadMap.addWsLayer();
+    LoadMap.flashHighLight(true);
     // LoadMap.test();
     LoadMap.singleclick();
 };

@@ -180,4 +180,20 @@ public class YslinesController {
             return AjaxResult.error(e.getMessage());
         }
     }
+    /**
+     * 更新update状态
+     **/
+    @PostMapping("/batchUpdate")
+    public AjaxResult batchUpdate(@RequestParam(value = "updState") String updState) {
+        try {
+            if (ObjectUtils.isNotEmpty(updState)) {
+                return AjaxResult.success(yslinesService.batchUpdateState(updState));
+            } else {
+                return AjaxResult.error("所传参数为空");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
+    }
 }
