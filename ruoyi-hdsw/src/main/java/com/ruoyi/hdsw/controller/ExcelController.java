@@ -5,24 +5,28 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.hdsw.model.Gdmodel;
 import com.ruoyi.hdsw.model.Gxmodel;
 import com.ruoyi.hdsw.service.*;
-import com.ruoyi.hdsw.util.*;
-import com.sun.deploy.net.URLEncoder;
-import io.swagger.annotations.ApiOperation;
+import com.ruoyi.hdsw.util.ExcelException;
+import com.ruoyi.hdsw.util.ExcelUtils;
+import com.ruoyi.hdsw.util.GetProperty;
+import com.ruoyi.hdsw.util.POIExcelUtil;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLDecoder;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/hdsw/excel")
