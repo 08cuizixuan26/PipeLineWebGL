@@ -1292,6 +1292,8 @@
 
     })
 
+
+
     $('#reduce_czw').click(function (){
         $("#"+zh_).remove()
         // $('.jl').attr('disabled',false)
@@ -1568,6 +1570,31 @@
         }
         LoadMap.getCoordinateFlag = undefined;
     }
+
+    // //解析加线页面输入法的类别和起始点坐标一致
+    // $('#xqd').click(function () {
+    //     var opt = $('#czjd_type3 option:selected');
+    //     var opttext = opt[0].innerHTML;
+    //     var selectxqd = $('#qdbh3').val();
+    //     var qsdbh = selectxqd.slice(0, 3);
+    //     var selectxzd = $('#zdbh3').val();
+    //     var zdbh = selectxzd.slice(0, 3);
+    //     console.log(zdbh);
+    //     if(opttext == '污水') {
+    //         if(qsdbh != 'WSP' || zdbh != 'WSP') {
+    //             layui.use('layer', () => {
+    //                 let layer = layui.layer;
+    //                 layer.msg("请按照业务类别选点")
+    //             })
+    //         }
+    //     } else if(opttext == '雨水') {
+    //         // if(qsdbh != 'YSP' || zdbh != 'YSP') {
+    //         // }
+    //     } else if(opttext == '再生水') {
+    //         // if(qsdbh != 'YSP' || zdbh != 'YSP') {
+    //         // }
+    //     }
+    // })
 
     //获取坐标
     function getCoordinateFlag(clicked_id) {
