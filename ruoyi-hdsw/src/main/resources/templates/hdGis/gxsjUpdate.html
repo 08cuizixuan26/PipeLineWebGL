@@ -34,6 +34,12 @@
             border-radius: 5px;
             border: 1px solid #03FFEA;
         }
+        .layui-ihh .layui-table td {
+            font-size: 12px;
+            line-height: 13px;
+            border-color: #03FFEA;
+            width: 80px;
+        }
         .content-tab{
             position: absolute;
             z-index: 9999;
@@ -228,7 +234,7 @@
     <div class="icon-bar">
         <div class="layui-icon layui-icon-template-1 layui-icon-map" id="mapLayers"></div>
     </div>
-    <div id="featureInfo" class="featureInfo layui-ihh" style="overflow:auto;border-radius:10px;"></div>
+    <div id="featureInfo" class="featureInfo layui-ihh" style="overflow-y:auto;overflow-x: hidden;width: 327px;min-height: 100px;max-height: 260px;border-radius:10px;"></div>
 
     <div class="content-tab">
         <ul class="tabNav">
