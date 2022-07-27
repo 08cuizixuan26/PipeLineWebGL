@@ -1218,19 +1218,19 @@
         if($(this).index() == 0){
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
-            setBh("gspoint","GSP","gdbh1")
+            //setBh("gspoint","GSP","gdbh1")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
-            setBh("gspoint","GSP","gdbh2")
+            //setBh("gspoint","GSP","gdbh2")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
-            setBh("gsline","GSL","gxbh3")
+            //setBh("gsline","GSL","gxbh3")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 3){
@@ -1239,12 +1239,12 @@
         }else if($(this).index() == 4){
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
-            setBh("gsline","GSL","gxbh5")
+            //setBh("gsline","GSL","gxbh5")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 5){
             LoadMap.getUpdateData("污水")
-            LoadMap.drawLine();
+            //LoadMap.drawLine();
             //LoadMap.generate3D()
         }
     })
@@ -1371,7 +1371,7 @@
     var tt;
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
-        setBh("gspoint","GSP","gdbh1")
+        //setBh("gspoint","GSP","gdbh1")
     })
     $('#search_content1') .bind('keypress', function (event) {
         if(event.keyCode == "13"){
