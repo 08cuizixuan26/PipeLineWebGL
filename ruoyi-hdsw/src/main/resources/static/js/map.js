@@ -685,7 +685,7 @@ if (!LoadMap) var LoadMap = {
 
     singleclick() {
         //点击显示
-        LoadMap.mapClick = LoadMap.map.on("singleclick", (e) => {
+        LoadMap.mapClick = LoadMap.map.on("click", (e) => {
             LoadMap.highlightL.getSource().clear();
             if (LoadMap.currentMapType == "管线更新") {
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
