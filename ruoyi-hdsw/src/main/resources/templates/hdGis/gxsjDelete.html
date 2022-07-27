@@ -56,8 +56,8 @@
         }
 
         .sty {
-            width: 950px;
-            max-height: 700px;
+            width: 630px;
+            max-height: 800px;
             min-height: 150px;
             border-radius: 10px;
             border: 2px solid #ccc;
@@ -126,7 +126,7 @@
         }
 
         .layerTreeDiv {
-            right: 3% !important;
+            right: 0px !important;
         }
 
         .layui-input-inline {
@@ -329,12 +329,12 @@
 
     <div class="content-tab">
         <ul class="tabNav">
-            <li class="active_nav">管线删除</li>
+            <li>管线删除</li>
             <li>管线废弃</li>
             <li>废弃管线恢复</li>
         </ul>
         <div class="nav_content">
-            <div class="sty" id="gxsc">
+            <div class="sty" id="gxsc" style="display: none">
                 <!--                管线删除-->
                 <form class="layui-form" action="" lay-filter="del">
                     <div class="form-group" style="display: flex;align-items: center">
@@ -358,13 +358,13 @@
                             <input type="text" id="guanxian2" name="s_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">终点点号</label>
                             <input type="text" id="guanxian3" name="e_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点埋深</label>
                             <input type="text" id="guanxian4" name="s_deep" required lay-verify="required" placeholder=""
@@ -396,13 +396,13 @@
                             <input type="text" id="guanxian8" name="material" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">埋设方式</label>
                             <input type="text" id="guanxian9" name="d_type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">线型</label>
                             <input type="text" id="guanxian10" name="title" required lay-verify="required" placeholder=""
@@ -431,13 +431,13 @@
                             <input type="text" id="guanxian14" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">所在道路</label>
                             <input type="text" id="guanxian15" name="road" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">状态</label>
                             <input type="text" id="guanxian16" name="del_state" required lay-verify="required" placeholder=""
@@ -458,7 +458,7 @@
 
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="save1()">删除管线</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </form>
             </div>
@@ -487,13 +487,13 @@
                             <input type="text" id="guanxianfeiqi2" name="s_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">终点点号</label>
                             <input type="text" id="guanxianfeiqi3" name="e_point" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点埋深</label>
                             <input type="text" id="guanxianfeiqi4" name="s_deep" required lay-verify="required" placeholder=""
@@ -525,13 +525,13 @@
                             <input type="text" id="guanxianfeiqi8" name="material" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">埋设方式</label>
                             <input type="text" id="guanxianfeiqi9" name="d_type" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">线型</label>
                             <input type="text" id="guanxianfeiqi10" name="title" required lay-verify="required" placeholder=""
@@ -560,13 +560,13 @@
                             <input type="text" id="guanxianfeiqi14" name="title" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">所在道路</label>
                             <input type="text" id="guanxianfeiqi15" name="road" required lay-verify="required" placeholder=""
                                    autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">状态</label>
                             <input type="text" id="guanxianfeiqi16" name="del_state" required lay-verify="required" placeholder=""
@@ -587,7 +587,7 @@
 
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="save1()">废弃管线</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </form>
             </div>
@@ -630,7 +630,7 @@
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
 
-    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 0;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
         <div class="layerControlTitle">图例</div>
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo2" class=" ztree">
@@ -736,7 +736,7 @@ $.ajax({
                 table_ClickRowDouble({
                     tableId: tableId,
                     successCallback(obj) {
-                        console.log('行双击定位等')
+                        // console.log('行双击定位等')
                         gom = obj.geom;
                         x = Number(gom.split(',')[0]);
                         y = Number(gom.split(',')[1]);

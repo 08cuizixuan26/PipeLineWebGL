@@ -69,8 +69,8 @@
             color: #fff;
         }
         .sty{
-            width: 950px;
-            max-height: 700px;
+            width: 630px;
+            max-height: 800px;
             min-height: 150px;
             border-radius: 10px;
             border: 2px solid #ccc;
@@ -126,7 +126,7 @@
             right: 50px!important;
         }
         .layerTreeDiv {
-            right: 3%!important;
+            right: 0px!important;
         }
         .btn-mini{
             line-height: 25px;
@@ -189,7 +189,7 @@
 
         </div>
       <ul class="tabNav">
-          <li class="active_nav">参照加点</li>
+          <li>参照加点</li>
           <li>解析加点</li>
           <li>解析加线</li>
           <li>插入点</li>
@@ -197,48 +197,48 @@
           <li>数据更新</li>
       </ul>
        <div class="nav_content">
-           <div class="sty" id="czjd" style="position: relative">
+           <div class="sty" id="czjd" style="position: relative;display: none">
 <!--               <p class="sear_sty">-->
 <!--               参照加点的业务类别-->
-                   <div class="layui-input-inline" style="margin-left: 240px; display: flex">
+                   <div class="layui-input-inline" style="margin-left: 110px; display: flex">
                        <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                            <select style="display: block;margin-left: 5px" name="czjd_type1" id="czjd_type1" class="form-control" lay-verify="required">
                                <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                                <option value="0">供水</option>
                                <option value="1">污水</option>
                                <option value="2">雨水</option>
-                               <option value="3">再生水</option>>
+                               <option value="3">再生水</option>
                            </select>
                        <input style="margin-left: 10px" type="text"  id="search_content1" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                        <button style="margin-left: 10px" class="btn btn-primary" id="search_btn1">查询</button>
                    </div>
                     <p class="slectTip"
                        style="font-size: 12px;
-                       margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 6.5%;left: 1%">请选择业务类别</p>
+                       margin-left: 156px;
+                       color: #ed7470;position: absolute;top: 6%;left: -4%">请选择业务类别</p>
 <!--               </p>-->
-               <form class="layui-form" action="">
+               <form class="layui-form" action="" style="margin-top: 25px">
                    <div class="Mapczw">
                        <div class="form-group">
                            <h4>参照物1:<button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="1" onclick="getCoordinateFlag(this.id)">获取坐标</button>
                            <button type="button" class="btn btn-success" style="height: 25px;padding: 0 5px 0 5px" onclick="computeCoordinate()" >计算</button></h4>
                            <div class="form-group">
                                <div class="layui-input-inline">
-                                   <label class="layui-form-label">横坐标</label>
+                                   <label class="layui-form-label">X坐标</label>
                                    <input type="text" name="title" id="x1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                                </div>
                                <div class="layui-input-inline">
-                                   <label class="layui-form-label">纵坐标</label>
+                                   <label class="layui-form-label">Y坐标</label>
                                    <input type="text" name="title" id="y1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                               </div>
-                               <div class="layui-input-inline company1">
-                                   <label class="layui-form-label">距离</label>
-                                   <input type="text" id="dis1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl" disabled>
-                                   <em class="em">m</em>
                                </div>
                            </div>
                        </div>
                        <div class="form-group">
+                           <div class="layui-input-inline company1">
+                               <label class="layui-form-label">距离</label>
+                               <input type="text" id="dis1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl">
+                               <em class="em">m</em>
+                           </div>
                            <div class="layui-input-inline">
                                <label class="layui-form-label">角度</label>
                                <input type="text" name="title" id="brng1"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -262,16 +262,18 @@
                            <input type="text" id="dmgc1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            <em class="em">m</em>
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">特征</label>
                            <input type="text" id="tz1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
-                   <div class="form-group company1">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">附属物</label>
                            <input type="text" id="fsw1" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="from-group company1">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井底埋深</label>
                            <input type="text" name="title" id="jdms1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -281,7 +283,6 @@
                            <label class="layui-form-label">井盖类型</label>
                            <input type="text" name="title" id="jglx1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline company1">
@@ -293,17 +294,18 @@
                            <label class="layui-form-label">井盖材质</label>
                            <input type="text" name="title" id="jgcz1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室材质</label>
                            <input type="text" name="title" id="jscz1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室类型</label>
                            <input type="text" name="title" id="jslx1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井脖深</label>
                            <input type="text" name="title" id="jbs1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -323,16 +325,19 @@
                            <label class="layui-form-label">建设日期</label>
                            <input type="text" class="layui-input form-control" id="jsrq1">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">偏心井点号</label>
                            <input type="text" name="title" id="pxjdh1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">旋转角度</label>
                            <input type="text" name="title" id="xzjd1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">所在道路</label>
                            <input type="text" name="title" id="szdl1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -341,7 +346,6 @@
                            <label class="layui-form-label">标高</label>
                            <input type="text" name="title" id="bg1" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
@@ -355,7 +359,7 @@
                    </div>
                    <div class="form-group form-btn">
                        <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
-                       <!--<button type="button" class="btn btn-primary">取消</button>-->
+<!--                       <button type="button" class="btn btn-primary">取消</button>-->
                    </div>
                </form>
            </div>
@@ -389,7 +393,7 @@
                    </div>-->
                    <div class="form-group" style="text-align: center">
                        <button class="btn btn-primary" type="submit" value="Submit" onclick="readPoint()">确定</button>
-                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>
+<!--                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>-->
                    </div>
                </div>
 
@@ -412,7 +416,7 @@
                            <option value="0">供水</option>
                            <option value="1">污水</option>
                            <option value="2">雨水</option>
-                           <option value="3">再生水</option>>
+                           <option value="3">再生水</option>
                        </select>
                        <div class="layui-input-inline" style="line-height: 30px;margin-left: 10px;">
                            <button type="button" class="btn btn-primary" style="height: 25px;padding: 0!important" id="hqzb2" onclick="getCoordinateFlag(this.id)">获取坐标</button>
@@ -426,16 +430,16 @@
                    <p class="slectTip1"
                       style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 6.3%;left: -12%">请选择业务类别</p>
+                       color: #ed7470;position: absolute;top: 5.5%;left: -18%">请选择业务类别</p>
                    <form class="layui-form" action="">
                        <h4>管点坐标:</h4>
                        <div class="form-group">
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">横坐标</label>
+                               <label class="layui-form-label">X坐标</label>
                                <input type="text" name="title" id="xcor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">纵坐标</label>
+                               <label class="layui-form-label">Y坐标</label>
                                <input type="text" name="title" id="ycor2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                        </div>
@@ -469,18 +473,21 @@
                                <label class="layui-form-label">附属物</label>
                                <input type="text" id="fsw2" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline company1">
                                <label class="layui-form-label">井底埋深</label>
                                <input type="text" name="title" id="jdms2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                                <em class="em">m</em>
                            </div>
-
-                       </div>
-                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">井盖类型</label>
                                <input type="text" name="title" id="jglx2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline company1">
                                <label class="layui-form-label">井盖规格</label>
                                <input type="text" name="title" id="jggg2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -490,7 +497,6 @@
                                <label class="layui-form-label">井盖材质</label>
                                <input type="text" name="title" id="jgcz2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-
                        </div>
                        <div class="form-group">
                            <div class="layui-input-inline">
@@ -501,22 +507,24 @@
                                <label class="layui-form-label">井室类型</label>
                                <input type="text" name="title" id="jslx2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">井脖深</label>
                                <input type="text" name="title" id="jbs2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-                       </div>
-                       <div class="form-group">
-                               <div class="layui-input-inline company1">
-                                   <label class="layui-form-label">井室直径</label>
-                                   <input type="text" name="title" id="jszj2"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                                   <em class="em">cm</em>
-                               </div>
+                           <div class="layui-input-inline company1">
+                               <label class="layui-form-label">井室直径</label>
+                               <input type="text" name="title" id="jszj2"  required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                               <em class="em">cm</em>
+                           </div>
 <!--                           <div class="layui-input-inline">-->
 <!--                               <label class="layui-form-label">井室直径</label>-->
 <!--                               <input type="text" name="title" id="jszj2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
 <!--                               <em>米</em>-->
 <!--                           </div>-->
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">权属单位</label>
                                <input type="text" name="title" id="qsdw2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -535,13 +543,13 @@
                                <label class="layui-form-label">旋转角度</label>
                                <input type="text" name="title" id="xzjd2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">所在道路</label>
                                <input type="text" name="title" id="szdl2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-
-                       </div>
-                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">标高</label>
                                <input type="text" name="title" id="bg2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -549,7 +557,7 @@
                        </div>
                        <div class="form-group form-btn">
                            <button type="button" class="btn btn-primary" onclick="save2()">确定</button>
-                           <button type="button" class="btn btn-primary">取消</button>
+<!--                           <button type="button" class="btn btn-primary">取消</button>-->
                        </div>
                    </form>
                </div>
@@ -583,7 +591,7 @@
                    </div>-->
                    <div class="form-group" style="text-align: center">
                        <button class="btn btn-primary" type="submit" value="Submit" onclick="readLine()">确定</button>
-                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>
+<!--                       <button class="btn btn-primary" type="reset" value="Reset">取消</button>-->
                    </div>
                </div>
 
@@ -603,7 +611,7 @@
                    <p class="slectTip2"
                       style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 6%;left: -12%">请选择业务类别</p>
+                       color: #ed7470;position: absolute;top: 5%;left: -18%">请选择业务类别</p>
                    <form class="layui-form" action="">
                        <h4>起点坐标:</h4>
                        <div class="form-group">
@@ -615,11 +623,11 @@
                        </div>
                        <div class="form-group hzzb" id="qdzb">
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">横坐标</label>
+                               <label class="layui-form-label">X坐标</label>
                                <input type="text" name="title" id="qdxcor3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">纵坐标</label>
+                               <label class="layui-form-label">Y坐标</label>
                                <input type="text" name="title" id="qdycor3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                        </div>
@@ -633,11 +641,11 @@
                        </div>
                        <div class="form-group hzzb" id="zdzb">
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">横坐标</label>
+                               <label class="layui-form-label">X坐标</label>
                                <input type="text" name="title" id="zdxcor3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                            <div class="layui-input-inline">
-                               <label class="layui-form-label">纵坐标</label>
+                               <label class="layui-form-label">Y坐标</label>
                                <input type="text" name="title" id="zdycor3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
                        </div>
@@ -665,17 +673,19 @@
                                <input type="text" name="title" id="qdgc3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                                <em class="em">m</em>
                            </div>
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline company1">
                                <label class="layui-form-label">终点高程</label>
                                <input type="text" name="title" id="zdgc3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                                <em class="em">m</em>
                            </div>
-                       </div>
-                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">材质</label>
                                <input type="text" name="title" id="cz3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">埋设方式</label>
                                <input type="text" name="title" id="msfs3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -699,16 +709,18 @@
                                <label class="layui-form-label">建设日期</label>
                                <input type="text" class="layui-input form-control" id="jsrq3">
                            </div>
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">权属单位编号</label>
                                <input type="text" name="title" id="qsdwbh3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
-                       </div>
-                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">流向</label>
                                <input type="text" name="title" id="lx3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            </div>
+                       </div>
+                       <div class="form-group">
                            <div class="layui-input-inline">
                                <label class="layui-form-label">所在道路</label>
                                <input type="text" name="title" id="szdl3" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -731,7 +743,7 @@
                        </div>
                        <div class="form-group" style="text-align: center">
                            <button type="button" class="btn btn-primary" onclick="save3()">确定</button>
-                           <button type="button" class="btn btn-primary">取消</button>
+<!--                           <button type="button" class="btn btn-primary">取消</button>-->
                        </div>
                    </form>
                </div>
@@ -760,14 +772,14 @@
 <!--                   <input style="margin-left: 10px" type="text" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">-->
 <!--                   <button style="margin-left: 10px" class="btn btn-primary">查询</button>-->
 <!--               </div>-->
-               <div class="layui-input-inline" style="margin-left: 240px; display: flex">
+               <div class="layui-input-inline" style="margin-left: 110px; display: flex">
                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                    <select style="display: block;margin-left: 5px" name="czjd_type4" id="czjd_type4" class="form-control" lay-verify="required">
                        <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                        <option value="0">供水</option>
                        <option value="1">污水</option>
                        <option value="2">雨水</option>
-                       <option value="3">再生水</option>>
+                       <option value="3">再生水</option>
                    </select>
                    <input style="margin-left: 10px" type="text" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                    <button style="margin-left: 10px" class="btn btn-primary">查询</button>
@@ -775,10 +787,10 @@
                <p class="slectTip3"
                   style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 7.3%;left: 1%">请选择业务类别
+                       color: #ed7470;position: absolute;top: 6%;left: -19%">请选择业务类别
                </p>
 
-               <form class="layui-form" action="">
+               <form class="layui-form" action="" style="margin-top: 25px">
                    <h4>管线信息:<button type="button" class="btn btn-primary" id="crd4" style="height: 20px;padding: 0!important" onclick="selectPoint(this.id)">请点击地图中的管线获取信息</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
@@ -804,17 +816,19 @@
                            <label class="layui-form-label">管点编号</label>
                            <input type="text" name="title" readonly="readonly" id="gdbh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline company1">
                            <label class="layui-form-label">地面高程</label>
                            <input type="text" id="dmgc4" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            <em class="em">m</em>
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">特征</label>
                            <input type="text" id="tz4" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">附属物</label>
                            <input type="text" id="fsw4" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -824,7 +838,6 @@
                            <input type="text" name="title" id="jdms4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            <em class="em">m</em>
                        </div>
-
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
@@ -836,17 +849,19 @@
                            <input type="text" name="title" id="jggg4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            <em class="em">cm</em>
                        </div>
-                       <div class="layui-input-inline">
-                           <label class="layui-form-label">井盖材质</label>
-                           <input type="text" name="title" id="jgcz4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
-                       </div>
 
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
+                           <label class="layui-form-label">井盖材质</label>
+                           <input type="text" name="title" id="jgcz4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
+                       </div>
+                       <div class="layui-input-inline">
                            <label class="layui-form-label">井室材质</label>
                            <input type="text" name="title" id="jscz4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">井室类型</label>
                            <input type="text" name="title" id="jslx4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -876,16 +891,19 @@
 <!--                           <input type="text" class="layui-input form-control" id="jsrq4">-->
 <!--                           &lt;!&ndash;                           <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">&ndash;&gt;-->
 <!--                       </div>-->
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">建设日期</label>
                            <input type="text" class="layui-input form-control" id="jsrq4">
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">偏心井点号</label>
                            <input type="text" name="title" id="pxjdh4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">旋转角度</label>
                            <input type="text" name="title" id="xzjd4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -894,7 +912,6 @@
                            <label class="layui-form-label">所在道路</label>
                            <input type="text" name="title" id="szdl4" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-
                    </div>
                    <div class="form-group">
                        <div class="layui-input-inline">
@@ -912,14 +929,14 @@
                    </div>
                    <div class="form-group form-btn" style="text-align: center">
                        <button type="button" class="btn btn-primary" onclick="save4()">确定</button>
-                       <button type="button" class="btn btn-primary">取消</button>
+<!--                       <button type="button" class="btn btn-primary">取消</button>-->
                    </div>
                </form>
            </div>
 
            <div class="sty" id="ljd" style="display: none;position: relative">
 <!--               连接点-->
-               <div class="layui-input-inline" style="display: flex;margin-left: 240px;">
+               <div class="layui-input-inline" style="display: flex;margin-left: 110px;">
                    <label class="layui-form-label">业务类别</label>
                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px">*</b>
                    <select style="margin-left: 5px;" name="czjd_type5" id="czjd_type5" class="form-control" lay-verify="required">
@@ -927,14 +944,14 @@
                        <option value="0">供水</option>
                        <option value="1">污水</option>
                        <option value="2">雨水</option>
-                       <option value="3">再生水</option>>
+                       <option value="3">再生水</option>
                    </select>
                    <button class="btn btn-primary" style="width: 50px;height: 34px;margin-left: 10px;">查询</button>
                </div>
                <p class="slectTip4"
                   style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 7%;left: 15%">请选择业务类别
+                       color: #ed7470;position: absolute;top: 6%;left: 2%">请选择业务类别
                </p>
 
 <!--               <p class="sear_sty">-->
@@ -948,7 +965,7 @@
 <!--                   <button class="btn btn-primary" style="width: 50px;height: 34px">查询</button>-->
 <!--               </p>-->
 
-               <form class="layui-form" action="">
+               <form class="layui-form" action="" style="margin-top: 25px">
                    <h4>起点信息:<button type="button" class="btn btn-primary" id="xqd5" onclick="getCoordinateFlag(this.id)" style="height: 20px;padding: 0!important">请点击地图中的管点获取信息</button></h4>
                    <div class="form-group">
                        <div class="layui-input-inline">
@@ -970,11 +987,11 @@
                    </div>
                    <div class="form-group hzzb" id="qdzb5" hidden="hidden">
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">横坐标</label>
+                           <label class="layui-form-label">X坐标</label>
                            <input type="text" name="title" id="qdxcor5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">纵坐标</label>
+                           <label class="layui-form-label">Y坐标</label>
                            <input type="text" name="title" id="qdycor5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
@@ -1005,11 +1022,11 @@
                    </div>
                    <div class="form-group hzzb" id="zdzb5" hidden="hidden">
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">横坐标</label>
+                           <label class="layui-form-label">X坐标</label>
                            <input type="text" name="title" id="zdxcor5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                        <div class="layui-input-inline">
-                           <label class="layui-form-label">纵坐标</label>
+                           <label class="layui-form-label">Y坐标</label>
                            <input type="text" name="title" id="zdycor5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
                    </div>
@@ -1033,13 +1050,13 @@
                            <label class="layui-form-label">终点点号</label>
                            <input type="text" name="title" id="zdbh5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline company1">
                            <label class="layui-form-label">起点埋深</label>
                            <input type="text" name="title" id="qdms5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                            <em class="em">m</em>
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline company1">
                            <label class="layui-form-label">终点埋深</label>
                            <input type="text" name="title" id="zdms5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -1061,12 +1078,12 @@
                            <label class="layui-form-label">材质</label>
                            <input type="text" name="title" id="cz5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">埋设方式</label>
                            <input type="text" name="title" id="msfs5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">线型</label>
                            <input type="text" name="title" id="xx5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -1095,12 +1112,12 @@
                            <label class="layui-form-label">流向</label>
                            <input type="text" name="title" id="lx5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
+                   </div>
+                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">所在道路</label>
                            <input type="text" name="title" id="szdl5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                        </div>
-                   </div>
-                   <div class="form-group">
                        <div class="layui-input-inline">
                            <label class="layui-form-label">状态</label>
                            <input type="text" name="title" id="zt5" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -1117,7 +1134,7 @@
                    </div>
                    <div class="form-group form-btn">
                        <button type="button" class="btn btn-primary" onclick="save5()">确定</button>
-                       <button type="button" class="btn btn-primary">取消</button>
+<!--                       <button type="button" class="btn btn-primary">取消</button>-->
                    </div>
                </form>
            </div>
@@ -1130,7 +1147,7 @@
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
 
-    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+    <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 0;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
         <div class="layerControlTitle">图例</div>
         <!--<div><span>图层控制</span></div>-->
         <ul id="treeDemo2" class=" ztree">
@@ -1201,19 +1218,19 @@
         if($(this).index() == 0){
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
-            //setBh("gspoint","GSP","gdbh1")
+            setBh("gspoint","GSP","gdbh1")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
-            //setBh("gspoint","GSP","gdbh2")
+            setBh("gspoint","GSP","gdbh2")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
-            //setBh("gsline","GSL","gxbh3")
+            setBh("gsline","GSL","gxbh3")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 3){
@@ -1222,12 +1239,12 @@
         }else if($(this).index() == 4){
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
-            //setBh("gsline","GSL","gxbh5")
+            setBh("gsline","GSL","gxbh5")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 5){
             LoadMap.getUpdateData("污水")
-            //LoadMap.drawLine();
+            LoadMap.drawLine();
             //LoadMap.generate3D()
         }
     })
@@ -1266,18 +1283,18 @@
                 <h4>参照物`+zh_+`:<button type="button" class="btn btn-primary" style="height: 20px;padding: 0!important" id="`+zh_+`" onclick="getCoordinateFlag(`+zh_+`)">获取坐标</button></h4>
                <div class="form-group">
                    <div class="layui-input-inline">
-                       <label class="layui-form-label">横坐标</label>
+                       <label class="layui-form-label">X坐标</label>
                        <input type="text" name="title" id="x2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                    </div>
                    <div class="layui-input-inline">
-                       <label class="layui-form-label">纵坐标</label>
+                       <label class="layui-form-label">Y坐标</label>
                        <input type="text" name="title" id="y2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                    </div>
-                   <div class="layui-input-inline company1">
-                       <label class="layui-form-label">距离</label>
-                       <input type="text" name="title"  id="dist2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl" disabled>
-                       <em class="em">m</em>
-                   </div>
+<!--                   <div class="layui-input-inline company1">-->
+<!--                       <label class="layui-form-label">距离</label>-->
+<!--                       <input type="text" name="title"  id="dist2" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control jl" disabled>-->
+<!--                       <em class="em">m</em>-->
+<!--                   </div>-->
                </div>
                <div class="form-group">
                    <div class="layui-input-inline">
@@ -1291,6 +1308,8 @@
         }
 
     })
+
+
 
     $('#reduce_czw').click(function (){
         $("#"+zh_).remove()
@@ -1352,7 +1371,7 @@
     var tt;
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
-        //setBh("gspoint","GSP","gdbh1")
+        setBh("gspoint","GSP","gdbh1")
     })
     $('#search_content1') .bind('keypress', function (event) {
         if(event.keyCode == "13"){
@@ -1569,6 +1588,31 @@
         LoadMap.getCoordinateFlag = undefined;
     }
 
+    // //解析加线页面输入法的类别和起始点坐标一致
+    // $('#xqd').click(function () {
+    //     var opt = $('#czjd_type3 option:selected');
+    //     var opttext = opt[0].innerHTML;
+    //     var selectxqd = $('#qdbh3').val();
+    //     var qsdbh = selectxqd.slice(0, 3);
+    //     var selectxzd = $('#zdbh3').val();
+    //     var zdbh = selectxzd.slice(0, 3);
+    //     console.log(zdbh);
+    //     if(opttext == '污水') {
+    //         if(qsdbh != 'WSP' || zdbh != 'WSP') {
+    //             layui.use('layer', () => {
+    //                 let layer = layui.layer;
+    //                 layer.msg("请按照业务类别选点")
+    //             })
+    //         }
+    //     } else if(opttext == '雨水') {
+    //         // if(qsdbh != 'YSP' || zdbh != 'YSP') {
+    //         // }
+    //     } else if(opttext == '再生水') {
+    //         // if(qsdbh != 'YSP' || zdbh != 'YSP') {
+    //         // }
+    //     }
+    // })
+
     //获取坐标
     function getCoordinateFlag(clicked_id) {
         LoadMap.getCoordinateFlag = clicked_id;
@@ -1760,7 +1804,7 @@
             })
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
-            //LoadMap.singleclick();
+            LoadMap.singleclick();
             if(feature.length == 1){
                 var coordinate1 =[geom.extent_[0],geom.extent_[1]];
                 var coordinate2 =[geom.extent_[2],geom.extent_[3]];

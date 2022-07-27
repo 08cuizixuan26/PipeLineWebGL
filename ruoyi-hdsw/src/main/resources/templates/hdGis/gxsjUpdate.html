@@ -63,8 +63,8 @@
             color: #fff;
         }
         .sty{
-            width: 950px;
-            max-height: 600px;
+            width: 630px;
+            max-height: 800px;
             min-height: 150px;
             border-radius: 10px;
             border: 2px solid #ccc;
@@ -106,7 +106,7 @@
             right: 50px!important;
         }
         .layerTreeDiv {
-            right: 3%!important;
+            right: 0px!important;
         }
         .formTab {
             display: flex;
@@ -232,31 +232,17 @@
 
     <div class="content-tab">
         <ul class="tabNav">
-            <li class="active_nav">移动点</li>
+            <li>移动点</li>
             <li>修改属性</li>
             <li>修改参数</li>
         </ul>
         <div class="nav_content">
-            <div class="sty" id="czjd" style="position: relative">
+            <div class="sty" id="czjd" style="position: relative;display: none">
 <!--                移动点信息-->
                 <div class="formTab">
-                    <b class="b" style="display: block;line-height: 42px;color: #c00101;font-size: 20px;line-height: 34px;margin-right: 5px;">*</b>
-                    <select name="czjd_type" id="czjd_type" class="form-control " lay-verify="required">
-                        <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
-                        <option value="0">污水</option>
-                        <option value="1">再生水</option>
-                        <option value="2">雨水</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
-                    </select>
                     <input type="text" name="title" required  lay-verify="required" placeholder="输入名称搜索参照物" autocomplete="off" class="form-control">
                     <button class="btn btn-primary" style="margin-left: 10px">查询</button>
                 </div>
-                <p class="slectTip"
-                   style="font-size: 12px;
-                       margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 12.5%;left: 4%">请选择业务类别
-                </p>
                 <form class="layui-form" action="">
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">原始点信息</span>
@@ -271,18 +257,18 @@
                             <label class="layui-form-label">井盖类型</label>
                             <input type="text" name="covType" required id="covType1" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">业务类型</label>
                             <input type="text" name="czjd_type" required id="type1"  lay-verify="required" placeholder="" autocomplete="off" class="form-control czjd_type">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
-                            <label class="layui-form-label">横坐标</label>
+                            <label class="layui-form-label">X坐标</label>
                             <input type="text" name="title" required id="x1" lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa">
                         </div>
                         <div class="layui-input-inline">
-                            <label class="layui-form-label">纵坐标</label>
+                            <label class="layui-form-label">Y坐标</label>
                             <input type="text" name="title" required id="y1" lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate">
                         </div>
                     </div>
@@ -292,17 +278,17 @@
                     </div>
                     <div class="form-group">
                         <div class="layui-input-inline">
-                            <label class="layui-form-label">横坐标</label>
+                            <label class="layui-form-label">X坐标</label>
                             <input type="text" name="x" required id="x2" lay-verify="required" placeholder="" autocomplete="off" class="form-control Abscissa">
                         </div>
                         <div class="layui-input-inline">
-                            <label class="layui-form-label">纵坐标</label>
+                            <label class="layui-form-label">Y坐标</label>
                             <input type="text" name="y" required id="y2" lay-verify="required" placeholder="" autocomplete="off" class="form-control Ordinate">
                         </div>
                     </div>
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="save3(),save4()">确定</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </form>
             </div>
@@ -327,9 +313,9 @@
                 <p class="slectTip1"
                    style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 8.5%;left: 4%">请选择业务类别
+                       color: #ed7470;position: absolute;top: 7%;left: -20%">请选择业务类别
                 </p>
-                <div id="jxf">
+                <div id="jxf" style="margin-top: 25px;">
 <!--                    修改属性的管点-->
                     <div class="ysdmessage">
                         <span class="ysdmessage_point">管点属性</span>
@@ -349,12 +335,12 @@
                             <label class="layui-form-label">井盖特征</label>
                             <input type="text" name="title" required id="guandian3" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">附属物</label>
                             <input type="text" name="title" required id="guandian4" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">井底埋深</label>
                             <input type="text" name="title" required id="guandian5" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
@@ -375,12 +361,12 @@
                             <label class="layui-form-label">井盖材质</label>
                             <input type="text" name="title" required id="guandian8" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">井室材质</label>
                             <input type="text" name="title" required id="guandian9" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">井室类型</label>
                             <input type="text" name="title" required id="guandian10" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
@@ -405,12 +391,12 @@
                             <input type="text" class="layui-input form-control jsrq1" id="guandian14">
 <!--                            <input type="text" name="title" required  lay-verify="required" placeholder="" autocomplete="off" class="form-control">-->
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">偏心井点号</label>
                             <input type="text" name="title" required id="guandian15" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">旋转角度</label>
                             <input type="text" name="title" required id="guandian16" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
@@ -419,24 +405,24 @@
                             <label class="layui-form-label">所在道路</label>
                             <input type="text" name="title" required id="guandian17" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="layui-input-inline">
-                            <label class="layui-form-label">横坐标</label>
-                            <input type="text" name="title"  style='background: #f0f0f0' disabled required id="guandian18" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
-                        </div>
-                        <div class="layui-input-inline">
-                            <label class="layui-form-label">纵坐标</label>
-                            <input type="text"  style='background: #f0f0f0' disabled name="title" required id="guandian19" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
-                        </div>
                         <div class="layui-input-inline">
                             <label class="layui-form-label">标高</label>
                             <input type="text" name="title" required id="guandian20" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">X坐标</label>
+                            <input type="text" name="title"  style='background: #f0f0f0' disabled required id="guandian18" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Y坐标</label>
+                            <input type="text"  style='background: #f0f0f0' disabled name="title" required id="guandian19" lay-verify="required" placeholder="" autocomplete="off" class="form-control ">
+                        </div>
+                    </div>
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="save2()">确定</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </div>
                 <div id="ymsrf" style="display: none">
@@ -458,13 +444,13 @@
                             <label class="layui-form-label">终点点号</label>
                             <input type="text" name="title" required id="guanxian3" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">起点埋深</label>
                             <input type="text" name="title" required id="guanxian4" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                             <em class="em">m</em>
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline company1">
                             <label class="layui-form-label">终点埋深</label>
                             <input type="text" name="title" required id="guanxian5" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -490,12 +476,12 @@
                             <label class="layui-form-label">埋设方式</label>
                             <input type="text" name="title" required id="guanxian9" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">线型</label>
                             <input type="text" name="title" required id="guanxian10" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">管径</label>
                             <input type="text" name="title" required id="guanxian11" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -511,22 +497,22 @@
                             <label class="layui-form-label">权属单位编号</label>
                             <input type="text" name="title" required id="guanxian13" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">流向</label>
                             <input type="text" name="title" required id="guanxian14" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">所在道路</label>
                             <input type="text" name="title" required id="guanxian15" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">状态</label>
                             <input type="text" name="title" required id="guanxian16" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="layui-input-inline">
                             <label class="layui-form-label">类别</label>
                             <input type="text" name="title" required id="guanxian17" lay-verify="required" placeholder="" autocomplete="off" class="form-control">
@@ -539,7 +525,7 @@
                     </div>
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </div>
             </div>
@@ -564,7 +550,7 @@
                 <p class="slectTip2"
                    style="font-size: 12px;
                        margin-left: 254px;
-                       color: #ed7470;position: absolute;top: 22%;left: 4%">请选择业务类别
+                       color: #ed7470;position: absolute;top: 23%;left: -20%">请选择业务类别
                 </p>
                 <div id="line">
 <!--                    修改参数的管点-->
@@ -620,7 +606,7 @@
 
                     <div class="form-group form-btn">
                         <button type="button" class="btn btn-primary" onclick="ywlbSelect(),guanxianxiugai()">确定</button>
-                        <button type="button" class="btn btn-primary">取消</button>
+<!--                        <button type="button" class="btn btn-primary">取消</button>-->
                     </div>
                 </div>
                 <div id="point" style="display: none">
@@ -712,7 +698,7 @@
         <ul id="treeDemo" class=" ztree"></ul>
     </div>
 
-        <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 3%;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
+        <div class="layerTreeDiv2" style="border: 1px solid #ffd700;z-index: 50000;position: fixed;right: 0;bottom: 9%;width: 220px;height: 150px;opacity: 0.7;background: #555555">
             <div class="layerControlTitle">图例</div>
             <!--<div><span>图层控制</span></div>-->
             <ul id="treeDemo2" class=" ztree">
@@ -1046,7 +1032,6 @@ $('#gdgxChangePage1').change(function () {
     }
     function savelxSelected() {
         var options = $("#czjd_type option:selected");
-        console.log(options[0].innerHTML)
         if(options[0].innerHTML == ""){
             $(".b").animate({opacity:'0.3'});
             $(".b").animate({opacity:'1'});
@@ -1149,7 +1134,6 @@ $('#gdgxChangePage1').change(function () {
     function save2() {
 
         var options = $(".czjd_type1 option:selected");
-        console.log(options[0].innerHTML)
         if(options[0].innerHTML == ""){
             $(".b").animate({opacity:'0.3'});
             $(".b").animate({opacity:'1'});
@@ -1218,7 +1202,6 @@ $('#gdgxChangePage1').change(function () {
 
     function ywlbSelect() {
         var options = $("#gdgxChangePage1 option:selected");
-        console.log(options[0].innerHTML)
         if(options[0].innerHTML == ""){
             $(".b").animate({opacity:'0.3'});
             $(".b").animate({opacity:'1'});
@@ -1235,7 +1218,6 @@ $('#gdgxChangePage1').change(function () {
 
     function save1() {
         var options = $("#czjd_type1 option:selected");
-        console.log(options[0].innerHTML)
         if(options[0].innerHTML == ""){
             $(".b").animate({opacity:'0.3'});
             $(".b").animate({opacity:'1'});
@@ -1321,7 +1303,6 @@ $('#gdgxChangePage1').change(function () {
             jsonpCallback: "callback",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log(data)
                 if (data.status != 0) {
                     alert("搜索失败")
                 } else if (data.results.length == 0) {
