@@ -140,14 +140,15 @@ if (!LoadMap) var LoadMap = {
         //生成凸多边形
         var newPoints = convexhull.makeHull(points)
         LoadMap.linePoints = newPoints;
-/*        //调取生成三维接口
+        LoadMap.drawLine();
+        //调取生成三维接口
         let data = "";
         LoadMap.linePoints.forEach(function (obj, index) {
             data += `<location>${obj.x},${obj.y}</location>`;
         });
         data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
         $.ajax({
-            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            url: "http://192.168.1.250/se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
             type: "post",
             data:data,
             dataType:"json",
@@ -158,7 +159,7 @@ if (!LoadMap) var LoadMap = {
             error:function () {
 
             }
-        });*/
+        });
     },
 
     //调用三维接口
@@ -684,7 +685,7 @@ if (!LoadMap) var LoadMap = {
 
     singleclick() {
         //点击显示
-        LoadMap.mapClick = LoadMap.map.on("singleclick", (e) => {
+        LoadMap.mapClick = LoadMap.map.on("click", (e) => {
             LoadMap.highlightL.getSource().clear();
             if (LoadMap.currentMapType == "管线更新") {
                 var coor = ol.proj.transform([e.coordinate[0], e.coordinate[1]], 'BD:09', 'EPSG:4326')
