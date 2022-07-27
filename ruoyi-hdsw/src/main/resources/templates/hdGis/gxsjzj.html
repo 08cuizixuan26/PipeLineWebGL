@@ -355,7 +355,7 @@
                    </div>
                    <div class="form-group form-btn">
                        <button type="button" class="btn btn-primary" onclick="save1()">确定</button>
-                       <button type="button" class="btn btn-primary">取消</button>
+                       <!--<button type="button" class="btn btn-primary">取消</button>-->
                    </div>
                </form>
            </div>
@@ -1201,19 +1201,19 @@
         if($(this).index() == 0){
             $('#czjd').toggle();
             $('#czjd').siblings().hide();
-            setBh("gspoint","GSP","gdbh1")
+            //setBh("gspoint","GSP","gdbh1")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 1){
             $('#jxjd').toggle();
             $('#jxjd').siblings().hide();
-            setBh("gspoint","GSP","gdbh2")
+            //setBh("gspoint","GSP","gdbh2")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 2){
             $('#jxjx').toggle();
             $('#jxjx').siblings().hide();
-            setBh("gsline","GSL","gxbh3")
+            //setBh("gsline","GSL","gxbh3")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 3){
@@ -1222,12 +1222,12 @@
         }else if($(this).index() == 4){
             $('#ljd').toggle();
             $('#ljd').siblings().hide();
-            setBh("gsline","GSL","gxbh5")
+            //setBh("gsline","GSL","gxbh5")
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
         }else if($(this).index() == 5){
             LoadMap.getUpdateData("污水")
-            LoadMap.drawLine();
+            //LoadMap.drawLine();
             //LoadMap.generate3D()
         }
     })
@@ -1352,7 +1352,7 @@
     var tt;
     $(() => {
         LoadMap.mapInit(null,{"pidType":"管线更新"});
-        setBh("gspoint","GSP","gdbh1")
+        //setBh("gspoint","GSP","gdbh1")
     })
     $('#search_content1') .bind('keypress', function (event) {
         if(event.keyCode == "13"){
@@ -1760,7 +1760,7 @@
             })
             LoadMap.map.removeInteraction(LoadMap.draw);
             LoadMap.map.removeLayer(LoadMap.drawLayer);
-            LoadMap.singleclick();
+            //LoadMap.singleclick();
             if(feature.length == 1){
                 var coordinate1 =[geom.extent_[0],geom.extent_[1]];
                 var coordinate2 =[geom.extent_[2],geom.extent_[3]];

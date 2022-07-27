@@ -140,14 +140,15 @@ if (!LoadMap) var LoadMap = {
         //生成凸多边形
         var newPoints = convexhull.makeHull(points)
         LoadMap.linePoints = newPoints;
-/*        //调取生成三维接口
+        LoadMap.drawLine();
+        //调取生成三维接口
         let data = "";
         LoadMap.linePoints.forEach(function (obj, index) {
             data += `<location>${obj.x},${obj.y}</location>`;
         });
         data = `<?xml version="1.0" encoding="gbk"?><xml><locations>${data}</locations></xml>`;
         $.ajax({
-            url: "se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
+            url: "http://192.168.1.250/se_pipeline_publish_tool?type=areapublish&is_webgl=true&guid="+guid,
             type: "post",
             data:data,
             dataType:"json",
@@ -158,7 +159,7 @@ if (!LoadMap) var LoadMap = {
             error:function () {
 
             }
-        });*/
+        });
     },
 
     //调用三维接口
