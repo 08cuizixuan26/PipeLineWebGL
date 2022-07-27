@@ -257,6 +257,19 @@ var olMapConfig = {
     layers: [
         //0
         baidu,
+/*        //地表影像图
+        new ol.layer.Tile({
+            id:"baseLayer",
+            source: sourceConfig1.getSource("HD:hdtif","HD","HD","hdtif"),
+/!*                new ol.source.TileWMS({
+                url: 'http://49.232.170.162:8092/geoserver/zb/wms',
+                params: {
+                    'LAYERS': 'zb:geotiff_coverage',
+                    'TILED': true,
+                },
+                serverType: 'geoserver'
+            }),*!/
+        }),*/
         //1 再生水管线
         new ol.layer.Vector({
             id: "zssgx",
@@ -541,7 +554,7 @@ var olMapConfig = {
             "name": "管点",
             "icon": "/zTree/img/gwcyD.png",
             "nocheck": "false",
-            "checked": "true",
+            "checked": "false",
             "open": true,
             children: [
                 {
